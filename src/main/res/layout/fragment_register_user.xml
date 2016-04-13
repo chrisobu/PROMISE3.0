@@ -1,0 +1,88 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.faars.promise30.Fragments.RegisterUserFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="50dp"
+                android:src="@drawable/barn"/>
+
+            <EditText
+                android:id="@+id/etNewUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="Make a personal username"/>
+
+            <EditText
+                android:id="@+id/etNewPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="Make a personal password"
+                android:inputType="textPassword"/>
+
+            <EditText
+                android:id="@+id/etNewPasswordCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Repeat password"
+                android:inputType="textPassword"/>
+
+            <Button
+                android:id="@+id/bCreateProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Create Profile"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/tvLogInOption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="or log in"
+                android:textStyle="bold"
+                android:padding="16dp"
+                android:clickable="true"
+                android:textColor="#2979FF" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal"
+            android:layout_marginBottom="30dp"  >
+
+            <ImageView
+                android:layout_width="205dp"
+                android:layout_height="25dp"
+                android:src="@drawable/logo" />
+
+            <ImageView
+                android:layout_width="130dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="5dp"
+                android:paddingRight="2dp"
+                android:src="@drawable/ntnu"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</FrameLayout>

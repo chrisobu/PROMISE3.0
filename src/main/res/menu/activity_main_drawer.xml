@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="About" />
+        <item
+            android:id="@+id/nav_instruction"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Instruction Video" />
+        <item
+            android:id="@+id/nav_next_video"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Next video" />
+        <item
+            android:id="@+id/nav_new_video"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="New video" />
+        <item
+            android:id="@+id/nav_my_videos"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="My videos" />
+        <item
+            android:id="@+id/nav_feedback"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Feedback" />
+        <item
+            android:id="@+id/nav_faq"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="FAQ" />
+        <item
+            android:id="@+id/nav_contact"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Contact Us" />
+        <item
+            android:id="@+id/nav_choose_child"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Choose Child" />
+        <item
+            android:id="@+id/nav_log_out"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Log Out" />
+
+    </group>
+</menu>

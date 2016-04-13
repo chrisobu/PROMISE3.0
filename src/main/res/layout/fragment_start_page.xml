@@ -1,0 +1,100 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.faars.promise30.Fragments.StartPageFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvChildName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="true"
+            android:layout_marginTop="10dp"
+            android:textSize="25dp"/>
+
+        <ImageView
+            android:id="@+id/ivNorwegian"
+            android:layout_width="65dp"
+            android:layout_height="55dp"
+            android:src="@drawable/norsk"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="0dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="17dp"
+            android:paddingRight="15dp"/>
+
+        <ImageView
+            android:id="@+id/ivEnglish"
+            android:layout_width="65dp"
+            android:layout_height="55dp"
+            android:src="@drawable/english"
+            android:layout_toLeftOf="@id/ivNorwegian"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="17dp"
+            android:paddingRight="0dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:text="Promise"
+                android:textSize="40dp"
+                android:paddingBottom="100dp"
+                android:textColor="#512DA8"/>
+
+            <Button
+                android:id="@+id/bLogin"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:text="Log in"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
+                android:background="#B3E5FC"/>
+
+            <Button
+                android:id="@+id/bAbout"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:text="About the app"
+                android:layout_gravity="center"
+                android:background="#B3E5FC"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal"
+            android:layout_marginBottom="30dp"  >
+
+            <ImageView
+                android:layout_width="205dp"
+                android:layout_height="25dp"
+                android:src="@drawable/logo" />
+
+            <ImageView
+                android:layout_width="130dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="5dp"
+                android:paddingRight="2dp"
+                android:src="@drawable/ntnu"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</FrameLayout>
