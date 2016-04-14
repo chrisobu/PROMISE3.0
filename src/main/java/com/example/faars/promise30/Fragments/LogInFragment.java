@@ -30,7 +30,9 @@ public class LogInFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         ViewGroup viewGroup = (ViewGroup)inflater.inflate(R.layout.fragment_log_in, container, false);
+
         Button bLoginPressed = (Button) viewGroup.findViewById(R.id.bLogIn);
         TextView orRegisterNewProfile = (TextView) viewGroup.findViewById(R.id.orRegisterNewProfileOption);
         SpannableString content = new SpannableString("or register a new profile");

@@ -89,7 +89,7 @@ public class ChooseChildFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         android.support.v4.app.FragmentTransaction fragmentTransactionLogIn;
         fragmentTransactionLogIn = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransactionLogIn.replace(R.id.log_in_container, new RegisterUserFragment());
+        fragmentTransactionLogIn.replace(R.id.child_container, new ReadQRcodeFragment());
         fragmentTransactionLogIn.addToBackStack(null);
         fragmentTransactionLogIn.commit();
     }
