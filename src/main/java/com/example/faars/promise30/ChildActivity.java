@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.faars.promise30.Fragments.ChooseChildFragment;
 import com.example.faars.promise30.Fragments.FeedbackFragment;
+import com.example.faars.promise30.Fragments.ReadQRcodeFragment;
 import com.example.faars.promise30.Fragments.RegisterChildFragment;
 import com.example.faars.promise30.Fragments.StartPageFragment;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -29,15 +30,30 @@ public class ChildActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_child);
 
-        fragmentTransactionChild = getSupportFragmentManager().beginTransaction();
-        fragmentTransactionChild.replace(R.id.child_container, new ChooseChildFragment());
-        fragmentTransactionChild.commit();
+        //TODO: check if any children are registered on current profile, if so show ChooseChildFragment, else show RegisterChildFragment
+        // receive this data in Activity:
+      /*  Intent intent = getIntent();
+        String intentIsUsed = intent.getStringExtra("isUsed");
+
+        if(intentIsUsed.equals("true")){
+            // send data to Fragment
+            String childIDmessage = intent.getStringExtra("message");
+            Bundle bundle = new Bundle();
+            bundle.putString("message", childIDmessage);
+            RegisterChildFragment fragobj = new RegisterChildFragment();
+            fragobj.setArguments(bundle);
+            fragmentTransactionChild = getSupportFragmentManager().beginTransaction();
+            fragmentTransactionChild.replace(R.id.child_container, fragobj);
+            fragmentTransactionChild.addToBackStack(null);
+            fragmentTransactionChild.commit();
+            getIntent().removeExtra("isUsed");
+
+        }else{ */
+            fragmentTransactionChild = getSupportFragmentManager().beginTransaction();
+            fragmentTransactionChild.replace(R.id.child_container, new ChooseChildFragment());
+            fragmentTransactionChild.commit();
+       // }
+
     }
 
-    public void sendInfoToChildActivity(String name, String hosp, String cntry, String api){
-        childID = name;
-        hospitalID = hosp;
-        country = cntry;
-        apiKey = api;
-    }
 }

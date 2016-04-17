@@ -2,34 +2,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.faars.promise30.Fragments.RegisterChildFragment">
+    tools:context="com.example.faars.promise30.Fragments.EditChildFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tv_info_heading"
+            android:id="@+id/tv_child"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
-            android:textSize="18dp"
-            android:text="Information from the QR code:"/>
-        <TextView
-            android:id="@+id/tv_child_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
             android:text="Child ID"
-            android:textSize="15dp"
-            android:layout_below="@id/tv_info_heading"/>
+            android:textSize="15dp"/>
 
         <TextView
-            android:id="@+id/tv_hospital_id"
+            android:id="@+id/tv_hospital"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -37,34 +27,33 @@
             android:layout_marginRight="10dp"
             android:text="Hospital ID"
             android:textSize="15dp"
-            android:layout_below="@id/tv_child_id"/>
+            android:layout_below="@id/tv_child"/>
 
         <TextView
-            android:id="@+id/et_child_id"
+            android:id="@+id/et_child"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:text="..."
+            android:textSize="15dp"
+            android:layout_toRightOf="@id/tv_hospital"/>
+
+        <TextView
+            android:id="@+id/et_hospital"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:text="Child ID"
+            android:text="..."
             android:textSize="15dp"
-            android:layout_below="@id/tv_info_heading"
-            android:layout_toRightOf="@id/tv_hospital_id"/>
+            android:layout_toRightOf="@id/tv_hospital"
+            android:layout_below="@id/et_child"/>
 
         <TextView
-            android:id="@+id/et_hospital_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Hospital ID"
-            android:textSize="15dp"
-            android:layout_toRightOf="@id/tv_hospital_id"
-            android:layout_below="@id/et_child_id"/>
-
-        <TextView
-            android:id="@+id/tv_country"
+            android:id="@+id/tv_country_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -72,21 +61,21 @@
             android:layout_marginRight="10dp"
             android:text="Country ID"
             android:textSize="15dp"
-            android:layout_below="@id/tv_hospital_id"/>
+            android:layout_below="@id/tv_hospital"/>
         <TextView
-            android:id="@+id/et_country"
+            android:id="@+id/et_country_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:text="Country ID"
+            android:text="..."
             android:textSize="15dp"
-            android:layout_toRightOf="@id/tv_hospital_id"
-            android:layout_below="@id/et_hospital_id"/>
+            android:layout_toRightOf="@id/tv_hospital"
+            android:layout_below="@id/et_hospital"/>
 
         <TextView
-            android:id="@+id/tv_api_key"
+            android:id="@+id/tv_api_key_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -94,44 +83,44 @@
             android:layout_marginRight="10dp"
             android:text="API-key"
             android:textSize="15dp"
-            android:layout_below="@id/tv_country"/>
+            android:layout_below="@id/tv_country_id"/>
         <TextView
-            android:id="@+id/et_api_key"
+            android:id="@+id/et_api_key_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:text="API-key"
+            android:text="..."
             android:textSize="15dp"
-            android:layout_below="@id/et_country"
-            android:layout_toRightOf="@id/tv_hospital_id"/>
+            android:layout_below="@id/et_country_id"
+            android:layout_toRightOf="@id/tv_hospital"/>
 
         <TextView
-            android:id="@+id/tv_first_name"
+            android:id="@+id/tv_first_name_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_api_key"
+            android:layout_below="@id/tv_api_key_id"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="40dp"
             android:layout_marginRight="10dp"
             android:text="Child's user name"
             android:textSize="15dp" />
+
         <EditText
-            android:id="@+id/et_first_name"
+            android:id="@+id/et_first_name_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_first_name"
+            android:layout_below="@id/tv_first_name_id"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:hint="Fill in child's first name"
             android:editable="true"/>
 
         <TextView
-            android:id="@+id/tv_term_date"
+            android:id="@+id/tv_term_date_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/et_first_name"
+            android:layout_below="@id/et_first_name_id"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
@@ -142,23 +131,38 @@
             android:id="@+id/et_term_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_term_date"
+            android:layout_below="@id/tv_term_date_id"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:hint="Press here to choose term date"
-            android:editable="false"
-            android:clickable="true"/>
+            android:editable="true"/>
 
-        <Button
-            android:id="@+id/register_child_button"
-            android:layout_width="200dp"
-            android:layout_below="@id/et_term_date"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#0097A7"
-            android:layout_marginTop="30dp"
-            android:textColor="#FFFFFF"
-            android:layout_centerHorizontal="true"
-            android:text="Register" />
+            android:layout_below="@id/et_term_date"
+            android:layout_centerHorizontal="true">
+
+            <Button
+                android:id="@+id/save_edit_child_button"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="#0097A7"
+                android:layout_marginTop="30dp"
+                android:textColor="#FFFFFF"
+                android:text="Cancel"
+                android:layout_marginRight="20dp"/>
+
+            <Button
+                android:id="@+id/cancel_edit_child_button"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="#0097A7"
+                android:layout_marginTop="30dp"
+                android:textColor="#FFFFFF"
+                android:layout_centerHorizontal="true"
+                android:text="Save" />
+        </LinearLayout>
+
 
     </RelativeLayout>
 

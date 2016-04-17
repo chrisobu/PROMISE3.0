@@ -1,6 +1,8 @@
 package com.example.faars.promise30.Fragments;
 
 
+import android.app.Activity;
+import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.faars.promise30.ChildActivity;
+import com.example.faars.promise30.MainActivity;
 import com.example.faars.promise30.R;
 
 import org.json.JSONException;
@@ -20,8 +23,7 @@ import org.json.JSONObject;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -30,9 +32,6 @@ public class ReadQRcodeFragment extends Fragment implements View.OnClickListener
     public ReadQRcodeFragment() {
         // Required empty public constructor
     }
-
-    android.support.v4.app.FragmentTransaction fragmentTransactionChild;
-    public String childID, hospitalID, country, apiKey;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,6 +48,7 @@ public class ReadQRcodeFragment extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         scanNow();
 
+        //sendIfoToChildActivity();
         android.support.v4.app.FragmentTransaction fragmentTransactionChild;
         fragmentTransactionChild = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransactionChild.replace(R.id.child_container, new RegisterChildFragment());
@@ -71,13 +71,13 @@ public class ReadQRcodeFragment extends Fragment implements View.OnClickListener
         //retrieve scan result:
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         JSONObject ChildData = null;
+        String ChildID = null;
+        String HospitalID = null;
+        String Country = null;
+        String APIkey = null;
 
         if (scanningResult != null) {
             String scanContent = scanningResult.getContents();
-            String ChildID = null;
-            String HospitalID = null;
-            String Country = null;
-            String APIkey = null;
             try {
                 ChildData = new JSONObject(scanContent);
             } catch (JSONException e) {
@@ -104,11 +104,19 @@ public class ReadQRcodeFragment extends Fragment implements View.OnClickListener
                 e.printStackTrace();
             }
 
-            ((ChildActivity)getActivity()).sendInfoToChildActivity(ChildID, HospitalID, Country, APIkey);
-
         }else{
             Toast toast = Toast.makeText(getActivity(),"No scan data received!", Toast.LENGTH_SHORT);
             toast.show();
         }
     }
+
+    /*
+    public void sendIfoToChildActivity() {
+        Intent intent = new Intent(getActivity().getBaseContext(), ChildActivity.class);
+        Bundle exstras = new Bundle();
+        exstras.putString("message", childID);
+        exstras.putString("isUsed", "true");
+        intent.putExtras(exstras);
+        getActivity().startActivity(intent);
+    } */
 }

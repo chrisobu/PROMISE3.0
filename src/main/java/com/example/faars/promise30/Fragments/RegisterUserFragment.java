@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.faars.promise30.ChildActivity;
 import com.example.faars.promise30.R;
 
 import java.io.FileOutputStream;
@@ -65,6 +66,7 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
             case R.id.bCreateProfile:
                 /* if(checkInput()){
                     try {
+                    //TODO: use saveUserProfile():
                         saveUserProfile();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -72,16 +74,17 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
                     Toast.makeText(getActivity(),
                             "Profile saved!", Toast.LENGTH_LONG)
                             .show();
-                    //startActivity(new Intent(this, ChildActivity.class));
+                    getActivity().finish();
+                    startActivity(new Intent(getActivity(), ChildActivity.class));
                 //}
                 break;
 
             case R.id.tvLogInOption:
-                android.support.v4.app.FragmentTransaction fragmentTransactionLogIn;
-                fragmentTransactionLogIn = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransactionLogIn.replace(R.id.log_in_container, new LogInFragment());
-                fragmentTransactionLogIn.addToBackStack(null);
-                fragmentTransactionLogIn.commit();
+                android.support.v4.app.FragmentTransaction fragmentTransactionLogInOption;
+                fragmentTransactionLogInOption = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransactionLogInOption.replace(R.id.log_in_container, new LogInFragment());
+                fragmentTransactionLogInOption.addToBackStack(null);
+                fragmentTransactionLogInOption.commit();
                 break;
         }
     }

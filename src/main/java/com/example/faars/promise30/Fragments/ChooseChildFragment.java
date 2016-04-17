@@ -1,21 +1,31 @@
 package com.example.faars.promise30.Fragments;
 
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.faars.promise30.ChildActionDialog;
 import com.example.faars.promise30.MainActivity;
 import com.example.faars.promise30.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,7 +82,16 @@ public class ChooseChildFragment extends Fragment implements View.OnClickListene
                 // ListView Clicked item value
                 String  itemValue    = (String) lvRegisteredChildren.getItemAtPosition(position);
 
-                sendNameToMainPage(itemValue);
+                // Selected name gets highlighted:
+                for(int a = 0; a < parent.getChildCount(); a++) {
+                    parent.getChildAt(a).setBackgroundColor(Color.TRANSPARENT);
+                }
+                view.setBackgroundColor(getResources().getColor(R.color.colorSelected));
+
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                // Create and show the dialog.
+                ChildActionDialog newDialog = new ChildActionDialog();
+                newDialog.show(ft, "dialog");
 
                 /* A Toast message when a child is chosen:
                 // ListView Clicked item index
@@ -82,6 +101,7 @@ public class ChooseChildFragment extends Fragment implements View.OnClickListene
                         .show(); */
             }
         });
+
         return viewGroup;
     }
 
@@ -100,4 +120,7 @@ public class ChooseChildFragment extends Fragment implements View.OnClickListene
         intent.putExtra(EXTRA_CHILDNAME, ChildName);
         startActivity(intent);
     }
+
+
+
 }
