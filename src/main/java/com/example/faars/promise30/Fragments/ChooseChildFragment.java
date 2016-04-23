@@ -114,12 +114,6 @@ public class ChooseChildFragment extends Fragment implements View.OnClickListene
         fragmentTransactionLogIn.commit();
     }
 
-    public void sendNameToMainPage(String Name){
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        String ChildName = Name;
-        intent.putExtra(EXTRA_CHILDNAME, ChildName);
-        startActivity(intent);
-    }
 
 
 

@@ -21,8 +21,6 @@ public class InstructionVideoFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,18 +34,5 @@ public class InstructionVideoFragment extends Fragment {
         videoView.start();
         return viewGroup;
     }
-/* // TODO: fix on click play and pause:
-    public void onPauseClicked(View View){
-        ViewGroup viewGroup = (ViewGroup) layoutInflater.inflate(R.layout.fragment_instruction_video, containerView, false);
-        VideoView videoView = (VideoView) viewGroup.findViewById(R.id.VideoView);
-        videoView.setVideoPath("android.resource://" + getActivity().getPackageName() + "/" + R.raw.demo);
-        videoView.pause();
-    }
 
-    public void onPlayClicked(View view){
-        ViewGroup viewGroup = (ViewGroup) layoutInflater.inflate(R.layout.fragment_instruction_video, containerView, false);
-        VideoView videoView = (VideoView) viewGroup.findViewById(R.id.VideoView);
-        videoView.setVideoPath("android.resource://" + getActivity().getPackageName() + "/" + R.raw.demo);
-        videoView.start();
-    } */
 }

@@ -25,6 +25,8 @@ import com.example.faars.promise30.Fragments.FAQFragment;
 import com.example.faars.promise30.Fragments.FeedbackFragment;
 import com.example.faars.promise30.Fragments.InstructionVideoFragment;
 import com.example.faars.promise30.Fragments.MainPageFragment;
+import com.example.faars.promise30.Fragments.MyVideosFragment;
+import com.example.faars.promise30.Fragments.NewVideoFragment;
 import com.example.faars.promise30.Fragments.NextVideoFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -104,8 +106,16 @@ public class MainActivity extends AppCompatActivity
             getSupportActionBar().setTitle("Next Video");
 
         } else if (id == R.id.nav_new_video) {
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.main_container, new NewVideoFragment());
+            fragmentTransaction.commit();
+            getSupportActionBar().setTitle("New Video");
 
         } else if (id == R.id.nav_my_videos) {
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.main_container, new MyVideosFragment());
+            fragmentTransaction.commit();
+            getSupportActionBar().setTitle("My Videos");
 
         } else if (id == R.id.nav_feedback) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();

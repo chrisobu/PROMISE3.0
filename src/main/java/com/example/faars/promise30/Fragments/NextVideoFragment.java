@@ -24,7 +24,10 @@ public class NextVideoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_next_video, container, false);
+        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_next_video, container, false);
+
+
+        return viewGroup;
     }
 
 }

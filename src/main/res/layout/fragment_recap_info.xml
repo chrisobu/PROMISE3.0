@@ -1,0 +1,54 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.faars.promise30.Fragments.RecapInfoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check points:"
+            android:textSize="20dp"
+            android:layout_marginBottom="40dp"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Good lighting in the room"
+            android:layout_marginBottom="10dp"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Correct distance from the camera to the child"
+            android:layout_marginBottom="10dp"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="The child must lie on a blue surface"
+            android:layout_marginBottom="10dp"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="The child must be content and undisturbed"/>
+
+        <Button
+            android:id="@+id/recap_continue_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:background="@color/colorPrimary"
+            android:textColor="#FFFFFF"
+            android:text="Continue"/>
+    </LinearLayout>
+
+</FrameLayout>
