@@ -34,8 +34,8 @@ public class MyDBHandler extends SQLiteOpenHelper{
 
     // CURRENT VALUES TABLE:
     public static final String CURRENT_VALUES_TABLE= "currentValues"; // Name of the table
-    public static final String COLUMN__VALUE_ID = "_id";
-    public static final String COLUMN_NAME = "_name";
+    public static final String COLUMN_VALUE_ID = "_id";
+    public static final String COLUMN_NAME = "name";
     public static final String COLUMN_VALUE = "value";
 
 
@@ -71,7 +71,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         db.execSQL(childQuery);
 
         // create a new current values table
-        String currentValuesQuery = "CREATE TABLE " + CURRENT_VALUES_TABLE + " (" + COLUMN__VALUE_ID +
+        String currentValuesQuery = "CREATE TABLE " + CURRENT_VALUES_TABLE + " (" + COLUMN_VALUE_ID +
                 " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_NAME +
                 " TEXT," + COLUMN_VALUE +
                 " TEXT" + " )";
@@ -124,28 +124,28 @@ public class MyDBHandler extends SQLiteOpenHelper{
         ContentValues updateLoggedIn = new ContentValues();
         updateLoggedIn.put(COLUMN_NAME, "loggedIn");
         updateLoggedIn.put(COLUMN_VALUE, newValue);
-        db.update(PROFILE_TABLE, updateLoggedIn, COLUMN_NAME + " = ?", new String[]{"loggedIn"});
+        db.update(CURRENT_VALUES_TABLE, updateLoggedIn, COLUMN_NAME + " = ?", new String[]{"loggedIn"});
     }
     public void updateCurrentProfile(String newValue){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues updateCurrentProfile = new ContentValues();
         updateCurrentProfile.put(COLUMN_NAME, "profile");
         updateCurrentProfile.put(COLUMN_VALUE, newValue);
-        db.update(PROFILE_TABLE, updateCurrentProfile, COLUMN_NAME + " = ?", new String[]{"profile"});
+        db.update(CURRENT_VALUES_TABLE, updateCurrentProfile, COLUMN_NAME + " = ?", new String[]{"profile"});
     }
     public void updateCurrentChild(String newValue){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues updateCurrentChild = new ContentValues();
         updateCurrentChild.put(COLUMN_NAME, "child");
         updateCurrentChild.put(COLUMN_VALUE, newValue);
-        db.update(PROFILE_TABLE, updateCurrentChild, COLUMN_NAME + " = ?", new String[]{"child"});
+        db.update(CURRENT_VALUES_TABLE, updateCurrentChild, COLUMN_NAME + " = ?", new String[]{"child"});
     }
     public void updateCurrentVideo(String newValue){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues updateCurrentVideo = new ContentValues();
         updateCurrentVideo.put(COLUMN_NAME, "video");
         updateCurrentVideo.put(COLUMN_VALUE, newValue);
-        db.update(PROFILE_TABLE, updateCurrentVideo, COLUMN_NAME + " = ?", new String[]{"video"});
+        db.update(CURRENT_VALUES_TABLE, updateCurrentVideo, COLUMN_NAME + " = ?", new String[]{"video"});
     }
 
 
@@ -205,7 +205,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         ContentValues updateProfile = new ContentValues();
         updateProfile.put(COLUMN_USERNAME, profile.get_username());
         updateProfile.put(COLUMN_PASSWORD, profile.get_password());
-        db.update(PROFILE_TABLE, updateProfile, COLUMN_USERNAME +" = ?" , new String[] {profile.get_username()});
+        db.update(PROFILE_TABLE, updateProfile, COLUMN_USERNAME + " = ?", new String[]{profile.get_username()});
     }
 
     /** PRINT OUT A TABLE AS A STRING **/
@@ -217,6 +217,10 @@ public class MyDBHandler extends SQLiteOpenHelper{
         Cursor c = db.query(PROFILE_TABLE, null, null, null, null, null, null);
         //move to the first row in your results
         c.moveToFirst();
+        dbString += c.getString(c.getColumnIndex(COLUMN_USERNAME));
+        dbString += "   ";
+        dbString += c.getString(c.getColumnIndex(COLUMN_PASSWORD));
+        dbString += "\n";
 
         while (c.moveToNext()){
             if (c.getString(c.getColumnIndex("username")) != null){
@@ -228,5 +232,21 @@ public class MyDBHandler extends SQLiteOpenHelper{
         }
         db.close();
         return dbString;
+    }
+
+    public String getCurrentChild(){
+        SQLiteDatabase db = getReadableDatabase();
+        String currentChild;
+
+        Cursor c = db.query(CURRENT_VALUES_TABLE, null, null, null, null, null, null);
+        for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
+            if(c.getString(c.getColumnIndex(COLUMN_NAME)).equals("child")){
+                currentChild = c.getString(c.getColumnIndex(COLUMN_VALUE));
+                db.close();
+                return currentChild;
+            }
+        }
+        db.close();
+        return null;
     }
 }

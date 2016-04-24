@@ -3,6 +3,7 @@ package com.example.faars.promise30.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.SpannableString;
@@ -18,6 +19,10 @@ import android.widget.Toast;
 
 import com.example.faars.promise30.ChildActivity;
 import com.example.faars.promise30.R;
+import com.example.faars.promise30.SQL.MyDBHandler;
+import com.example.faars.promise30.SQL.Profile;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
 
 import java.io.FileOutputStream;
 
@@ -32,7 +37,7 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
     }
 
     EditText etNewUsername, etNewPassword, etNewPasswordCheck;
-    // private GoogleApiClient client;
+    MyDBHandler dbHandler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,6 +54,7 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
         etNewPasswordCheck = (EditText) viewGroup.findViewById(R.id.etNewPasswordCheck);
         Button bRegister = (Button) viewGroup.findViewById(R.id.bCreateProfile);
         TextView LogInOption = (TextView) viewGroup.findViewById(R.id.tvLogInOption);
+        dbHandler = MyDBHandler.getInstance(getActivity());
 
         bRegister.setOnClickListener(this);
         LogInOption.setOnClickListener(this);
@@ -64,19 +70,15 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bCreateProfile:
-                /* if(checkInput()){
-                    try {
-                    //TODO: use saveUserProfile():
-                        saveUserProfile();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } */
+                 if(checkInput()){
+                    saveUserProfile();
+
                     Toast.makeText(getActivity(),
                             "Profile saved!", Toast.LENGTH_LONG)
                             .show();
                     getActivity().finish();
                     startActivity(new Intent(getActivity(), ChildActivity.class));
-                //}
+                }
                 break;
 
             case R.id.tvLogInOption:
@@ -89,25 +91,22 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
         }
     }
 
-  /*  // Save username and password locally:
-    public void saveUserProfile() throws Exception {
-        String user = readFields();
-        String filePath = getFilesDir().toString() + "/test.txt";
-        FileOutputStream out = openFileOutput(filePath, Context.MODE_PRIVATE);
-        out.write(user.getBytes());
-        out.close();
-    }
-
     // Checks whether the user has entered text in all three edit text fields or not:
     private boolean checkInput() {
         // If one or two of the fields are empty, return false:
         if (TextUtils.isEmpty(etNewUsername.getText()) || TextUtils.isEmpty(etNewPassword.getText())) {
-            Toast.makeText(getApplicationContext(),
+            Toast.makeText(getActivity().getApplicationContext(),
                     "All fields must have inputs", Toast.LENGTH_LONG).show();
             return false;
         } else {
             if (checkPassword()) {
-                return true;
+                if(UsernameNotUsed()){
+                    return true;
+                }else{
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            "Already a profile with this username.", Toast.LENGTH_LONG).show();
+                    return false;
+                }
             } else {
                 return false;
             }
@@ -122,7 +121,7 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
         if (passwordOne.equals(passwordTwo)) {
             return true;
         } else {
-            Toast.makeText(getApplicationContext(),
+            Toast.makeText(getActivity().getApplicationContext(),
                     "Passwords not alike. Reenter password", Toast.LENGTH_LONG)
                     .show();
             etNewPassword.setText(null);
@@ -131,54 +130,25 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
         }
     }
 
-    // Merges username and password to one string:
-    private String readFields() {
-        String password = etNewPassword.getText().toString();
-        String username = etNewUsername.getText().toString();
-        String eol = System.getProperty("line.separator");
-        String user = username + ", " + password + eol;
-        return user;
+    // Checks if username already in use:
+    private boolean UsernameNotUsed(){
+        String Username = etNewUsername.getText().toString();
+        //TODO: check if the same username is saved in PROFILE_TABLE
+        /* if(...){
+
+            return true;
+        }else{
+            return false;
+        } */
+        return false;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Register Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.example.faars.promise22/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
+    // Save username and password in SQL database PROFILE_TABLE and update CURRENT_VALUES_TABLE:
+    public void saveUserProfile() {
+        Profile profile = new Profile(etNewUsername.getText().toString(),etNewPassword.getText().toString());
+        dbHandler.addProfile(profile);
+        dbHandler.updateLoggedIn("true");
+        dbHandler.updateCurrentProfile(etNewUsername.getText().toString());
     }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Register Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.example.faars.promise22/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
-    }
-  */
 
 }

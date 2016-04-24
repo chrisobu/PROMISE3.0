@@ -13,24 +13,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.faars.promise30.ChildActivity;
 import com.example.faars.promise30.MainActivity;
 import com.example.faars.promise30.R;
 import com.example.faars.promise30.Dialogs.TermDatePickerDialog;
+import com.example.faars.promise30.SQL.Child;
+import com.example.faars.promise30.SQL.MyDBHandler;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class RegisterChildFragment extends Fragment implements View.OnClickListener{
 
-
     public RegisterChildFragment() {
         // Required empty public constructor
     }
 
-    TextView tvChildID, tvHospitalID, tvCountry, tvApiKey;
-
-    public final static String EXTRA_NEWCHILDNAME = "com.example.faars.promise20";
-    public String childID = null, hospitalID = null, country = null, apiKey = null;
+    TextView tvChildID, tvHospitalID, tvCountry;
+    String childID, hospitalID, countryID, termDate, nickname, apiKey, profileName;
+    EditText showPickedTermDate, firstName;
+    MyDBHandler dbHandler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,24 +40,24 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
         // Inflate the layout for this fragment
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_register_child, container, false);
 
-        //String strtext = getArguments().getString("message");
-
-        // Display info from QR-code:
-        tvChildID = (TextView) getActivity().findViewById(R.id.et_child_id);
         tvChildID = (TextView) viewGroup.findViewById(R.id.et_child_id);
         tvHospitalID = (TextView) viewGroup.findViewById(R.id.et_hospital_id);
         tvCountry = (TextView) viewGroup.findViewById(R.id.et_country);
-        tvApiKey = (TextView) viewGroup.findViewById(R.id.et_api_key);
-        EditText showPickedTermDate = (EditText) viewGroup.findViewById(R.id.et_term_date);
-        // TODO: get info from QR code to display here:
-        tvChildID.setText("1234");
-        tvHospitalID.setText("STO");
-        tvCountry.setText("NO");
-        tvApiKey.setText("1234hemmelig");
-
-        //TODO: Save ChildID, HospitalID, Country, APIkey, and use when sending the video
-
+        showPickedTermDate = (EditText) viewGroup.findViewById(R.id.et_term_date);
+        firstName = (EditText) viewGroup.findViewById(R.id.et_first_name);
         Button registerChildButton = (Button) viewGroup.findViewById(R.id.register_child_button);
+
+        dbHandler = MyDBHandler.getInstance(getActivity());
+
+        // Display info from QR-code: TODO: get info from QR code to display here:
+        childID = "1234";
+        hospitalID = "STO";
+        countryID = "NO";
+        apiKey = "1234hemmelig";
+        tvChildID.setText(childID);
+        tvHospitalID.setText(hospitalID);
+        tvCountry.setText(countryID);
+
         registerChildButton.setOnClickListener(this);
         showPickedTermDate.setOnClickListener(this);
 
@@ -66,11 +68,19 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.register_child_button:
-                Toast toast = Toast.makeText(getActivity(),"Child Registered", Toast.LENGTH_SHORT);
-                toast.show();
+                if(checkChildInput()){
+                    termDate = showPickedTermDate.getText().toString();
+                    nickname = firstName.getText().toString();
+                    profileName = "kiri"; // TODO: getCurrentProfileName()
+                    Child child = new Child(childID, hospitalID, countryID, termDate, nickname, apiKey, profileName);
+                    dbHandler.addChild(child);
+                    dbHandler.updateCurrentChild(nickname);
 
-                // TODO: change "New Child" to name of new child registered
-                sendNewNameToMainPage("New Child");
+                    Toast toast = Toast.makeText(getActivity(),"Child Registered", Toast.LENGTH_SHORT);
+                    toast.show();
+                    getActivity().finish();
+                    startActivity(new Intent(getActivity(), MainActivity.class));
+                }
                 break;
             case R.id.et_term_date:
                 FragmentTransaction fragTrans = getActivity().getSupportFragmentManager().beginTransaction();
@@ -81,13 +91,10 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
 
     }
 
-    public void sendNewNameToMainPage(String Name){
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        String ChildName = Name;
-        intent.putExtra(EXTRA_NEWCHILDNAME, ChildName);
-        getActivity().finish();
-        startActivity(intent);
+    private boolean checkChildInput(){
+        // check: nickname entered
+        // check: termdate selected
+        return true;
     }
-
 
 }

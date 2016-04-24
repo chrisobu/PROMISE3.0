@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.faars.promise30.MainActivity;
 import com.example.faars.promise30.R;
+import com.example.faars.promise30.SQL.MyDBHandler;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,7 +31,9 @@ public class MainPageFragment extends Fragment {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_main_page, container, false);
 
         TextView tvChildName = (TextView) viewGroup.findViewById(R.id.tvChildName);
-        String childName = ((MainActivity)getActivity()).getChildName();
+
+        MyDBHandler dbHandler = MyDBHandler.getInstance(getActivity());
+        String childName = dbHandler.getCurrentChild();
         tvChildName.setText(childName);
 
         return viewGroup;
