@@ -1,7 +1,6 @@
 package com.example.faars.promise30.Fragments;
 
 
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,19 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.faars.promise30.ChildActivity;
 import com.example.faars.promise30.MainActivity;
 import com.example.faars.promise30.R;
-import com.example.faars.promise30.TermDatePickerDialog;
+import com.example.faars.promise30.Dialogs.TermDatePickerDialog;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import android.support.v4.app.FragmentTransaction;
 /**
  * A simple {@link Fragment} subclass.
  */

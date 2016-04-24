@@ -12,9 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.faars.promise30.ChildActionDialog;
 import com.example.faars.promise30.R;
-import com.example.faars.promise30.ShowOrSendDialog;
+import com.example.faars.promise30.Dialogs.ShowOrSendDialog;
 
 /**
  * A simple {@link Fragment} subclass.

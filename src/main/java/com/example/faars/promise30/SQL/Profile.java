@@ -1,4 +1,4 @@
-package com.example.faars.promise30;
+package com.example.faars.promise30.SQL;
 
 /**
  * Created by faars on 24-Apr-16.

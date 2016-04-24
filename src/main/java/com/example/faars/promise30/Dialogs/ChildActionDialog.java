@@ -1,4 +1,4 @@
-package com.example.faars.promise30;
+package com.example.faars.promise30.Dialogs;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -9,6 +9,8 @@ import android.support.v7.app.AlertDialog;
 
 import com.example.faars.promise30.Fragments.ChooseChildFragment;
 import com.example.faars.promise30.Fragments.EditChildFragment;
+import com.example.faars.promise30.MainActivity;
+import com.example.faars.promise30.R;
 
 /**
  * Created by faars on 16-Apr-16.

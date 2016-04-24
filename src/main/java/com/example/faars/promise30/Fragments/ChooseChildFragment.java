@@ -1,31 +1,22 @@
 package com.example.faars.promise30.Fragments;
 
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.faars.promise30.ChildActionDialog;
-import com.example.faars.promise30.MainActivity;
+import com.example.faars.promise30.Dialogs.ChildActionDialog;
 import com.example.faars.promise30.R;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.

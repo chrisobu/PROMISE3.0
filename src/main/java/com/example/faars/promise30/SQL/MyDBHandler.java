@@ -1,4 +1,4 @@
-package com.example.faars.promise30;
+package com.example.faars.promise30.SQL;
 
 import android.content.ContentValues;
 import android.content.Context;

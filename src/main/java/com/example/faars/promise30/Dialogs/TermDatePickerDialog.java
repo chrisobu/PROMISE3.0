@@ -1,4 +1,4 @@
-package com.example.faars.promise30;
+package com.example.faars.promise30.Dialogs;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
