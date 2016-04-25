@@ -5,22 +5,20 @@ package com.example.faars.promise30.SQL;
  */
 public class Child {
 
-    private int _id;
-    private String _childID;
-    private String _hospitalID;
-    private String _countryID;
-    private String _termDate;
-    private String _nickName;
-    private String _apiKey;
-    private String _profileName;
+    private static int _id;
+    private static String _childID;
+    private static String _hospitalID;
+    private static String _countryID;
+    private static String _termDate;
+    private static String _nickName;
+    private static String _profileName;
 
-    public Child(String childID, String hospitalID, String countryID, String termDate, String nickName, String apiKey, String profileName ){
+    public Child(String childID, String hospitalID, String countryID, String termDate, String nickName, String profileName ){
         this._childID = childID;
         this._hospitalID = hospitalID;
         this._countryID = countryID;
         this._termDate = termDate;
         this._nickName = nickName;
-        this._apiKey = apiKey;
         this._profileName = profileName;
     }
 
@@ -32,25 +30,22 @@ public class Child {
     public int get_id() {
         return _id;
     }
-    public String get_childID() {
+    public static String get_childID() {
         return _childID;
     }
-    public String get_hospitalID() {
+    public static String get_hospitalID() {
         return _hospitalID;
     }
-    public String get_countryID() {
+    public static String get_countryID() {
         return _countryID;
     }
-    public String get_termDate() {
+    public static String get_termDate() {
         return _termDate;
     }
-    public String get_nickName() {
+    public static String get_nickName() {
         return _nickName;
     }
-    public String get_apiKey() {
-        return _apiKey;
-    }
-    public String get_profileName() {
+    public static String get_profileName() {
         return _profileName;
     }
 
@@ -73,9 +68,6 @@ public class Child {
     }
     public void set_nickName(String _nickName) {
         this._nickName = _nickName;
-    }
-    public void set_apiKey(String _apiKey) {
-        this._apiKey = _apiKey;
     }
     public void set_profileName(String _profileName) {
         this._profileName = _profileName;

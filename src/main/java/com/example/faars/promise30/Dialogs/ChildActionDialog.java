@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
+import com.example.faars.promise30.ChildActivity;
 import com.example.faars.promise30.Fragments.ChooseChildFragment;
 import com.example.faars.promise30.Fragments.EditChildFragment;
 import com.example.faars.promise30.MainActivity;
 import com.example.faars.promise30.R;
+import com.example.faars.promise30.SQL.MyDBHandler;
 
 /**
  * Created by faars on 16-Apr-16.
@@ -21,10 +23,11 @@ public class ChildActionDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        MyDBHandler dbHandler = MyDBHandler.getInstance(getActivity());
+        String childName = dbHandler.getCurrentChild();
 
-        // TODO: change "Frida" into actual child chosen
         return new AlertDialog.Builder(getActivity())
-                .setTitle("Frida")
+                .setTitle(childName)
                 .setNegativeButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -34,13 +37,16 @@ public class ChildActionDialog extends DialogFragment {
                         fragmentTransactionEditChild.commit();
                     }
                 })
-                .setPositiveButton("Choose",  new DialogInterface.OnClickListener() {
+                .setPositiveButton("Choose", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // TODO: change this code so name of chosen child is sent:
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        getActivity().finish(); // TODO: can I remove this one?
+                        startActivity(new Intent(getActivity(), MainActivity.class));
+
+                        //TODO: må kanskje sende med intent for å fortelle MainActivity hvilken layout den skal velge?
+                       /* Intent intent = new Intent(getActivity(), MainActivity.class);
                         intent.putExtra(EXTRA_CHILDNAME, "Frida");
-                        startActivity(intent);
+                        startActivity(intent); */
                     }
                 })
                 .create();

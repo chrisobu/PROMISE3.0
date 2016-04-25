@@ -14,15 +14,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.faars.promise30.Dialogs.ChildActionDialog;
+import com.example.faars.promise30.MainActivity;
 import com.example.faars.promise30.R;
+import com.example.faars.promise30.SQL.MyDBHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ChooseChildFragment extends Fragment implements View.OnClickListener{
-
 
     public ChooseChildFragment() {
         // Required empty public constructor
@@ -30,7 +35,6 @@ public class ChooseChildFragment extends Fragment implements View.OnClickListene
 
     /*It's generally a good practice to define keys for intent extras using your app's package name
     as a prefix. This ensures the keys are unique, in case your app interacts with other apps: */
-    public final static String EXTRA_CHILDNAME = "com.example.faars.promise20";
     ListView lvRegisteredChildren;
 
     @Override
@@ -44,20 +48,23 @@ public class ChooseChildFragment extends Fragment implements View.OnClickListene
         lvRegisteredChildren = (ListView) viewGroup.findViewById(R.id.lvRegisteredChild);
 
         TextView orRegisterNewChild = (TextView) viewGroup.findViewById(R.id.orRegisterNewChildOption);
-        TextView profilePreview = (TextView) viewGroup.findViewById(R.id.profilePreview);
+        TextView noChildRegistered = (TextView) viewGroup.findViewById(R.id.no_child_registered);
 
-        SpannableString content = new SpannableString("or register a new child");
+        SpannableString content = new SpannableString("Or Register a New Child");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         orRegisterNewChild.setText(content);
 
-
         orRegisterNewChild.setOnClickListener(this);
 
-        // TODO: replace with saved children list:
-        String[] ListNames = new String[] { "Alfred",
-                "Frida",
-                "Theo"
-        };
+        // Get List of child names for current profile:
+        MyDBHandler dbHandler = MyDBHandler.getInstance(getActivity());
+        ArrayList<String> ListNames = dbHandler.getAllProfileChildren(dbHandler.getCurrentProfile());
+
+        if(ListNames.size()>0){
+
+        }else{
+            noChildRegistered.setVisibility(View.VISIBLE);
+        }
 
         // Define a new Adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_selectable_list_item, android.R.id.text1, ListNames);
@@ -79,20 +86,16 @@ public class ChooseChildFragment extends Fragment implements View.OnClickListene
                 }
                 view.setBackgroundColor(getResources().getColor(R.color.colorSelected));
 
+                // Update current child
+                MyDBHandler dbHandler = MyDBHandler.getInstance(getActivity()); //cannot be global!
+                dbHandler.updateCurrentChild(itemValue);
+
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 // Create and show the dialog.
                 ChildActionDialog newDialog = new ChildActionDialog();
                 newDialog.show(ft, "dialog");
-
-                /* A Toast message when a child is chosen:
-                // ListView Clicked item index
-                int itemPosition = position;
-                Toast.makeText(getApplicationContext(),
-                        "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
-                        .show(); */
             }
         });
-
         return viewGroup;
     }
 
@@ -104,8 +107,4 @@ public class ChooseChildFragment extends Fragment implements View.OnClickListene
         fragmentTransactionLogIn.addToBackStack(null);
         fragmentTransactionLogIn.commit();
     }
-
-
-
-
 }

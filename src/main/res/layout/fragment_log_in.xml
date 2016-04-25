@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:text="or register a new profile"
                 android:layout_gravity="center_horizontal"
-                android:textColor="#2979FF"
+                android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="15dp"
                 android:padding="16dp"

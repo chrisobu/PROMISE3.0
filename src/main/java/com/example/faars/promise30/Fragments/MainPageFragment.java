@@ -32,8 +32,10 @@ public class MainPageFragment extends Fragment {
 
         TextView tvChildName = (TextView) viewGroup.findViewById(R.id.tvChildName);
 
+        // Get current child from CURRENT_VALUES_TABLE in SQL database:
         MyDBHandler dbHandler = MyDBHandler.getInstance(getActivity());
         String childName = dbHandler.getCurrentChild();
+
         tvChildName.setText(childName);
 
         return viewGroup;

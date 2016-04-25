@@ -9,7 +9,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tv_child"
+            android:id="@+id/tv_child_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -19,7 +19,7 @@
             android:textSize="15dp"/>
 
         <TextView
-            android:id="@+id/tv_hospital"
+            android:id="@+id/tv_hospital_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -27,10 +27,10 @@
             android:layout_marginRight="10dp"
             android:text="Hospital ID"
             android:textSize="15dp"
-            android:layout_below="@id/tv_child"/>
+            android:layout_below="@id/tv_child_edit"/>
 
         <TextView
-            android:id="@+id/et_child"
+            android:id="@+id/et_child_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -38,10 +38,10 @@
             android:layout_marginRight="10dp"
             android:text="..."
             android:textSize="15dp"
-            android:layout_toRightOf="@id/tv_hospital"/>
+            android:layout_toRightOf="@id/tv_hospital_edit"/>
 
         <TextView
-            android:id="@+id/et_hospital"
+            android:id="@+id/et_hospital_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -49,11 +49,11 @@
             android:layout_marginRight="10dp"
             android:text="..."
             android:textSize="15dp"
-            android:layout_toRightOf="@id/tv_hospital"
-            android:layout_below="@id/et_child"/>
+            android:layout_toRightOf="@id/tv_hospital_edit"
+            android:layout_below="@id/et_child_edit"/>
 
         <TextView
-            android:id="@+id/tv_country_id"
+            android:id="@+id/tv_country_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -61,9 +61,9 @@
             android:layout_marginRight="10dp"
             android:text="Country ID"
             android:textSize="15dp"
-            android:layout_below="@id/tv_hospital"/>
+            android:layout_below="@id/tv_hospital_edit"/>
         <TextView
-            android:id="@+id/et_country_id"
+            android:id="@+id/et_country_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -71,56 +71,34 @@
             android:layout_marginRight="10dp"
             android:text="..."
             android:textSize="15dp"
-            android:layout_toRightOf="@id/tv_hospital"
-            android:layout_below="@id/et_hospital"/>
+            android:layout_toRightOf="@id/tv_hospital_edit"
+            android:layout_below="@id/et_hospital_edit"/>
 
         <TextView
-            android:id="@+id/tv_api_key_id"
+            android:id="@+id/tv_nickname_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tv_country_edit"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:text="API-key"
-            android:textSize="15dp"
-            android:layout_below="@id/tv_country_id"/>
-        <TextView
-            android:id="@+id/et_api_key_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:text="..."
-            android:textSize="15dp"
-            android:layout_below="@id/et_country_id"
-            android:layout_toRightOf="@id/tv_hospital"/>
-
-        <TextView
-            android:id="@+id/tv_first_name_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_api_key_id"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="50dp"
             android:layout_marginRight="10dp"
             android:text="Child's user name"
             android:textSize="15dp" />
 
         <EditText
-            android:id="@+id/et_first_name_id"
+            android:id="@+id/et_nickname_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_first_name_id"
+            android:layout_below="@id/tv_nickname_edit"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:editable="true"/>
 
         <TextView
-            android:id="@+id/tv_term_date_id"
+            android:id="@+id/tv_term_date_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/et_first_name_id"
+            android:layout_below="@id/et_nickname_edit"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
@@ -128,10 +106,10 @@
             android:textSize="15dp" />
 
         <EditText
-            android:id="@+id/et_term_date"
+            android:id="@+id/et_term_date_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_term_date_id"
+            android:layout_below="@id/tv_term_date_edit"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:editable="true"/>
@@ -139,8 +117,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/et_term_date"
-            android:layout_centerHorizontal="true">
+            android:layout_below="@id/et_term_date_edit"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearButtons">
 
             <Button
                 android:id="@+id/save_edit_child_button"
@@ -162,6 +141,17 @@
                 android:layout_centerHorizontal="true"
                 android:text="Save" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/delete_edit_child_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="#0097A7"
+            android:layout_marginTop="30dp"
+            android:textColor="#FFFFFF"
+            android:layout_below="@id/linearButtons"
+            android:layout_centerHorizontal="true"
+            android:text="Delete child" />
 
 
     </RelativeLayout>

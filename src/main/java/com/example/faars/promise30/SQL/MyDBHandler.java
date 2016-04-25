@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by faars on 24-Apr-16.
  */
@@ -29,7 +32,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
     public static final String COLUMN_COUNTRY_ID = "countryID";
     public static final String COLUMN_TERM_DATE = "termDate";
     public static final String COLUMN_NICKNAME = "nickName";
-    public static final String COLUMN_API_KEY = "apiKey";
+
     public static final String COLUMN_PROFILE_NAME = "profileName";
 
     // CURRENT VALUES TABLE:
@@ -67,7 +70,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_CHILD_ID + " TEXT, "
                 + COLUMN_HOSPITAL_ID + " TEXT, " + COLUMN_COUNTRY_ID + " TEXT, "
                 + COLUMN_TERM_DATE + " TEXT, " + COLUMN_NICKNAME + " TEXT, "
-                + COLUMN_API_KEY + " TEXT, " + COLUMN_PROFILE_NAME + " TEXT" + " )";
+                + COLUMN_PROFILE_NAME + " TEXT" + " )";
         db.execSQL(childQuery);
 
         // create a new current values table
@@ -116,6 +119,12 @@ public class MyDBHandler extends SQLiteOpenHelper{
         video.put(COLUMN_NAME, "video");
         video.put(COLUMN_VALUE, "");
         db.insert(CURRENT_VALUES_TABLE, null, video);
+
+        // Add a current apiKey row:
+        ContentValues apiKey = new ContentValues();
+        apiKey.put(COLUMN_NAME, "apiKey");
+        apiKey.put(COLUMN_VALUE, "");
+        db.insert(CURRENT_VALUES_TABLE, null, apiKey);
     }
 
     // Update current values
@@ -147,7 +156,88 @@ public class MyDBHandler extends SQLiteOpenHelper{
         updateCurrentVideo.put(COLUMN_VALUE, newValue);
         db.update(CURRENT_VALUES_TABLE, updateCurrentVideo, COLUMN_NAME + " = ?", new String[]{"video"});
     }
+    public void updateCurrentAPIkey(String newValue){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues updateCurrentAPIkey = new ContentValues();
+        updateCurrentAPIkey.put(COLUMN_NAME, "apiKey");
+        updateCurrentAPIkey.put(COLUMN_VALUE, newValue);
+        db.update(CURRENT_VALUES_TABLE, updateCurrentAPIkey, COLUMN_NAME + " = ?", new String[]{"apiKey"});
+    }
+    public String getCurrentChild(){
+        SQLiteDatabase db = getReadableDatabase();
+        String currentChild;
 
+        Cursor c = db.query(CURRENT_VALUES_TABLE, null, null, null, null, null, null);
+        for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
+            if(c.getString(c.getColumnIndex(COLUMN_NAME)).equals("child")){
+                currentChild = c.getString(c.getColumnIndex(COLUMN_VALUE));
+                db.close();
+                return currentChild;
+            }
+        }
+        db.close();
+        return null;
+    }
+    public String getCurrentProfile(){
+        SQLiteDatabase db = getReadableDatabase();
+        String currentProfile;
+
+        Cursor c = db.query(CURRENT_VALUES_TABLE, null, null, null, null, null, null);
+        for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
+            if(c.getString(c.getColumnIndex(COLUMN_NAME)).equals("profile")){
+                currentProfile = c.getString(c.getColumnIndex(COLUMN_VALUE));
+                db.close();
+                return currentProfile;
+            }
+        }
+        db.close();
+        return null;
+    }
+    public String getCurrentVideo(){
+        SQLiteDatabase db = getReadableDatabase();
+        String currentVideo;
+
+        Cursor c = db.query(CURRENT_VALUES_TABLE, null, null, null, null, null, null);
+        for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
+            if(c.getString(c.getColumnIndex(COLUMN_NAME)).equals("video")){
+                currentVideo = c.getString(c.getColumnIndex(COLUMN_VALUE));
+                db.close();
+                return currentVideo;
+            }
+        }
+        db.close();
+        return null;
+    }
+    public String getCurrentAPIkey(){
+        SQLiteDatabase db = getReadableDatabase();
+        String currentAPI;
+
+        Cursor c = db.query(CURRENT_VALUES_TABLE, null, null, null, null, null, null);
+        for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
+            if(c.getString(c.getColumnIndex(COLUMN_NAME)).equals("apiKey")){
+                currentAPI = c.getString(c.getColumnIndex(COLUMN_VALUE));
+                db.close();
+                return currentAPI;
+            }
+        }
+        db.close();
+        return null;
+    }
+    public Boolean isLoggedIn(){
+        SQLiteDatabase db = getReadableDatabase();
+        Boolean loggedIn;
+
+        Cursor c = db.query(CURRENT_VALUES_TABLE, null, null, null, null, null, null);
+        for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
+            if(c.getString(c.getColumnIndex(COLUMN_NAME)).equals("loggedIn")) {
+                loggedIn = Boolean.valueOf(c.getString(c.getColumnIndex(COLUMN_VALUE)));
+                db.close();
+                return loggedIn;
+            }
+        }
+        db.close();
+        return null;
+    }
 
     /** CHILD TABLE **/
     // Add a new row to the table
@@ -158,18 +248,15 @@ public class MyDBHandler extends SQLiteOpenHelper{
         values.put(COLUMN_COUNTRY_ID, child.get_countryID());
         values.put(COLUMN_TERM_DATE, child.get_termDate());
         values.put(COLUMN_NICKNAME, child.get_nickName());
-        values.put(COLUMN_API_KEY, child.get_apiKey());
         values.put(COLUMN_PROFILE_NAME, child.get_profileName());
         SQLiteDatabase db = getWritableDatabase();
-        db.insert(PROFILE_TABLE, null, values);
+        db.insert(CHILD_TABLE, null, values);
     }
-
     // Delete a row in the table
-    public void deleteChild(String childID){
+    public void deleteChild(String nickname){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + CHILD_TABLE + " WHERE " + COLUMN_CHILD_ID + "=\"" + childID + "\";");
+        db.execSQL("DELETE FROM " + CHILD_TABLE + " WHERE " + COLUMN_NICKNAME + "=\"" + nickname + "\";");
     }
-
     // Update a row in the table
     public void updateChild(Child child){
         SQLiteDatabase db = getWritableDatabase();
@@ -179,9 +266,56 @@ public class MyDBHandler extends SQLiteOpenHelper{
         updateChild.put(COLUMN_COUNTRY_ID, child.get_countryID());
         updateChild.put(COLUMN_TERM_DATE, child.get_termDate());
         updateChild.put(COLUMN_NICKNAME, child.get_nickName());
-        updateChild.put(COLUMN_API_KEY, child.get_apiKey());
         updateChild.put(COLUMN_PROFILE_NAME, child.get_profileName());
-        db.update(PROFILE_TABLE, updateChild, COLUMN_CHILD_ID + " = ?", new String[]{child.get_childID()});
+        db.update(CHILD_TABLE, updateChild, COLUMN_CHILD_ID + " = ?", new String[]{child.get_childID()});
+    }
+    // return Child class of current child
+    public Child getChildData(String nickName){
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor c = db.query(CHILD_TABLE, null, null, null, null, null, null);
+        for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
+            if(c.getString(c.getColumnIndex(COLUMN_NICKNAME)).equals(nickName)){
+                Child childData = new Child (c.getString(c.getColumnIndex(COLUMN_CHILD_ID)),
+                        c.getString(c.getColumnIndex(COLUMN_HOSPITAL_ID)),
+                        c.getString(c.getColumnIndex(COLUMN_COUNTRY_ID)),
+                        c.getString(c.getColumnIndex(COLUMN_TERM_DATE)),
+                        c.getString(c.getColumnIndex(COLUMN_NICKNAME)),
+                        c.getString(c.getColumnIndex(COLUMN_PROFILE_NAME)) );
+                db.close();
+                return childData;
+            }
+        }
+        db.close();
+        return null;
+    }
+    // Return all children with the same profile name
+    public ArrayList<String> getAllProfileChildren(String currentProfile){
+        ArrayList<String> ListNames = new ArrayList<String>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor c = db.query(CHILD_TABLE, null, null, null, null, null, null);
+        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+            if(c.getString(c.getColumnIndex(COLUMN_PROFILE_NAME)).equals(currentProfile)){
+                ListNames.add(c.getString(c.getColumnIndex(COLUMN_NICKNAME)));
+            }
+        }
+        db.close();
+        return ListNames;
+    }
+    // Check new child nickname: if used before: true, if not in use: false.
+    public Boolean nicknameInUse(String nickname){
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor c = db.query(CHILD_TABLE, null, null, null, null, null, null);
+        for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
+            if(c.getString(c.getColumnIndex(COLUMN_NICKNAME)).equals(nickname)){
+                db.close();
+                return true;
+            }
+        }
+        db.close();
+        return false;
     }
 
 
@@ -206,6 +340,37 @@ public class MyDBHandler extends SQLiteOpenHelper{
         updateProfile.put(COLUMN_USERNAME, profile.get_username());
         updateProfile.put(COLUMN_PASSWORD, profile.get_password());
         db.update(PROFILE_TABLE, updateProfile, COLUMN_USERNAME + " = ?", new String[]{profile.get_username()});
+    }
+
+    // Check new username: if used before: true, if not in use: false.
+    public Boolean usernameInUse(String username){
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor c = db.query(PROFILE_TABLE, null, null, null, null, null, null);
+        for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
+            if(c.getString(c.getColumnIndex(COLUMN_USERNAME)).equals(username)){
+                db.close();
+                return true;
+            }
+        }
+        db.close();
+        return false;
+    }
+    // Return profile password
+    public String getProfilePassword(String profileUsername){
+        SQLiteDatabase db = getReadableDatabase();
+        String profilePassword;
+
+        Cursor c = db.query(PROFILE_TABLE, null, null, null, null, null, null);
+        for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
+            if(c.getString(c.getColumnIndex(COLUMN_USERNAME)).equals(profileUsername)){
+                profilePassword = c.getString(c.getColumnIndex(COLUMN_PASSWORD));
+                db.close();
+                return profilePassword;
+            }
+        }
+        db.close();
+        return null;
     }
 
     /** PRINT OUT A TABLE AS A STRING **/
@@ -234,19 +399,5 @@ public class MyDBHandler extends SQLiteOpenHelper{
         return dbString;
     }
 
-    public String getCurrentChild(){
-        SQLiteDatabase db = getReadableDatabase();
-        String currentChild;
 
-        Cursor c = db.query(CURRENT_VALUES_TABLE, null, null, null, null, null, null);
-        for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
-            if(c.getString(c.getColumnIndex(COLUMN_NAME)).equals("child")){
-                currentChild = c.getString(c.getColumnIndex(COLUMN_VALUE));
-                db.close();
-                return currentChild;
-            }
-        }
-        db.close();
-        return null;
-    }
 }

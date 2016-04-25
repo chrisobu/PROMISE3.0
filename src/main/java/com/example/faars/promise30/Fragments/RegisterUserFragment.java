@@ -91,6 +91,14 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
         }
     }
 
+    // Save username and password in SQL database PROFILE_TABLE and update CURRENT_VALUES_TABLE:
+    public void saveUserProfile() {
+        Profile profile = new Profile(etNewUsername.getText().toString(),etNewPassword.getText().toString());
+        dbHandler.addProfile(profile);
+        dbHandler.updateLoggedIn("true");
+        dbHandler.updateCurrentProfile(etNewUsername.getText().toString());
+    }
+
     // Checks whether the user has entered text in all three edit text fields or not:
     private boolean checkInput() {
         // If one or two of the fields are empty, return false:
@@ -99,8 +107,10 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
                     "All fields must have inputs", Toast.LENGTH_LONG).show();
             return false;
         } else {
+            // If the two passwords are equal:
             if (checkPassword()) {
-                if(UsernameNotUsed()){
+                // If username not in use:
+                if(!dbHandler.usernameInUse(etNewUsername.getText().toString())){
                     return true;
                 }else{
                     Toast.makeText(getActivity().getApplicationContext(),
@@ -128,27 +138,6 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
             etNewPasswordCheck.setText(null);
             return false;
         }
-    }
-
-    // Checks if username already in use:
-    private boolean UsernameNotUsed(){
-        String Username = etNewUsername.getText().toString();
-        //TODO: check if the same username is saved in PROFILE_TABLE
-        /* if(...){
-
-            return true;
-        }else{
-            return false;
-        } */
-        return false;
-    }
-
-    // Save username and password in SQL database PROFILE_TABLE and update CURRENT_VALUES_TABLE:
-    public void saveUserProfile() {
-        Profile profile = new Profile(etNewUsername.getText().toString(),etNewPassword.getText().toString());
-        dbHandler.addProfile(profile);
-        dbHandler.updateLoggedIn("true");
-        dbHandler.updateCurrentProfile(etNewUsername.getText().toString());
     }
 
 }

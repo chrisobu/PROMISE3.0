@@ -28,6 +28,7 @@ import com.example.faars.promise30.Fragments.MainPageFragment;
 import com.example.faars.promise30.Fragments.MyVideosFragment;
 import com.example.faars.promise30.Fragments.NewVideoFragment;
 import com.example.faars.promise30.Fragments.NextVideoFragment;
+import com.example.faars.promise30.SQL.MyDBHandler;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -55,17 +56,14 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
         getSupportActionBar().setTitle("PROMISE 3.0");
 
+        // Get current child from CURRENT_VALUES_TABLE in SQL database:
+        MyDBHandler dbHandler = MyDBHandler.getInstance(this);
+        String childName = dbHandler.getCurrentChild();
+
+        // Set childName in left menu header:
         View navHeaderView = navigationView.getHeaderView(0);
         TextView childNameHeaderTextView = (TextView) navHeaderView.findViewById(R.id.childNameHeader);
-        childNameHeaderTextView.setText(getChildName());
-
-    }
-
-    public String getChildName(){
-        Intent intent = getIntent();
-        String childName = intent.getStringExtra(ChooseChildFragment.EXTRA_CHILDNAME);
-
-        return childName;
+        childNameHeaderTextView.setText(childName);
     }
 
     @Override
@@ -140,6 +138,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, ChildActivity.class));
 
         } else if (id == R.id.nav_log_out) {
+            MyDBHandler dbHandler = MyDBHandler.getInstance(this);
+            dbHandler.updateLoggedIn("false");
             finish();
             startActivity(new Intent(this, LogInActivity.class));
 

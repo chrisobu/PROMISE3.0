@@ -18,26 +18,29 @@
             android:layout_margin="16dp"/>
 
         <TextView
-            android:id="@+id/profilePreview"
+            android:id="@+id/no_child_registered"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="20dp"
+            android:textSize="18dp"
+            android:visibility="gone"
+            android:text="No Children registered"
             android:layout_margin="16dp"/>
 
         <ListView
             android:id="@+id/lvRegisteredChild"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:divider="@color/colorPrimary"
+            android:dividerHeight="1dp"/>
 
         <TextView
             android:id="@+id/orRegisterNewChildOption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="or register a new child"
             android:layout_gravity="center_horizontal"
-            android:textColor="#2979FF"
-            android:textSize="15dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="17dp"
             android:padding="16dp"
             android:clickable="true"/>
 

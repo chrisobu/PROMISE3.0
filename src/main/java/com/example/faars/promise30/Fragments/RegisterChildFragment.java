@@ -1,24 +1,26 @@
 package com.example.faars.promise30.Fragments;
 
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.faars.promise30.ChildActivity;
 import com.example.faars.promise30.MainActivity;
 import com.example.faars.promise30.R;
-import com.example.faars.promise30.Dialogs.TermDatePickerDialog;
 import com.example.faars.promise30.SQL.Child;
 import com.example.faars.promise30.SQL.MyDBHandler;
+
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,10 +73,12 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
                 if(checkChildInput()){
                     termDate = showPickedTermDate.getText().toString();
                     nickname = firstName.getText().toString();
-                    profileName = "kiri"; // TODO: getCurrentProfileName()
-                    Child child = new Child(childID, hospitalID, countryID, termDate, nickname, apiKey, profileName);
+                    profileName = dbHandler.getCurrentProfile();
+
+                    Child child = new Child(childID, hospitalID, countryID, termDate, nickname, profileName);
                     dbHandler.addChild(child);
                     dbHandler.updateCurrentChild(nickname);
+                    dbHandler.updateCurrentAPIkey(apiKey);
 
                     Toast toast = Toast.makeText(getActivity(),"Child Registered", Toast.LENGTH_SHORT);
                     toast.show();
@@ -83,18 +87,84 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
                 }
                 break;
             case R.id.et_term_date:
-                FragmentTransaction fragTrans = getActivity().getSupportFragmentManager().beginTransaction();
-                TermDatePickerDialog termDatePickerDialog = new TermDatePickerDialog();
-                termDatePickerDialog.show(fragTrans, "datePicker");
-
+                DialogFragment termdatePicker = new TermdatePicker();
+                termdatePicker.show(getActivity().getSupportFragmentManager(), "datePicker");
+                break;
         }
 
     }
 
-    private boolean checkChildInput(){
-        // check: nickname entered
-        // check: termdate selected
-        return true;
+    // Ensures only one child with the same nickname
+    private boolean checkChildInput() {
+        if (firstName.getText().toString().isEmpty()) {
+            Toast.makeText(getActivity(), "Enter a username for the child", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (showPickedTermDate.getText().toString().isEmpty()) {
+            Toast.makeText(getActivity(), "Choose the child's term date", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (dbHandler.nicknameInUse(firstName.getText().toString())) {
+            Toast.makeText(getActivity(), "Child's username in use. Choose another one.", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            return true;
+        }
     }
 
+
+
+    /** TERM DATE PICKER DIALOG CLASS **/
+    // Not recommended to include a class in another, but I don't get to display the date otherwise
+    public class TermdatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+
+        @Override
+        public DatePickerDialog onCreateDialog(Bundle savedInstanceState) {
+            Calendar calendar = Calendar.getInstance();
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int month = calendar.get(Calendar.MONTH);
+            int year = calendar.get(Calendar.YEAR);
+
+            DatePickerDialog myDatePicker = new DatePickerDialog(getActivity(), this, year, month, day);
+
+            return myDatePicker;
+        }
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            /* Toast.makeText(getActivity(), String.valueOf(dayOfMonth) + " " + getMonthName(monthOfYear) +
+                    " " + String.valueOf(year), Toast.LENGTH_LONG).show(); */
+
+            showPickedTermDate.setText(String.valueOf(dayOfMonth) + ". " + getMonthName(monthOfYear) + " " + String.valueOf(year));
+        }
+
+        public String getMonthName(int month) {
+            switch (month + 1) {
+                case 1:
+                    return "Jan";
+                case 2:
+                    return "Feb";
+                case 3:
+                    return "Mar";
+                case 4:
+                    return "Apr";
+                case 5:
+                    return "May";
+                case 6:
+                    return "Jun";
+                case 7:
+                    return "Jul";
+                case 8:
+                    return "Aug";
+                case 9:
+                    return "Sep";
+                case 10:
+                    return "Oct";
+                case 11:
+                    return "Nov";
+                case 12:
+                    return "Dec";
+            }
+            return "";
+        }
+    }
 }
