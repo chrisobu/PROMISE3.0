@@ -40,7 +40,6 @@ public class ReadQRcodeFragment extends Fragment implements View.OnClickListener
     }
 
     private ZXingScannerView mScannerView;
-    TextView test;
     String ChildID = null;
     String HospitalID = null;
     String Country = null;
@@ -52,7 +51,6 @@ public class ReadQRcodeFragment extends Fragment implements View.OnClickListener
 
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_read_qrcode, container, false);
         Button scanButton = (Button) viewGroup.findViewById(R.id.scan_button);
-        test = (TextView) viewGroup.findViewById(R.id.test);
         scanButton.setOnClickListener(this);
 
         return  viewGroup;
@@ -106,8 +104,6 @@ public class ReadQRcodeFragment extends Fragment implements View.OnClickListener
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Toast toast = Toast.makeText(getActivity(),"Scan data received!", Toast.LENGTH_SHORT);
-            toast.show();
 
             ChildActivity.sendQRDataToChildActivity(ChildID, HospitalID, Country);
             MyDBHandler dbHandler = MyDBHandler.getInstance(getActivity());

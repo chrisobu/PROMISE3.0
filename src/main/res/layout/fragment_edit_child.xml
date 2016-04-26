@@ -122,7 +122,7 @@
             android:id="@+id/linearButtons">
 
             <Button
-                android:id="@+id/save_edit_child_button"
+                android:id="@+id/cancel_edit_child_button"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="#0097A7"
@@ -132,7 +132,7 @@
                 android:layout_marginRight="20dp"/>
 
             <Button
-                android:id="@+id/cancel_edit_child_button"
+                android:id="@+id/save_edit_child_button"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="#0097A7"

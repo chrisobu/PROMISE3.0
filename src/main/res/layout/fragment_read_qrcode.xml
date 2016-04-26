@@ -31,13 +31,6 @@
             android:clickable="true"
             android:text="Scan QR-code now" />
 
-        <TextView
-            android:id="@+id/test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="hei"
-            android:layout_margin="40dp"/>
-
     </LinearLayout>
 
 </FrameLayout>

@@ -267,7 +267,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         updateChild.put(COLUMN_TERM_DATE, child.get_termDate());
         updateChild.put(COLUMN_NICKNAME, child.get_nickName());
         updateChild.put(COLUMN_PROFILE_NAME, child.get_profileName());
-        db.update(CHILD_TABLE, updateChild, COLUMN_NICKNAME + " = ?", new String[]{child.get_nickName()});
+        db.update(CHILD_TABLE, updateChild, COLUMN_CHILD_ID + " = ?", new String[]{child.get_childID()});
     }
     // return Child class of current child
     public Child getChildData(String nickName){
@@ -310,6 +310,20 @@ public class MyDBHandler extends SQLiteOpenHelper{
         Cursor c = db.query(CHILD_TABLE, null, null, null, null, null, null);
         for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
             if(c.getString(c.getColumnIndex(COLUMN_NICKNAME)).equals(nickname)){
+                db.close();
+                return true;
+            }
+        }
+        db.close();
+        return false;
+    }
+    // Check new child ID-munber: if used before: true, if not in use: false.
+    public Boolean childIdInUse(String id){
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor c = db.query(CHILD_TABLE, null, null, null, null, null, null);
+        for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
+            if(c.getString(c.getColumnIndex(COLUMN_CHILD_ID)).equals(id)){
                 db.close();
                 return true;
             }

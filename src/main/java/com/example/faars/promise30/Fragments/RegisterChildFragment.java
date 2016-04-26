@@ -35,6 +35,7 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
     TextView tvChildID, tvHospitalID, tvCountry;
     String childID, hospitalID, countryID, termDate, nickname, apiKey, profileName;
     EditText showPickedTermDate, firstName;
+    Button registerChildButton;
     MyDBHandler dbHandler;
 
     @Override
@@ -48,7 +49,7 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
         tvCountry = (TextView) viewGroup.findViewById(R.id.et_country);
         showPickedTermDate = (EditText) viewGroup.findViewById(R.id.et_term_date);
         firstName = (EditText) viewGroup.findViewById(R.id.et_first_name);
-        Button registerChildButton = (Button) viewGroup.findViewById(R.id.register_child_button);
+        registerChildButton = (Button) viewGroup.findViewById(R.id.register_child_button);
 
         dbHandler = MyDBHandler.getInstance(getActivity());
 
@@ -63,34 +64,47 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
         registerChildButton.setOnClickListener(this);
         showPickedTermDate.setOnClickListener(this);
 
+        // Checks if the same childID is in use:
+        if (dbHandler.childIdInUse(childID)) {
+            Toast.makeText(getActivity(), "Child_ID in use. Can not register the same ID twice. Scan a new QR code", Toast.LENGTH_SHORT).show();
+            registerChildButton.setText("Scan new QR code");
+        }
         return viewGroup;
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.register_child_button:
-                if(checkChildInput()){
-                    termDate = showPickedTermDate.getText().toString();
-                    nickname = firstName.getText().toString();
-                    profileName = dbHandler.getCurrentProfile();
+        String buttonName = registerChildButton.getText().toString();
+        if(buttonName.equals("Register")){
+            switch (v.getId()) {
+                case R.id.register_child_button:
+                    if (checkChildInput()) {
+                        termDate = showPickedTermDate.getText().toString();
+                        nickname = firstName.getText().toString();
+                        profileName = dbHandler.getCurrentProfile();
 
-                    Child child = new Child(childID, hospitalID, countryID, termDate, nickname, profileName);
-                    dbHandler.addChild(child);
-                    dbHandler.updateCurrentChild(nickname);
+                        Child child = new Child(childID, hospitalID, countryID, termDate, nickname, profileName);
+                        dbHandler.addChild(child);
+                        dbHandler.updateCurrentChild(nickname);
 
-                    Toast toast = Toast.makeText(getActivity(),"Child Registered", Toast.LENGTH_SHORT);
-                    toast.show();
-                    getActivity().finish();
-                    startActivity(new Intent(getActivity(), MainActivity.class));
-                }
-                break;
-            case R.id.et_term_date:
-                DialogFragment termdatePicker = new TermdatePicker();
-                termdatePicker.show(getActivity().getSupportFragmentManager(), "datePicker");
-                break;
+                        Toast toast = Toast.makeText(getActivity(), "Child Registered", Toast.LENGTH_SHORT);
+                        toast.show();
+                        getActivity().finish();
+                        startActivity(new Intent(getActivity(), MainActivity.class));
+                    }
+                    break;
+                case R.id.et_term_date:
+                    DialogFragment termdatePicker = new TermdatePicker();
+                    termdatePicker.show(getActivity().getSupportFragmentManager(), "datePicker");
+                    break;
         }
-
+        }else{
+            android.support.v4.app.FragmentTransaction fragmentTransactionChild;
+            fragmentTransactionChild = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransactionChild.replace(R.id.child_container, new ReadQRcodeFragment());
+            fragmentTransactionChild.addToBackStack(null);
+            fragmentTransactionChild.commit();
+        }
     }
 
     // Ensures only one child with the same nickname
@@ -104,7 +118,7 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
         } else if (dbHandler.nicknameInUse(firstName.getText().toString())) {
             Toast.makeText(getActivity(), "Child's username in use. Choose another one.", Toast.LENGTH_SHORT).show();
             return false;
-        } else {
+        }else {
             return true;
         }
     }

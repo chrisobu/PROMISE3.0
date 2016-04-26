@@ -79,12 +79,12 @@ public class EditChildFragment extends Fragment implements View.OnClickListener{
                 termdatePicker.show(getActivity().getSupportFragmentManager(), "datePicker");
                 break;
             case R.id.save_edit_child_button:
-                if(etNickname.getText().toString().isEmpty()){
+                /*if(etNickname.getText().toString().isEmpty()){
                     etNickname.setText(nickname);
                 }
                 if (etTermDate.getText().toString().isEmpty()){
                     etTermDate.setText(termDate);
-                }
+                } */
                 Child editChild = new Child(childID, hospitalID, countryID,
                         etTermDate.getText().toString(), etNickname.getText().toString(),
                         dbHandler.getCurrentProfile());
