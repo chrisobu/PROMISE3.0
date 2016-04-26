@@ -1,5 +1,6 @@
 package com.example.faars.promise30;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -8,7 +9,7 @@ import com.example.faars.promise30.Fragments.ChooseChildFragment;
 public class ChildActivity extends AppCompatActivity  {
 
     android.support.v4.app.FragmentTransaction fragmentTransactionChild;
-    public String childID, hospitalID, country, apiKey;
+    public static String ChildID = null, HospitalID = null, Country = null;
     private static final String TAG = ChildActivity.class.getName();
 
 
@@ -36,6 +37,7 @@ public class ChildActivity extends AppCompatActivity  {
             getIntent().removeExtra("isUsed");
 
         }else{ */
+
             fragmentTransactionChild = getSupportFragmentManager().beginTransaction();
             fragmentTransactionChild.replace(R.id.child_container, new ChooseChildFragment());
             fragmentTransactionChild.commit();
@@ -43,5 +45,21 @@ public class ChildActivity extends AppCompatActivity  {
 
     }
 
+    public static void sendQRDataToChildActivity(String child, String hospital, String country){
+        ChildID = child;
+        HospitalID = hospital;
+        Country = country;
+    }
 
+    public static String getChildID() {
+        return ChildID;
+    }
+
+    public static String getHospitalID() {
+        return HospitalID;
+    }
+
+    public static String getCountry() {
+        return Country;
+    }
 }

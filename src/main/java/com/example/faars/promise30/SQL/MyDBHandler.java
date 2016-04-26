@@ -267,7 +267,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         updateChild.put(COLUMN_TERM_DATE, child.get_termDate());
         updateChild.put(COLUMN_NICKNAME, child.get_nickName());
         updateChild.put(COLUMN_PROFILE_NAME, child.get_profileName());
-        db.update(CHILD_TABLE, updateChild, COLUMN_CHILD_ID + " = ?", new String[]{child.get_childID()});
+        db.update(CHILD_TABLE, updateChild, COLUMN_NICKNAME + " = ?", new String[]{child.get_nickName()});
     }
     // return Child class of current child
     public Child getChildData(String nickName){

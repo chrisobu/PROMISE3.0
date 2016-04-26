@@ -19,7 +19,7 @@ import com.example.faars.promise30.SQL.MyDBHandler;
  */
 public class ChildActionDialog extends DialogFragment {
 
-    public final static String EXTRA_CHILDNAME = "com.example.faars.promise20";
+    public final static String EXTRA_LAYOUT = "com.example.faars.promise20";
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -34,19 +34,18 @@ public class ChildActionDialog extends DialogFragment {
                         android.support.v4.app.FragmentTransaction fragmentTransactionEditChild;
                         fragmentTransactionEditChild = getActivity().getSupportFragmentManager().beginTransaction();
                         fragmentTransactionEditChild.replace(R.id.child_container, new EditChildFragment());
+                        fragmentTransactionEditChild.addToBackStack(null);
                         fragmentTransactionEditChild.commit();
                     }
                 })
                 .setPositiveButton("Choose", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        getActivity().finish(); // TODO: can I remove this one?
-                        startActivity(new Intent(getActivity(), MainActivity.class));
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        intent.putExtra(EXTRA_LAYOUT, "MainPageFragment");
+                        getActivity().finish(); // TODO: can I remove this?
+                        startActivity(intent);
 
-                        //TODO: må kanskje sende med intent for å fortelle MainActivity hvilken layout den skal velge?
-                       /* Intent intent = new Intent(getActivity(), MainActivity.class);
-                        intent.putExtra(EXTRA_CHILDNAME, "Frida");
-                        startActivity(intent); */
                     }
                 })
                 .create();

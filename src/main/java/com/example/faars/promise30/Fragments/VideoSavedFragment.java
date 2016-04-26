@@ -23,6 +23,7 @@ public class VideoSavedFragment extends Fragment implements View.OnClickListener
         // Required empty public constructor
     }
 
+    public final static String EXTRA_LAYOUT = "com.example.faars.promise20";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,15 +44,18 @@ public class VideoSavedFragment extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.send_now_button:
-                //TODO: go to SendVideoFragment in mainActivity
-                getActivity().finish();
-                startActivity(new Intent(getActivity(), MainActivity.class));
+                Intent sendNow = new Intent(getActivity(), MainActivity.class);
+                sendNow.putExtra(EXTRA_LAYOUT, "SendVideoFragment");
+                getActivity().finish(); // TODO: can I remove this?
+                startActivity(sendNow);
                 break;
             case R.id.send_later_button:
-                //TODO: go to MyVideosFragment in mainActivity
-                getActivity().finish();
-                startActivity(new Intent(getActivity(), MainActivity.class));
+                Intent sendLater = new Intent(getActivity(), MainActivity.class);
+                sendLater.putExtra(EXTRA_LAYOUT, "MyVideosFragment");
+                getActivity().finish(); // TODO: can I remove this?
+                startActivity(sendLater);
                 break;
         }
     }
+
 }

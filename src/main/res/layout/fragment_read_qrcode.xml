@@ -9,35 +9,34 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Register a new child:"
-        android:textStyle="bold"
-        android:textSize="25dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register a new child:"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="10dp"/>
 
-    <Button
-        android:id="@+id/scan_button"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textColor="#FFFFFF"
-        android:background="#0097A7"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
-        android:clickable="true"
-        android:text="Scan QR-code now" />
+        <Button
+            android:id="@+id/scan_button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textColor="#FFFFFF"
+            android:background="#0097A7"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:clickable="true"
+            android:text="Scan QR-code now" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/test_text_view"
-        android:textSize="20dp"
-        android:layout_gravity="center_horizontal"
-        android:text="test"/>
+        <TextView
+            android:id="@+id/test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hei"
+            android:layout_margin="40dp"/>
 
     </LinearLayout>
 

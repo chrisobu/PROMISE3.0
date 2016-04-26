@@ -61,41 +61,40 @@ public class ChooseChildFragment extends Fragment implements View.OnClickListene
         ArrayList<String> ListNames = dbHandler.getAllProfileChildren(dbHandler.getCurrentProfile());
 
         if(ListNames.size()>0){
+            // Define a new Adapter
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_selectable_list_item, android.R.id.text1, ListNames);
 
+            // Assign adapter to ListView
+            lvRegisteredChildren.setAdapter(adapter);
+
+            // ListView Item Click Listener
+            lvRegisteredChildren.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    // ListView Clicked item value
+                    String  itemValue    = (String) lvRegisteredChildren.getItemAtPosition(position);
+
+                    // Selected name gets highlighted:
+                    for(int a = 0; a < parent.getChildCount(); a++) {
+                        parent.getChildAt(a).setBackgroundColor(Color.TRANSPARENT);
+                    }
+                    view.setBackgroundColor(getResources().getColor(R.color.colorSelected));
+
+                    // Update current child
+                    MyDBHandler dbHandler = MyDBHandler.getInstance(getActivity()); //cannot be global!
+                    dbHandler.updateCurrentChild(itemValue);
+
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    // Create and show the dialog.
+                    ChildActionDialog newDialog = new ChildActionDialog();
+                    newDialog.show(ft, "dialog");
+                }
+            });
         }else{
             noChildRegistered.setVisibility(View.VISIBLE);
         }
 
-        // Define a new Adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_selectable_list_item, android.R.id.text1, ListNames);
-
-        // Assign adapter to ListView
-        lvRegisteredChildren.setAdapter(adapter);
-
-        // ListView Item Click Listener
-        lvRegisteredChildren.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // ListView Clicked item value
-                String  itemValue    = (String) lvRegisteredChildren.getItemAtPosition(position);
-
-                // Selected name gets highlighted:
-                for(int a = 0; a < parent.getChildCount(); a++) {
-                    parent.getChildAt(a).setBackgroundColor(Color.TRANSPARENT);
-                }
-                view.setBackgroundColor(getResources().getColor(R.color.colorSelected));
-
-                // Update current child
-                MyDBHandler dbHandler = MyDBHandler.getInstance(getActivity()); //cannot be global!
-                dbHandler.updateCurrentChild(itemValue);
-
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                // Create and show the dialog.
-                ChildActionDialog newDialog = new ChildActionDialog();
-                newDialog.show(ft, "dialog");
-            }
-        });
         return viewGroup;
     }
 

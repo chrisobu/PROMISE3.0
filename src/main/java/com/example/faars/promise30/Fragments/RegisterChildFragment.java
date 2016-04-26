@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.faars.promise30.ChildActivity;
 import com.example.faars.promise30.MainActivity;
 import com.example.faars.promise30.R;
 import com.example.faars.promise30.SQL.Child;
@@ -52,10 +53,9 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
         dbHandler = MyDBHandler.getInstance(getActivity());
 
         // Display info from QR-code: TODO: get info from QR code to display here:
-        childID = "1234";
-        hospitalID = "STO";
-        countryID = "NO";
-        apiKey = "1234hemmelig";
+        childID = ChildActivity.getChildID();
+        hospitalID = ChildActivity.getHospitalID();
+        countryID = ChildActivity.getCountry();
         tvChildID.setText(childID);
         tvHospitalID.setText(hospitalID);
         tvCountry.setText(countryID);
@@ -78,7 +78,6 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
                     Child child = new Child(childID, hospitalID, countryID, termDate, nickname, profileName);
                     dbHandler.addChild(child);
                     dbHandler.updateCurrentChild(nickname);
-                    dbHandler.updateCurrentAPIkey(apiKey);
 
                     Toast toast = Toast.makeText(getActivity(),"Child Registered", Toast.LENGTH_SHORT);
                     toast.show();

@@ -26,10 +26,9 @@ public class MainPageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
 
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_main_page, container, false);
-
         TextView tvChildName = (TextView) viewGroup.findViewById(R.id.tvChildName);
 
         // Get current child from CURRENT_VALUES_TABLE in SQL database:

@@ -6,6 +6,7 @@ import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,18 +21,30 @@ import com.example.faars.promise30.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.example.faars.promise30.SQL.MyDBHandler;
+import com.google.zxing.Result;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ReadQRcodeFragment extends Fragment implements View.OnClickListener{
+public class ReadQRcodeFragment extends Fragment implements View.OnClickListener, ZXingScannerView.ResultHandler{
 
     public ReadQRcodeFragment() {
         // Required empty public constructor
     }
+
+    private ZXingScannerView mScannerView;
+    TextView test;
+    String ChildID = null;
+    String HospitalID = null;
+    String Country = null;
+    String APIkey = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +52,7 @@ public class ReadQRcodeFragment extends Fragment implements View.OnClickListener
 
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_read_qrcode, container, false);
         Button scanButton = (Button) viewGroup.findViewById(R.id.scan_button);
+        test = (TextView) viewGroup.findViewById(R.id.test);
         scanButton.setOnClickListener(this);
 
         return  viewGroup;
@@ -46,40 +60,29 @@ public class ReadQRcodeFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        scanNow();
-
-        //sendIfoToChildActivity();
-        android.support.v4.app.FragmentTransaction fragmentTransactionChild;
-        fragmentTransactionChild = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransactionChild.replace(R.id.child_container, new RegisterChildFragment());
-        fragmentTransactionChild.addToBackStack(null);
-        fragmentTransactionChild.commit();
+        mScannerView = new ZXingScannerView(getActivity());   // Programmatically initialize the scanner view
+        getActivity().setContentView(mScannerView);
+        mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
+        mScannerView.startCamera();         // Start camera
     }
 
-    // event handler for scan button
-    public void scanNow(){
-        IntentIntegrator integrator = new IntentIntegrator(getActivity());
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-        integrator.setPrompt("Scan a QR-code");
-        integrator.setResultDisplayDuration(0);
-        integrator.setCameraId(0);  // Use a specific camera of the device
-        integrator.initiateScan();
+    @Override
+    public void onPause() {
+        super.onPause();
+        mScannerView.stopCamera();   // Stop camera on pause
     }
 
-    // function handle scan result
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        //retrieve scan result:
-        IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+    @Override
+    public void handleResult(Result rawResult) {
+        mScannerView.stopCamera();   // Stop camera
+        Log.e("handler", rawResult.getText()); // Prints scan results
+
         JSONObject ChildData = null;
-        String ChildID = null;
-        String HospitalID = null;
-        String Country = null;
-        String APIkey = null;
+        String scanningResult = rawResult.getText();
 
         if (scanningResult != null) {
-            String scanContent = scanningResult.getContents();
             try {
-                ChildData = new JSONObject(scanContent);
+                ChildData = new JSONObject(scanningResult);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -103,6 +106,19 @@ public class ReadQRcodeFragment extends Fragment implements View.OnClickListener
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            Toast toast = Toast.makeText(getActivity(),"Scan data received!", Toast.LENGTH_SHORT);
+            toast.show();
+
+            ChildActivity.sendQRDataToChildActivity(ChildID, HospitalID, Country);
+            MyDBHandler dbHandler = MyDBHandler.getInstance(getActivity());
+            dbHandler.updateCurrentAPIkey(APIkey);
+
+            getActivity().setContentView(R.layout.activity_child);
+            android.support.v4.app.FragmentTransaction fragmentTransactionChild;
+            fragmentTransactionChild = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransactionChild.replace(R.id.child_container, new RegisterChildFragment());
+            fragmentTransactionChild.addToBackStack(null);
+            fragmentTransactionChild.commit();
 
         }else{
             Toast toast = Toast.makeText(getActivity(),"No scan data received!", Toast.LENGTH_SHORT);
@@ -110,13 +126,4 @@ public class ReadQRcodeFragment extends Fragment implements View.OnClickListener
         }
     }
 
-    /*
-    public void sendIfoToChildActivity() {
-        Intent intent = new Intent(getActivity().getBaseContext(), ChildActivity.class);
-        Bundle exstras = new Bundle();
-        exstras.putString("message", childID);
-        exstras.putString("isUsed", "true");
-        intent.putExtras(exstras);
-        getActivity().startActivity(intent);
-    } */
 }

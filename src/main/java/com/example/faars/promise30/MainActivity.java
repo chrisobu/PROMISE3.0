@@ -28,12 +28,14 @@ import com.example.faars.promise30.Fragments.MainPageFragment;
 import com.example.faars.promise30.Fragments.MyVideosFragment;
 import com.example.faars.promise30.Fragments.NewVideoFragment;
 import com.example.faars.promise30.Fragments.NextVideoFragment;
+import com.example.faars.promise30.Fragments.SendVideoFragment;
 import com.example.faars.promise30.SQL.MyDBHandler;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     android.support.v4.app.FragmentTransaction fragmentTransaction;
+    public final static String EXTRA_LAYOUT = "com.example.faars.promise20";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,28 +44,48 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Make navigation drawer (main menu)
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_container, new MainPageFragment());
-        fragmentTransaction.commit();
-        getSupportActionBar().setTitle("PROMISE 3.0");
-
-        // Get current child from CURRENT_VALUES_TABLE in SQL database:
+        // Set childName in main menu header:
         MyDBHandler dbHandler = MyDBHandler.getInstance(this);
         String childName = dbHandler.getCurrentChild();
-
-        // Set childName in left menu header:
         View navHeaderView = navigationView.getHeaderView(0);
         TextView childNameHeaderTextView = (TextView) navHeaderView.findViewById(R.id.childNameHeader);
         childNameHeaderTextView.setText(childName);
+
+        // Check which layout to display:
+        String layout = getIntent().getStringExtra(EXTRA_LAYOUT);
+
+        if(layout != null){
+            if(layout.equals("SendVideoFragment")){
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, new SendVideoFragment());
+                fragmentTransaction.commit();
+                getSupportActionBar().setTitle("PROMISE 3.0");
+            } else if(layout.equals("MyVideosFragment")) {
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, new MyVideosFragment());
+                fragmentTransaction.commit();
+                getSupportActionBar().setTitle("PROMISE 3.0");
+            }else{ // layout = "MainPageFragment" (or other)
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, new MainPageFragment());
+                fragmentTransaction.commit();
+                getSupportActionBar().setTitle("PROMISE 3.0");
+            }
+        }else{ // layout = empty
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.main_container, new MainPageFragment());
+            fragmentTransaction.commit();
+            getSupportActionBar().setTitle("PROMISE 3.0");
+        }
     }
 
     @Override
@@ -77,8 +99,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -142,7 +162,6 @@ public class MainActivity extends AppCompatActivity
             dbHandler.updateLoggedIn("false");
             finish();
             startActivity(new Intent(this, LogInActivity.class));
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
