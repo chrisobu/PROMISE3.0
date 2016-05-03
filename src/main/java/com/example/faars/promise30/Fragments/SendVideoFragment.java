@@ -42,7 +42,7 @@ public class SendVideoFragment extends Fragment implements View.OnClickListener 
                 .show();
         android.support.v4.app.FragmentTransaction fragmentTransactionVideoSent;
         fragmentTransactionVideoSent = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransactionVideoSent.replace(R.id.main_container, new StartPageFragment());
+        fragmentTransactionVideoSent.replace(R.id.main_container, new FeedbackFragment());
         fragmentTransactionVideoSent.commit();
 
     }

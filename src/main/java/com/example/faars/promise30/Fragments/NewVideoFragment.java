@@ -17,7 +17,9 @@ import android.widget.VideoView;
 
 import com.example.faars.promise30.ChildActivity;
 import com.example.faars.promise30.NewVideoActivity;
+import com.example.faars.promise30.PreviewActivity;
 import com.example.faars.promise30.R;
+import com.example.faars.promise30.SQL.MyDBHandler;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,12 +49,18 @@ public class NewVideoFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.play_instruct_video:
-                // TODO: add preview of instruction video here
+                playVideo("android.resource://" + getActivity().getPackageName() + "/" + R.raw.demo);
                 break;
             case R.id.continue_button:
                 getActivity().finish();
                 startActivity(new Intent(getActivity(), NewVideoActivity.class));
                 break;
         }
+    }
+
+    private void playVideo(String filename) {
+        Intent videoPreviewActivity = new Intent(getActivity(), PreviewActivity.class);
+        videoPreviewActivity.putExtra("fileRes", filename);
+        startActivity(videoPreviewActivity);
     }
 }

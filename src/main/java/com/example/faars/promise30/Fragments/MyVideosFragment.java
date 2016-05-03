@@ -75,6 +75,7 @@ public class MyVideosFragment extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     // ListView Clicked item value
                     String itemValue = (String) lvVideosTaken.getItemAtPosition(position);
+                    dbHandler.updateCurrentVideo(itemValue);
 
                     // Selected name gets highlighted:
                     for (int a = 0; a < parent.getChildCount(); a++) {
@@ -83,7 +84,7 @@ public class MyVideosFragment extends Fragment {
                     view.setBackgroundColor(getResources().getColor(R.color.colorSelected));
 
                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                    // Create and show the dialog.
+                    // Create and show the dialog:
                     ShowOrSendDialog newDialog = new ShowOrSendDialog();
                     newDialog.show(ft, "ShowOrSend");
                 }
