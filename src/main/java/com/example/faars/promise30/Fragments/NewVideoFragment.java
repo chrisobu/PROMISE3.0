@@ -34,9 +34,10 @@ public class NewVideoFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_new_video, container, false);
 
+
+        // TODO: if not in right timezone, say so and don't show this:
         ImageView playButton = (ImageView) viewGroup.findViewById(R.id.play_instruct_video);
         Button continueButton = (Button) viewGroup.findViewById(R.id.continue_button);
         playButton.setOnClickListener(this);

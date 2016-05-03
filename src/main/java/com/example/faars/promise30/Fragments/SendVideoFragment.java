@@ -25,11 +25,9 @@ public class SendVideoFragment extends Fragment implements View.OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_send_video, container, false);
 
         Button sendButton = (Button) viewGroup.findViewById(R.id.send_button);
-
         sendButton.setOnClickListener(this);
 
         return viewGroup;
@@ -37,9 +35,7 @@ public class SendVideoFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(getActivity(),
-                "Video sent!", Toast.LENGTH_LONG)
-                .show();
+        Toast.makeText(getActivity(), "Video sent!", Toast.LENGTH_LONG).show();
         android.support.v4.app.FragmentTransaction fragmentTransactionVideoSent;
         fragmentTransactionVideoSent = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransactionVideoSent.replace(R.id.main_container, new FeedbackFragment());

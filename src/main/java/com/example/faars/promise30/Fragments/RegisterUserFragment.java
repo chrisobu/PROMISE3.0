@@ -43,12 +43,12 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_register_user, container, false);
+
         TextView orLogIn = (TextView) viewGroup.findViewById(R.id.tvLogInOption);
         SpannableString content = new SpannableString("or log in");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         orLogIn.setText(content);
 
-        // TODO: save username and password
         etNewUsername = (EditText) viewGroup.findViewById(R.id.etNewUsername);
         etNewPassword = (EditText) viewGroup.findViewById(R.id.etNewPassword);
         etNewPasswordCheck = (EditText) viewGroup.findViewById(R.id.etNewPasswordCheck);
@@ -59,10 +59,6 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
         bRegister.setOnClickListener(this);
         LogInOption.setOnClickListener(this);
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        //client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-
         return viewGroup;
     }
 
@@ -72,15 +68,11 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
             case R.id.bCreateProfile:
                  if(checkInput()){
                     saveUserProfile();
-
-                    Toast.makeText(getActivity(),
-                            "Profile saved!", Toast.LENGTH_LONG)
-                            .show();
+                    Toast.makeText(getActivity(), "Profile saved!", Toast.LENGTH_LONG).show();
                     getActivity().finish();
                     startActivity(new Intent(getActivity(), ChildActivity.class));
                 }
                 break;
-
             case R.id.tvLogInOption:
                 android.support.v4.app.FragmentTransaction fragmentTransactionLogInOption;
                 fragmentTransactionLogInOption = getActivity().getSupportFragmentManager().beginTransaction();

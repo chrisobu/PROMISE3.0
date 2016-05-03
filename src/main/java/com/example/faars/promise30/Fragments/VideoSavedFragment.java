@@ -28,12 +28,10 @@ public class VideoSavedFragment extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_video_saved, container, false);
 
         Button sendNowButton = (Button) viewGroup.findViewById(R.id.send_now_button);
         Button sendLaterButton = (Button) viewGroup.findViewById(R.id.send_later_button);
-
         sendNowButton.setOnClickListener(this);
         sendLaterButton.setOnClickListener(this);
 

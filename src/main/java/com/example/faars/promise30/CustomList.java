@@ -24,13 +24,11 @@ public class CustomList extends ArrayAdapter<String> {
 
     private final Activity context;
     private final ArrayList<String> childVideos;
-   // private final Integer[] imageId;
 
     public CustomList(Activity context, ArrayList<String> childVideos) {
         super(context, R.layout.my_list_view, childVideos);
         this.context = context;
         this.childVideos = childVideos;
-       // this.imageId = imageId;
 
     }
     @Override
@@ -47,7 +45,6 @@ public class CustomList extends ArrayAdapter<String> {
         String diskState = Environment.getExternalStorageState();
         if(diskState.equals("mounted")){
             File directory = new File("/storage/sdcard0/Pictures/PROMISE/" + fileName);
-
             if(directory.exists()){
                 Glide.with(context)
                         .load(Uri.fromFile((directory)))
@@ -58,8 +55,6 @@ public class CustomList extends ArrayAdapter<String> {
             }
         }
 
-
-        //imageView.setImageResource(imageId[position]);
         return rowView;
     }
 }

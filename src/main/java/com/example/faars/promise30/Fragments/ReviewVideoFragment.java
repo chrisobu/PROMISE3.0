@@ -24,11 +24,9 @@ public class ReviewVideoFragment extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_review_video, container, false);
 
         Button reviewContinueButton = (Button) viewGroup.findViewById(R.id.review_continue_button);
-
         reviewContinueButton.setOnClickListener(this);
 
         return viewGroup;

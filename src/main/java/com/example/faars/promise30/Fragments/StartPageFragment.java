@@ -33,6 +33,7 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_start_page, container, false);
+
         ImageView ivEnglish = (ImageView) viewGroup.findViewById(R.id.ivEnglish);
         ImageView ivNorwegian = (ImageView) viewGroup.findViewById(R.id.ivNorwegian);
         Login = (Button) viewGroup.findViewById(R.id.bLogin);

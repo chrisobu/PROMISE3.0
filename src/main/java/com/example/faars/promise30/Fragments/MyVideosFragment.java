@@ -42,15 +42,11 @@ public class MyVideosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_my_videos, container, false);
 
         TextView noVideos = (TextView) viewGroup.findViewById(R.id.no_videos);
         lvVideosTaken = (ListView) viewGroup.findViewById(R.id.lvVideosTaken);
         dbHandler = MyDBHandler.getInstance(getActivity());
-
-        // TODO: replace with videos taken with thumbnail:
-
 
         // Get List of videos for current profile of current child:
         ArrayList<String> ListVideos = null;

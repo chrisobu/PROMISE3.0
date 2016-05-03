@@ -48,8 +48,8 @@ public class ReadQRcodeFragment extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_read_qrcode, container, false);
+
         Button scanButton = (Button) viewGroup.findViewById(R.id.scan_button);
         scanButton.setOnClickListener(this);
 
@@ -58,22 +58,23 @@ public class ReadQRcodeFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        mScannerView = new ZXingScannerView(getActivity());   // Programmatically initialize the scanner view
+        // initialize the scanner view:
+        mScannerView = new ZXingScannerView(getActivity());
         getActivity().setContentView(mScannerView);
-        mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
-        mScannerView.startCamera();         // Start camera
+        mScannerView.setResultHandler(this);
+        mScannerView.startCamera();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mScannerView.stopCamera();   // Stop camera on pause
+        mScannerView.stopCamera();
     }
 
     @Override
     public void handleResult(Result rawResult) {
-        mScannerView.stopCamera();   // Stop camera
-        Log.e("handler", rawResult.getText()); // Prints scan results
+        mScannerView.stopCamera();
+        Log.e("handler", rawResult.getText());
 
         JSONObject ChildData = null;
         String scanningResult = rawResult.getText();

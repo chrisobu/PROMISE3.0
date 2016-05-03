@@ -15,7 +15,6 @@ import com.example.faars.promise30.R;
  */
 public class RecapInfoFragment extends Fragment implements View.OnClickListener{
 
-
     public RecapInfoFragment() {
         // Required empty public constructor
     }
@@ -24,11 +23,9 @@ public class RecapInfoFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_recap_info, container, false);
 
         Button recapContinueButton = (Button) viewGroup.findViewById(R.id.recap_continue_button);
-
         recapContinueButton.setOnClickListener(this);
 
         return viewGroup;

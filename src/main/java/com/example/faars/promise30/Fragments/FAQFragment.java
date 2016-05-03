@@ -27,7 +27,6 @@ public class FAQFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_faq, container, false);
 
         ImageView show1 = (ImageView) viewGroup.findViewById(R.id.show_answer_1);

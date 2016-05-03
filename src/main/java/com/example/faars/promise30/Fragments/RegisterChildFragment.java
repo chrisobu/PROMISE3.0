@@ -41,7 +41,6 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_register_child, container, false);
 
         tvChildID = (TextView) viewGroup.findViewById(R.id.et_child_id);
@@ -53,7 +52,7 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
 
         dbHandler = MyDBHandler.getInstance(getActivity());
 
-        // Display info from QR-code: TODO: get info from QR code to display here:
+        // Display info from QR-code:
         childID = ChildActivity.getChildID();
         hospitalID = ChildActivity.getHospitalID();
         countryID = ChildActivity.getCountry();
@@ -66,7 +65,8 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
 
         // Checks if the same childID is in use:
         if (dbHandler.childIdInUse(childID)) {
-            Toast.makeText(getActivity(), "Child_ID in use. Can not register the same ID twice. Scan a new QR code", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Child_ID in use. Can not register the same ID twice. " +
+                    "Scan a new QR code", Toast.LENGTH_SHORT).show();
             registerChildButton.setText("Scan new QR code");
         }
         return viewGroup;
@@ -144,9 +144,6 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
 
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            /* Toast.makeText(getActivity(), String.valueOf(dayOfMonth) + " " + getMonthName(monthOfYear) +
-                    " " + String.valueOf(year), Toast.LENGTH_LONG).show(); */
-
             showPickedTermDate.setText(String.valueOf(dayOfMonth) + ". " + getMonthName(monthOfYear) + " " + String.valueOf(year));
         }
 

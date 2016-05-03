@@ -27,7 +27,6 @@ public class MainPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_main_page, container, false);
         TextView tvChildName = (TextView) viewGroup.findViewById(R.id.tvChildName);
 

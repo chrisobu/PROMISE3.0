@@ -37,7 +37,6 @@ public class EditChildFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_edit_child, container, false);
 
         Button saveChildEditButton = (Button) viewGroup.findViewById(R.id.save_edit_child_button);
@@ -79,16 +78,15 @@ public class EditChildFragment extends Fragment implements View.OnClickListener{
                 termdatePicker.show(getActivity().getSupportFragmentManager(), "datePicker");
                 break;
             case R.id.save_edit_child_button:
-                /*if(etNickname.getText().toString().isEmpty()){
+                if(etNickname.getText().toString().isEmpty()){
                     etNickname.setText(nickname);
                 }
                 if (etTermDate.getText().toString().isEmpty()){
                     etTermDate.setText(termDate);
-                } */
+                }
                 Child editChild = new Child(childID, hospitalID, countryID,
                         etTermDate.getText().toString(), etNickname.getText().toString(),
                         dbHandler.getCurrentProfile());
-                // TODO: updateChild() not working
                 dbHandler.updateChild(editChild);
 
                 android.support.v4.app.FragmentTransaction fragmentTransactionSaveEdit;
@@ -118,7 +116,6 @@ public class EditChildFragment extends Fragment implements View.OnClickListener{
     /** TERM DATE PICKER DIALOG CLASS **/
     // Not recommended to include a class in another, but I don't get to display the date otherwise
     public class TermdatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-
 
         @Override
         public DatePickerDialog onCreateDialog(Bundle savedInstanceState) {

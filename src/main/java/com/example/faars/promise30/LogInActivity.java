@@ -26,6 +26,7 @@ public class LogInActivity extends AppCompatActivity {
         MyDBHandler dbHandler = MyDBHandler.getInstance(this);
         dbHandler.createCurrentValues();
 
+        // TODO: if no profile register go to registerProfileFragment
         fragmentTransactionLogIn = getSupportFragmentManager().beginTransaction();
         fragmentTransactionLogIn.replace(R.id.log_in_container, new StartPageFragment());
         fragmentTransactionLogIn.commit();
