@@ -35,7 +35,7 @@ public class NewVideoFragment extends Fragment implements View.OnClickListener{
         // Inflate the layout for this fragment
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_new_video, container, false);
 
-        ImageView playButton = (ImageView) viewGroup.findViewById(R.id.play_intruct_video);
+        ImageView playButton = (ImageView) viewGroup.findViewById(R.id.play_instruct_video);
         Button continueButton = (Button) viewGroup.findViewById(R.id.continue_button);
         playButton.setOnClickListener(this);
         continueButton.setOnClickListener(this);
@@ -46,7 +46,7 @@ public class NewVideoFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.play_intruct_video:
+            case R.id.play_instruct_video:
                 // TODO: add preview of instruction video here
                 break;
             case R.id.continue_button:

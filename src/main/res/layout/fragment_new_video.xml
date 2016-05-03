@@ -28,7 +28,7 @@
                 android:src="@drawable/demo_screenshot" />
 
             <ImageView
-                android:id="@+id/play_intruct_video"
+                android:id="@+id/play_instruct_video"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/play2"

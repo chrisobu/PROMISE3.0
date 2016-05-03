@@ -16,12 +16,22 @@
             android:text="My videos:"
             android:textStyle="bold"
             android:textSize="20dp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="40dp"/>
+
+        <TextView
+            android:id="@+id/no_videos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Videos taken"
+            android:textSize="16dp"
+            android:visibility="gone"/>
 
         <ListView
             android:id="@+id/lvVideosTaken"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:divider="@color/colorPrimary"
+            android:dividerHeight="1dp"/>
 
     </LinearLayout>
 

@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import com.example.faars.promise30.R;
+import com.example.faars.promise30.SQL.MyDBHandler;
+import com.example.faars.promise30.SQL.Video;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -34,12 +36,14 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
     }
 
     private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
-    private Uri fileUri;
+    private static Uri fileUri;
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
     static File mediaStorageDir;
     Button cameraButton;
     ImageView showThumbnail;
+    static MyDBHandler dbHandler;
+    static String APP_FOLDER = "PROMISE";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +55,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
         showThumbnail = (ImageView) viewGroup.findViewById(R.id.ivPicture);
 
         cameraButton.setOnClickListener(this);
+        dbHandler = MyDBHandler.getInstance(getActivity());
 
         return viewGroup;
     }
@@ -82,7 +87,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
         if (requestCode == CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 // Video captured and saved to fileUri specified in the Intent
-                Toast.makeText(getActivity(), "Video saved to: MyCameraApp", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Video saved to:" + APP_FOLDER, Toast.LENGTH_LONG).show();
 
                 Glide.with(this)
                         .load(fileUri)
@@ -114,27 +119,31 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.
 
+
         mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "MyCameraApp");
+                Environment.DIRECTORY_PICTURES), APP_FOLDER);
         // This location works best if you want the created images to be shared
         // between applications and persist after your app has been uninstalled.
 
         // Create the storage directory if it does not exist
         if (! mediaStorageDir.exists()){
             if (! mediaStorageDir.mkdirs()){
-                Log.d("MyCameraApp", "failed to create directory");
+                Log.d(APP_FOLDER, "failed to create directory");
                 return null;
             }
         }
         // Create a media file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String timeStamp = new SimpleDateFormat("yyyy_MMM_dd_HH:mm").format(new Date());
         File mediaFile;
         if (type == MEDIA_TYPE_IMAGE){
             mediaFile = new File(mediaStorageDir.getPath() + File.separator +
                     "IMG_"+ timeStamp + ".jpg");
         } else if(type == MEDIA_TYPE_VIDEO) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    "VID_"+ timeStamp + ".mp4");
+            String fileName = dbHandler.getCurrentChild() + "_"+ timeStamp + ".mp4";
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator + fileName);
+            dbHandler.updateCurrentVideo(fileName);
+            Video video = new Video(fileName, "false", dbHandler.getCurrentProfile(), dbHandler.getCurrentChild());
+            dbHandler.addVideo(video);
         } else {
             return null;
         }

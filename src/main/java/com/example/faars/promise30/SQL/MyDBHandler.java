@@ -32,8 +32,15 @@ public class MyDBHandler extends SQLiteOpenHelper{
     public static final String COLUMN_COUNTRY_ID = "countryID";
     public static final String COLUMN_TERM_DATE = "termDate";
     public static final String COLUMN_NICKNAME = "nickName";
-
     public static final String COLUMN_PROFILE_NAME = "profileName";
+
+    // VIDEO TABLE:
+    public static final String VIDEO_TABLE= "videos"; // Name of the table
+    public static final String COLUMN_VIDEO_ID = "_id";
+    public static final String COLUMN_FILENAME = "filename";
+    public static final String COLUMN_SENT_STATUS = "sent";
+    public static final String COLUMN_PROFILE = "profileName";
+    public static final String COLUMN_CHILD = "childName";
 
     // CURRENT VALUES TABLE:
     public static final String CURRENT_VALUES_TABLE= "currentValues"; // Name of the table
@@ -51,7 +58,6 @@ public class MyDBHandler extends SQLiteOpenHelper{
         }
         return sInstance;
     }
-
     private MyDBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -73,6 +79,13 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 + COLUMN_PROFILE_NAME + " TEXT" + " )";
         db.execSQL(childQuery);
 
+        // create a new video table
+        String videoQuery = "CREATE TABLE " + VIDEO_TABLE + " (" + COLUMN_VIDEO_ID +
+                " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_FILENAME + " TEXT, "
+                + COLUMN_SENT_STATUS + " TEXT, " + COLUMN_PROFILE + " TEXT, "
+                + COLUMN_CHILD + " TEXT" + " )";
+        db.execSQL(videoQuery);
+
         // create a new current values table
         String currentValuesQuery = "CREATE TABLE " + CURRENT_VALUES_TABLE + " (" + COLUMN_VALUE_ID +
                 " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_NAME +
@@ -87,12 +100,13 @@ public class MyDBHandler extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS" + PROFILE_TABLE);
         db.execSQL("DROP TABLE IF EXISTS" + CHILD_TABLE);
         db.execSQL("DROP TABLE IF EXISTS" + CURRENT_VALUES_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS" + VIDEO_TABLE);
         // create a new database
         onCreate(db);
     }
 
 
-    /** CURRENT VALUES TABLE **/
+    /**------------------------ CURRENT VALUES TABLE ------------------------**/
     public void createCurrentValues(){
         SQLiteDatabase db = getWritableDatabase();
 
@@ -239,7 +253,86 @@ public class MyDBHandler extends SQLiteOpenHelper{
         return null;
     }
 
-    /** CHILD TABLE **/
+
+    /**------------------------ VIDEO TABLE ------------------------**/
+    // Add a new row to the table
+    public void addVideo(Video video){
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_FILENAME, video.get_filename());
+        values.put(COLUMN_SENT_STATUS, video.get_sentStatus());
+        values.put(COLUMN_PROFILE, video.get_profileName());
+        values.put(COLUMN_CHILD, video.get_childName());
+        SQLiteDatabase db = getWritableDatabase();
+        db.insert(VIDEO_TABLE, null, values);
+    }
+    // Delete a row in the table
+    public void deleteVideo(String filename){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM " + VIDEO_TABLE + " WHERE " + COLUMN_FILENAME + "=\"" + filename + "\";");
+    }
+    // Update a row in the table
+    public void updateVideo(Video video){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues updateVideo = new ContentValues();
+        updateVideo.put(COLUMN_FILENAME, video.get_filename());
+        updateVideo.put(COLUMN_SENT_STATUS, video.get_sentStatus());
+        updateVideo.put(COLUMN_PROFILE, video.get_profileName());
+        updateVideo.put(COLUMN_CHILD, video.get_childName());
+        db.update(VIDEO_TABLE, updateVideo, COLUMN_FILENAME + " = ?", new String[]{video.get_filename()});
+    }
+    // Return Video class of current video
+    public Video getVideoData(String filename){
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor c = db.query(VIDEO_TABLE, null, null, null, null, null, null);
+        for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
+            if(c.getString(c.getColumnIndex(COLUMN_FILENAME)).equals(filename)){
+                Video videoData = new Video (filename,
+                        c.getString(c.getColumnIndex(COLUMN_SENT_STATUS)),
+                        c.getString(c.getColumnIndex(COLUMN_PROFILE)),
+                        c.getString(c.getColumnIndex(COLUMN_CHILD)) );
+                db.close();
+                return videoData;
+            }
+        }
+        db.close();
+        return null;
+    }
+    // Return all videos taken by current profile of current child
+    public ArrayList<String> getAllCurrentVideos(String profile, String child){
+        ArrayList<String> ListVideos = new ArrayList<String>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor c = db.query(VIDEO_TABLE, null, null, null, null, null, null);
+        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+            if(c.getString(c.getColumnIndex(COLUMN_PROFILE)).equals(profile) &&
+                    c.getString(c.getColumnIndex(COLUMN_CHILD)).equals(child)){
+                ListVideos.add(c.getString(c.getColumnIndex(COLUMN_FILENAME)));
+            }
+        }
+        db.close();
+        return ListVideos;
+    }
+    // Return all SENT videos taken by current profile of current child
+    public ArrayList<String> getAllCurrentSentVideos(){
+        ArrayList<String> ListVideos = new ArrayList<String>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor c = db.query(VIDEO_TABLE, null, null, null, null, null, null);
+        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+            if(c.getString(c.getColumnIndex(COLUMN_PROFILE)).equals(getCurrentProfile()) &&
+                    c.getString(c.getColumnIndex(COLUMN_CHILD)).equals(getCurrentChild()) &&
+                    c.getString(c.getColumnIndex(COLUMN_SENT_STATUS)).equals("sent")){
+                ListVideos.add(c.getString(c.getColumnIndex(COLUMN_FILENAME)));
+            }
+        }
+        db.close();
+        return ListVideos;
+    }
+
+
+
+    /**------------------------ CHILD TABLE ------------------------**/
     // Add a new row to the table
     public void addChild(Child child){
         ContentValues values = new ContentValues();
@@ -333,7 +426,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
     }
 
 
-    /** PROFILE TABLE **/
+    /**------------------------ PROFILE TABLE ------------------------**/
     // Add a new row to the table
     public void addProfile(Profile profile){
         ContentValues values = new ContentValues();
@@ -387,7 +480,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         return null;
     }
 
-    /** PRINT OUT A TABLE AS A STRING **/
+    /**------------------------ PRINT OUT A TABLE AS A STRING ------------------------**/
     public String databaseToString(){
         String dbString = "";
         SQLiteDatabase db = getWritableDatabase();

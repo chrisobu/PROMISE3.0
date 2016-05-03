@@ -33,8 +33,6 @@ public class ChooseChildFragment extends Fragment implements View.OnClickListene
         // Required empty public constructor
     }
 
-    /*It's generally a good practice to define keys for intent extras using your app's package name
-    as a prefix. This ensures the keys are unique, in case your app interacts with other apps: */
     ListView lvRegisteredChildren;
 
     @Override
@@ -43,13 +41,12 @@ public class ChooseChildFragment extends Fragment implements View.OnClickListene
         // Inflate the layout for this fragment
 
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_choose_child, container, false);
-        //TODO: Get registered children on current profile and display in listView: R.id.lvRegisteredChild
 
         lvRegisteredChildren = (ListView) viewGroup.findViewById(R.id.lvRegisteredChild);
-
         TextView orRegisterNewChild = (TextView) viewGroup.findViewById(R.id.orRegisterNewChildOption);
         TextView noChildRegistered = (TextView) viewGroup.findViewById(R.id.no_child_registered);
 
+        // Underline "Or Register a new child"- text
         SpannableString content = new SpannableString("Or Register a New Child");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         orRegisterNewChild.setText(content);
