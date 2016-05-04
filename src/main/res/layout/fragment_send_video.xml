@@ -15,13 +15,13 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/demo_screenshot"
+                android:id="@+id/thumbnail_video"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
                 android:src="@drawable/baby" />
 
             <ImageView
-                android:id="@+id/play_intruct_video"
+                android:id="@+id/play_current_video"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/play2"
@@ -38,7 +38,7 @@
             android:layout_marginTop="30dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Send Video"/>
+            android:text="Send"/>
 
     </LinearLayout>
 

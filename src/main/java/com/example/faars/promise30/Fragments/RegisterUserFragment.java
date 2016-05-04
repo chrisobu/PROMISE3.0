@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.faars.promise30.ChildActivity;
+import com.example.faars.promise30.MainActivity;
 import com.example.faars.promise30.R;
 import com.example.faars.promise30.SQL.MyDBHandler;
 import com.example.faars.promise30.SQL.Profile;
@@ -36,6 +37,7 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
         // Required empty public constructor
     }
 
+    public final static String EXTRA_LAYOUT = "com.example.faars.promise20";
     EditText etNewUsername, etNewPassword, etNewPasswordCheck;
     MyDBHandler dbHandler;
 
@@ -67,10 +69,12 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
         switch (v.getId()) {
             case R.id.bCreateProfile:
                  if(checkInput()){
-                    saveUserProfile();
-                    Toast.makeText(getActivity(), "Profile saved!", Toast.LENGTH_LONG).show();
-                    getActivity().finish();
-                    startActivity(new Intent(getActivity(), ChildActivity.class));
+                     saveUserProfile();
+                     Toast.makeText(getActivity(), "Profile saved!", Toast.LENGTH_LONG).show();
+                     Intent intent = new Intent(getActivity(), ChildActivity.class);
+                     intent.putExtra(EXTRA_LAYOUT, "RegisterChildFragment");
+                     getActivity().finish(); // TODO: can I remove this?
+                     startActivity(intent);
                 }
                 break;
             case R.id.tvLogInOption:

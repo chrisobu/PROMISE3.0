@@ -48,14 +48,22 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_camera, container, false);
+
+        dbHandler = MyDBHandler.getInstance(getActivity());
 
         cameraButton = (Button) viewGroup.findViewById(R.id.camera_button);
         showThumbnail = (ImageView) viewGroup.findViewById(R.id.ivPicture);
-
         cameraButton.setOnClickListener(this);
-        dbHandler = MyDBHandler.getInstance(getActivity());
+
+        //TODO: remove this? don't go straight to camera?
+        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        fileUri = getOutputMediaFileUri(MEDIA_TYPE_VIDEO);  // create a file to save the video
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);  // set the image file name
+        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); // set the video image quality to high
+
+        // start the Video Capture Intent
+        startActivityForResult(intent, CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE);
 
         return viewGroup;
     }

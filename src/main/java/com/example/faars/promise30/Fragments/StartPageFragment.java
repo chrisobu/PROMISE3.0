@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.faars.promise30.ChildActivity;
 import com.example.faars.promise30.MainActivity;
 import com.example.faars.promise30.R;
+import com.example.faars.promise30.SQL.MyDBHandler;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +28,7 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
 
     Button About, Login;
     android.support.v4.app.FragmentTransaction fragmentTransactionLogIn;
+    MyDBHandler dbHandler;
 
 
     @Override
@@ -34,6 +36,7 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_start_page, container, false);
 
+        dbHandler = MyDBHandler.getInstance(getActivity());
         ImageView ivEnglish = (ImageView) viewGroup.findViewById(R.id.ivEnglish);
         ImageView ivNorwegian = (ImageView) viewGroup.findViewById(R.id.ivNorwegian);
         Login = (Button) viewGroup.findViewById(R.id.bLogin);
@@ -60,11 +63,17 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.bLogin:
                 // TODO: If: ingen registrerte profiler er lagret på telefonen...
-                fragmentTransactionLogIn = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransactionLogIn.replace(R.id.log_in_container, new LogInFragment());
-                fragmentTransactionLogIn.addToBackStack(null);
-                fragmentTransactionLogIn.commit();
-                // TODO: else: log in side
+                if(dbHandler.checkIfAnyRegisteredProfiles()) {
+                    fragmentTransactionLogIn = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransactionLogIn.replace(R.id.log_in_container, new LogInFragment());
+                    fragmentTransactionLogIn.addToBackStack(null);
+                    fragmentTransactionLogIn.commit();
+                }else{
+                    fragmentTransactionLogIn = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransactionLogIn.replace(R.id.log_in_container, new RegisterUserFragment());
+                    fragmentTransactionLogIn.addToBackStack(null);
+                    fragmentTransactionLogIn.commit();
+                }
                 break;
             case R.id.bAbout:
                 fragmentTransactionLogIn = getActivity().getSupportFragmentManager().beginTransaction();

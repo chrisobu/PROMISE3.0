@@ -81,9 +81,6 @@ public class EditChildFragment extends Fragment implements View.OnClickListener{
                 if(etNickname.getText().toString().isEmpty()){
                     etNickname.setText(nickname);
                 }
-                if (etTermDate.getText().toString().isEmpty()){
-                    etTermDate.setText(termDate);
-                }
                 Child editChild = new Child(childID, hospitalID, countryID,
                         etTermDate.getText().toString(), etNickname.getText().toString(),
                         dbHandler.getCurrentProfile());
@@ -102,6 +99,7 @@ public class EditChildFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.delete_edit_child_button:
                 dbHandler.deleteChild(dbHandler.getCurrentChild());
+                dbHandler.deleteAllVideosOfChild(dbHandler.getCurrentChild());
 
                 android.support.v4.app.FragmentTransaction fragmentTransactionDeleteEdit;
                 fragmentTransactionDeleteEdit = getActivity().getSupportFragmentManager().beginTransaction();

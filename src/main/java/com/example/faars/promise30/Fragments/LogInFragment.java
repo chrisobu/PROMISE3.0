@@ -30,6 +30,7 @@ public class LogInFragment extends Fragment implements View.OnClickListener{
     }
 
     EditText username, password;
+    public final static String EXTRA_LAYOUT = "com.example.faars.promise20";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,8 +58,10 @@ public class LogInFragment extends Fragment implements View.OnClickListener{
         switch (v.getId()) {
             case R.id.bLogIn:
                 if(checkLogInData()){
-                    getActivity().finish(); // TODO: can I remove this one?
-                    startActivity(new Intent(getActivity(), ChildActivity.class));
+                    Intent intent = new Intent(getActivity(), ChildActivity.class);
+                    intent.putExtra(EXTRA_LAYOUT, "ChooseChildFragment");
+                    getActivity().finish(); // TODO: can I remove this?
+                    startActivity(intent);
                 }
                 break;
             case R.id.orRegisterNewProfileOption:

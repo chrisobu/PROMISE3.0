@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
 
 import com.example.faars.promise30.Fragments.EditChildFragment;
 import com.example.faars.promise30.Fragments.SendVideoFragment;
@@ -22,10 +23,11 @@ import com.example.faars.promise30.SQL.Video;
 public class ShowOrSendDialog extends DialogFragment {
 
 
+    MyDBHandler dbHandler;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        final MyDBHandler dbHandler = MyDBHandler.getInstance(getActivity());
+        dbHandler = MyDBHandler.getInstance(getActivity());
 
         return new AlertDialog.Builder(getActivity())
                 .setTitle(dbHandler.getCurrentVideo())
@@ -35,16 +37,18 @@ public class ShowOrSendDialog extends DialogFragment {
                         playVideo(dbHandler.getCurrentVideo());
                     }
                 })
-                .setPositiveButton("Send",  new DialogInterface.OnClickListener() {
+                .setPositiveButton("Send", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        MyDBHandler dbHandler = MyDBHandler.getInstance(getActivity());
-                        Video video = new Video(dbHandler.getCurrentVideo(), "true", dbHandler.getCurrentProfile(), dbHandler.getCurrentChild());
-                        dbHandler.updateVideo(video);
-                        android.support.v4.app.FragmentTransaction fragmentTransactionVideoSent;
-                        fragmentTransactionVideoSent = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransactionVideoSent.replace(R.id.main_container, new SendVideoFragment());
-                        fragmentTransactionVideoSent.commit();
+                        if (dbHandler.videoIsSent()) {
+                            Toast.makeText(getActivity(), "This video is already sent", Toast.LENGTH_LONG).show();
+                        } else {
+                            android.support.v4.app.FragmentTransaction fragmentTransactionVideoSent;
+                            fragmentTransactionVideoSent = getActivity().getSupportFragmentManager().beginTransaction();
+                            fragmentTransactionVideoSent.replace(R.id.main_container, new SendVideoFragment());
+                            fragmentTransactionVideoSent.addToBackStack(null);
+                            fragmentTransactionVideoSent.commit();
+                        }
                     }
                 })
                 .create();

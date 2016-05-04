@@ -10,6 +10,27 @@
         android:orientation="vertical"
         android:layout_margin="20dp">
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/thumbnail_video3"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/baby" />
+
+            <ImageView
+                android:id="@+id/play3"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/play2"
+                android:padding="20dp"
+                android:layout_centerInParent="true"
+                android:clickable="true"/>
+        </RelativeLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,31 +40,43 @@
             android:layout_marginBottom="20dp"/>
 
         <CheckBox
+            android:id="@+id/check1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="The child does not cry"
             android:layout_marginBottom="10dp"/>
 
         <CheckBox
+            android:id="@+id/check2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="The child is not disturbed"
             android:layout_marginBottom="10dp"/>
 
         <CheckBox
+            android:id="@+id/check3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="The video is at least 3 minutes long"
             android:layout_marginBottom="10dp"/>
 
         <Button
-            android:id="@+id/review_continue_button"
-            android:layout_width="150dp"
+            android:id="@+id/approve_button"
+            android:layout_width="170dp"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="Approve"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/new_video_button"
+            android:layout_width="170dp"
             android:textColor="#FFFFFF"
             android:background="@color/colorPrimary"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:text="Approve"
+            android:layout_marginTop="10dp"
+            android:text="Take a new video"
             android:layout_height="wrap_content" />
 
 

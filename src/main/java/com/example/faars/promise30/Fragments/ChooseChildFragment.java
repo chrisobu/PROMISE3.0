@@ -45,7 +45,7 @@ public class ChooseChildFragment extends Fragment implements View.OnClickListene
         TextView noChildRegistered = (TextView) viewGroup.findViewById(R.id.no_child_registered);
 
         // Underline "Or Register a new child"- text
-        SpannableString content = new SpannableString("Or Register a New Child");
+        SpannableString content = new SpannableString("or register a new child");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         orRegisterNewChild.setText(content);
 

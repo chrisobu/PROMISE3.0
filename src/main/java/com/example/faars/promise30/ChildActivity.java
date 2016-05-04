@@ -5,12 +5,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.faars.promise30.Fragments.ChooseChildFragment;
+import com.example.faars.promise30.Fragments.MainPageFragment;
+import com.example.faars.promise30.Fragments.MyVideosFragment;
+import com.example.faars.promise30.Fragments.ReadQRcodeFragment;
+import com.example.faars.promise30.Fragments.RegisterChildFragment;
+import com.example.faars.promise30.Fragments.SendVideoFragment;
 
 public class ChildActivity extends AppCompatActivity  {
 
     android.support.v4.app.FragmentTransaction fragmentTransactionChild;
     public static String ChildID = null, HospitalID = null, Country = null;
-    private static final String TAG = ChildActivity.class.getName();
+    public final static String EXTRA_LAYOUT = "com.example.faars.promise20";
 
 
     @Override
@@ -18,31 +23,27 @@ public class ChildActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_child);
 
-        //TODO: check if any children are registered on current profile, if so show ChooseChildFragment, else show RegisterChildFragment
-        // receive this data in Activity:
-      /*  Intent intent = getIntent();
-        String intentIsUsed = intent.getStringExtra("isUsed");
+        // Check which layout to display:
+        String layout = getIntent().getStringExtra(EXTRA_LAYOUT);
 
-        if(intentIsUsed.equals("true")){
-            // send data to Fragment
-            String childIDmessage = intent.getStringExtra("message");
-            Bundle bundle = new Bundle();
-            bundle.putString("message", childIDmessage);
-            RegisterChildFragment fragobj = new RegisterChildFragment();
-            fragobj.setArguments(bundle);
-            fragmentTransactionChild = getSupportFragmentManager().beginTransaction();
-            fragmentTransactionChild.replace(R.id.child_container, fragobj);
-            fragmentTransactionChild.addToBackStack(null);
-            fragmentTransactionChild.commit();
-            getIntent().removeExtra("isUsed");
-
-        }else{ */
-
+        if(layout != null){
+            if(layout.equals("RegisterChildFragment")){
+                fragmentTransactionChild = getSupportFragmentManager().beginTransaction();
+                fragmentTransactionChild.replace(R.id.child_container, new ReadQRcodeFragment());
+                fragmentTransactionChild.commit();
+                getSupportActionBar().setTitle("PROMISE 3.0");
+            }else{ // layout = "ChooseChildFragment" (or other)
+                fragmentTransactionChild = getSupportFragmentManager().beginTransaction();
+                fragmentTransactionChild.replace(R.id.child_container, new ChooseChildFragment());
+                fragmentTransactionChild.commit();
+                getSupportActionBar().setTitle("PROMISE 3.0");
+            }
+        }else{ // layout = empty
             fragmentTransactionChild = getSupportFragmentManager().beginTransaction();
             fragmentTransactionChild.replace(R.id.child_container, new ChooseChildFragment());
             fragmentTransactionChild.commit();
-       // }
-
+            getSupportActionBar().setTitle("PROMISE 3.0");
+        }
     }
 
     public static void sendQRDataToChildActivity(String child, String hospital, String country){

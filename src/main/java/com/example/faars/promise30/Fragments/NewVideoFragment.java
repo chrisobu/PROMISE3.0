@@ -53,7 +53,6 @@ public class NewVideoFragment extends Fragment implements View.OnClickListener{
                 playVideo("android.resource://" + getActivity().getPackageName() + "/" + R.raw.demo);
                 break;
             case R.id.continue_button:
-                getActivity().finish();
                 startActivity(new Intent(getActivity(), NewVideoActivity.class));
                 break;
         }

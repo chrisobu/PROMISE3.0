@@ -61,7 +61,7 @@
                 android:textStyle="bold"
                 android:padding="16dp"
                 android:clickable="true"
-                android:textColor="#2979FF" />
+                android:textColor="@color/colorPrimary" />
 
         </LinearLayout>
 

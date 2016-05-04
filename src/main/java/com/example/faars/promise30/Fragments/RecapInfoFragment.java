@@ -36,6 +36,7 @@ public class RecapInfoFragment extends Fragment implements View.OnClickListener{
         android.support.v4.app.FragmentTransaction fragmentTransactionRecap;
         fragmentTransactionRecap = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransactionRecap.replace(R.id.new_video_container, new CameraFragment());
+        fragmentTransactionRecap.addToBackStack(null);
         fragmentTransactionRecap.commit();
     }
 }
