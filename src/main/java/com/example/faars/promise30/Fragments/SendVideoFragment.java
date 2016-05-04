@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.faars.promise30.R;
+import com.example.faars.promise30.SQL.MyDBHandler;
+import com.example.faars.promise30.SQL.Video;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +38,9 @@ public class SendVideoFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         Toast.makeText(getActivity(), "Video sent!", Toast.LENGTH_LONG).show();
+        MyDBHandler dbHandler = MyDBHandler.getInstance(getActivity());
+        Video video = new Video(dbHandler.getCurrentVideo(), "true", dbHandler.getCurrentProfile(), dbHandler.getCurrentChild());
+        dbHandler.updateVideo(video);
         android.support.v4.app.FragmentTransaction fragmentTransactionVideoSent;
         fragmentTransactionVideoSent = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransactionVideoSent.replace(R.id.main_container, new FeedbackFragment());

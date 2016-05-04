@@ -322,7 +322,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
             if(c.getString(c.getColumnIndex(COLUMN_PROFILE)).equals(getCurrentProfile()) &&
                     c.getString(c.getColumnIndex(COLUMN_CHILD)).equals(getCurrentChild()) &&
-                    c.getString(c.getColumnIndex(COLUMN_SENT_STATUS)).equals("sent")){
+                    c.getString(c.getColumnIndex(COLUMN_SENT_STATUS)).equals("true")){
                 ListVideos.add(c.getString(c.getColumnIndex(COLUMN_FILENAME)));
             }
         }

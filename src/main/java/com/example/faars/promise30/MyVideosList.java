@@ -20,12 +20,12 @@ import java.util.ArrayList;
 /**
  * Created by faars on 27-Apr-16.
  */
-public class CustomList extends ArrayAdapter<String> {
+public class MyVideosList extends ArrayAdapter<String> {
 
     private final Activity context;
     private final ArrayList<String> childVideos;
 
-    public CustomList(Activity context, ArrayList<String> childVideos) {
+    public MyVideosList(Activity context, ArrayList<String> childVideos) {
         super(context, R.layout.my_list_view, childVideos);
         this.context = context;
         this.childVideos = childVideos;

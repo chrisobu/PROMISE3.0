@@ -1,29 +1,22 @@
 package com.example.faars.promise30.Fragments;
 
 
-import android.database.Cursor;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.faars.promise30.CustomList;
-import com.example.faars.promise30.MainActivity;
+import com.example.faars.promise30.MyVideosList;
 import com.example.faars.promise30.R;
 import com.example.faars.promise30.Dialogs.ShowOrSendDialog;
 import com.example.faars.promise30.SQL.MyDBHandler;
 
-import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -59,7 +52,7 @@ public class MyVideosFragment extends Fragment {
         if(ListVideos.size()>0) {
             noVideos.setVisibility(View.GONE);
             // Define a new Adapter for ListView
-            CustomList adapter = new CustomList(getActivity(), ListVideos);
+            MyVideosList adapter = new MyVideosList(getActivity(), ListVideos);
 
             // Assign adapter to ListView
             lvVideosTaken.setAdapter(adapter);
