@@ -415,6 +415,12 @@ public class MyDBHandler extends SQLiteOpenHelper{
         db.close();
         return null;
     }
+
+    public String getCurrentTermDate(){
+        String termDate;
+        termDate = getChildData(getCurrentChild()).get_termDate();
+        return termDate;
+    }
     // Return all children with the same profile name
     public ArrayList<String> getAllProfileChildren(String currentProfile){
         ArrayList<String> ListNames = new ArrayList<String>();

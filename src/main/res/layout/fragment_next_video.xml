@@ -14,10 +14,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Next Video"
+            android:text="Next Video:"
+            android:layout_marginTop="10dp"
             android:textSize="17dp"
             android:textStyle="bold"
             android:id="@+id/textView3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="in 4 weeks and 5 days"
+            android:textSize="17dp"
+            android:layout_marginTop="40dp"
+            android:id="@+id/countdown"
+            android:layout_below="@id/textView3"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -25,6 +35,18 @@
             android:src="@drawable/next_video"
             android:layout_centerInParent="true"
             android:id="@+id/imageView" />
+
+        <Button
+            android:id="@+id/new_video_now"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Take a new video now"
+            android:background="@color/colorPrimary"
+            android:textColor="#FFFFFF"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="50dp"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

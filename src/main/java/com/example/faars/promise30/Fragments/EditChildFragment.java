@@ -82,7 +82,7 @@ public class EditChildFragment extends Fragment implements View.OnClickListener{
                     etNickname.setText(nickname);
                 }
                 Child editChild = new Child(childID, hospitalID, countryID,
-                        etTermDate.getText().toString(), etNickname.getText().toString(),
+                        termDate, etNickname.getText().toString(),
                         dbHandler.getCurrentProfile());
                 dbHandler.updateChild(editChild);
 
@@ -129,10 +129,8 @@ public class EditChildFragment extends Fragment implements View.OnClickListener{
 
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            /* Toast.makeText(getActivity(), String.valueOf(dayOfMonth) + " " + getMonthName(monthOfYear) +
-                    " " + String.valueOf(year), Toast.LENGTH_LONG).show(); */
-
             etTermDate.setText(String.valueOf(dayOfMonth) + ". " + getMonthName(monthOfYear) + " " + String.valueOf(year));
+            termDate = String.valueOf(monthOfYear+1) + "/" + String.valueOf(dayOfMonth) + "/" + String.valueOf(year);
         }
 
         public String getMonthName(int month) {

@@ -79,7 +79,6 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
             switch (v.getId()) {
                 case R.id.register_child_button:
                     if (checkChildInput()) {
-                        termDate = showPickedTermDate.getText().toString();
                         nickname = firstName.getText().toString();
                         profileName = dbHandler.getCurrentProfile();
 
@@ -145,6 +144,7 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             showPickedTermDate.setText(String.valueOf(dayOfMonth) + ". " + getMonthName(monthOfYear) + " " + String.valueOf(year));
+            termDate = String.valueOf(monthOfYear+1) + "/" + String.valueOf(dayOfMonth) + "/" + String.valueOf(year);
         }
 
         public String getMonthName(int month) {
