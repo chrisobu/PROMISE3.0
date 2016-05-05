@@ -5,7 +5,6 @@ package com.example.faars.promise30.SQL;
  */
 public class Video {
 
-    private int _id;
     private String _filename;
     private String _sentStatus;
     private String _profileName;

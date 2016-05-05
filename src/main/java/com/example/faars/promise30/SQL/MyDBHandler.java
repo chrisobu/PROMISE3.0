@@ -185,11 +185,9 @@ public class MyDBHandler extends SQLiteOpenHelper{
         for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
             if(c.getString(c.getColumnIndex(COLUMN_NAME)).equals("child")){
                 currentChild = c.getString(c.getColumnIndex(COLUMN_VALUE));
-                db.close();
                 return currentChild;
             }
         }
-        db.close();
         return null;
     }
     public String getCurrentProfile(){
@@ -200,11 +198,9 @@ public class MyDBHandler extends SQLiteOpenHelper{
         for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
             if(c.getString(c.getColumnIndex(COLUMN_NAME)).equals("profile")){
                 currentProfile = c.getString(c.getColumnIndex(COLUMN_VALUE));
-                db.close();
                 return currentProfile;
             }
         }
-        db.close();
         return null;
     }
     public String getCurrentVideo(){
@@ -215,11 +211,9 @@ public class MyDBHandler extends SQLiteOpenHelper{
         for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
             if(c.getString(c.getColumnIndex(COLUMN_NAME)).equals("video")){
                 currentVideo = c.getString(c.getColumnIndex(COLUMN_VALUE));
-                db.close();
                 return currentVideo;
             }
         }
-        db.close();
         return null;
     }
     public String getCurrentAPIkey(){
@@ -230,11 +224,9 @@ public class MyDBHandler extends SQLiteOpenHelper{
         for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
             if(c.getString(c.getColumnIndex(COLUMN_NAME)).equals("apiKey")){
                 currentAPI = c.getString(c.getColumnIndex(COLUMN_VALUE));
-                db.close();
                 return currentAPI;
             }
         }
-        db.close();
         return null;
     }
     public Boolean isLoggedIn(){
@@ -245,11 +237,9 @@ public class MyDBHandler extends SQLiteOpenHelper{
         for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
             if(c.getString(c.getColumnIndex(COLUMN_NAME)).equals("loggedIn")) {
                 loggedIn = Boolean.valueOf(c.getString(c.getColumnIndex(COLUMN_VALUE)));
-                db.close();
                 return loggedIn;
             }
         }
-        db.close();
         return null;
     }
 
@@ -266,20 +256,20 @@ public class MyDBHandler extends SQLiteOpenHelper{
         db.insert(VIDEO_TABLE, null, values);
     }
     // Delete a row in the table
-    public void deleteVideo(String filename){
+    public void deleteVideo(String fileid){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + VIDEO_TABLE + " WHERE " + COLUMN_FILENAME + "=\"" + filename + "\";");
+        db.execSQL("DELETE FROM " + VIDEO_TABLE + " WHERE " + COLUMN_VIDEO_ID+ "=\"" + fileid + "\";");
     }
-    // Delete all rows in the table of chosen child
+    // Delete all videos in the table of chosen child
     public void deleteAllVideosOfChild(String childName){
         SQLiteDatabase db = getWritableDatabase();
         Cursor c = db.query(VIDEO_TABLE, null, null, null, null, null, null);
         for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ) {
             if (c.getString(c.getColumnIndex(COLUMN_PROFILE)).equals(getCurrentProfile())) {
-                db.execSQL("DELETE FROM " + VIDEO_TABLE + " WHERE " + COLUMN_CHILD + "=\"" + childName + "\";");
+                int i = c.getInt(c.getColumnIndex(COLUMN_VIDEO_ID));
+                db.execSQL("DELETE FROM " + VIDEO_TABLE + " WHERE " + COLUMN_VIDEO_ID + "=\"" + i + "\";");
             }
         }
-        db.close();
     }
     // Update a row in the table
     public void updateVideo(Video video){
@@ -302,11 +292,9 @@ public class MyDBHandler extends SQLiteOpenHelper{
                         c.getString(c.getColumnIndex(COLUMN_SENT_STATUS)),
                         c.getString(c.getColumnIndex(COLUMN_PROFILE)),
                         c.getString(c.getColumnIndex(COLUMN_CHILD)) );
-                db.close();
                 return videoData;
             }
         }
-        db.close();
         return null;
     }
     // Return all videos taken by current profile of current child
@@ -321,7 +309,6 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 ListVideos.add(c.getString(c.getColumnIndex(COLUMN_FILENAME)));
             }
         }
-        db.close();
         return ListVideos;
     }
     // Return all SENT videos taken by current profile of current child
@@ -337,19 +324,15 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 ListVideos.add(c.getString(c.getColumnIndex(COLUMN_FILENAME)));
             }
         }
-        db.close();
         return ListVideos;
     }
     public Boolean videoIsSent(){
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(VIDEO_TABLE, null, null, null, null, null, null);
         for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
-            if(c.getString(c.getColumnIndex(COLUMN_FILENAME)).equals(getCurrentVideo())){
-                if(c.getString(c.getColumnIndex(COLUMN_SENT_STATUS)).equals("true")){
-                    return true;
-                }else{
-                    return false;
-                }
+            if(c.getString(c.getColumnIndex(COLUMN_FILENAME)).equals(getCurrentVideo()) &&
+                    c.getString(c.getColumnIndex(COLUMN_SENT_STATUS)).equals("true")){
+                return true;
             }
         }
         return false;
@@ -369,18 +352,18 @@ public class MyDBHandler extends SQLiteOpenHelper{
         values.put(COLUMN_PROFILE_NAME, child.get_profileName());
         SQLiteDatabase db = getWritableDatabase();
         db.insert(CHILD_TABLE, null, values);
-        db.close();
     }
     // Delete a row in the table
     public void deleteChild(String nickname){
         SQLiteDatabase db = getWritableDatabase();
         Cursor c = db.query(CHILD_TABLE, null, null, null, null, null, null);
         for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ) {
-            if (c.getString(c.getColumnIndex(COLUMN_PROFILE_NAME)).equals(getCurrentProfile())) {
-                db.execSQL("DELETE FROM " + CHILD_TABLE + " WHERE " + COLUMN_NICKNAME + "=\"" + nickname + "\";");
+            if (c.getString(c.getColumnIndex(COLUMN_PROFILE_NAME)).equals(getCurrentProfile()) &&
+                    c.getString(c.getColumnIndex(COLUMN_NICKNAME)).equals(nickname)) {
+                int i = c.getInt(c.getColumnIndex(COLUMN_ID));
+                db.execSQL("DELETE FROM " + CHILD_TABLE + " WHERE " + COLUMN_ID + "=\"" + i + "\";");
             }
         }
-        db.close();
     }
     // Update a row in the table
     public void updateChild(Child child){
@@ -393,7 +376,6 @@ public class MyDBHandler extends SQLiteOpenHelper{
         updateChild.put(COLUMN_NICKNAME, child.get_nickName());
         updateChild.put(COLUMN_PROFILE_NAME, child.get_profileName());
         db.update(CHILD_TABLE, updateChild, COLUMN_CHILD_ID + " = ?", new String[]{child.get_childID()});
-        db.close();
     }
     // return Child class of current child
     public Child getChildData(String nickName){
@@ -401,25 +383,22 @@ public class MyDBHandler extends SQLiteOpenHelper{
 
         Cursor c = db.query(CHILD_TABLE, null, null, null, null, null, null);
         for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
-            if(c.getString(c.getColumnIndex(COLUMN_NICKNAME)).equals(nickName)){
+            if(c.getString(c.getColumnIndex(COLUMN_PROFILE_NAME)).equals(getCurrentProfile()) &&
+                    c.getString(c.getColumnIndex(COLUMN_NICKNAME)).equals(nickName)){
                 Child childData = new Child (c.getString(c.getColumnIndex(COLUMN_CHILD_ID)),
                         c.getString(c.getColumnIndex(COLUMN_HOSPITAL_ID)),
                         c.getString(c.getColumnIndex(COLUMN_COUNTRY_ID)),
                         c.getString(c.getColumnIndex(COLUMN_TERM_DATE)),
                         c.getString(c.getColumnIndex(COLUMN_NICKNAME)),
                         c.getString(c.getColumnIndex(COLUMN_PROFILE_NAME)) );
-                db.close();
                 return childData;
             }
         }
-        db.close();
         return null;
     }
 
     public String getCurrentTermDate(){
-        String termDate;
-        termDate = getChildData(getCurrentChild()).get_termDate();
-        return termDate;
+        return getChildData(getCurrentChild()).get_termDate();
     }
     // Return all children with the same profile name
     public ArrayList<String> getAllProfileChildren(String currentProfile){
@@ -432,7 +411,6 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 ListNames.add(c.getString(c.getColumnIndex(COLUMN_NICKNAME)));
             }
         }
-        db.close();
         return ListNames;
     }
     // Check new child nickname: if used before: true, if not in use: false.
@@ -440,27 +418,24 @@ public class MyDBHandler extends SQLiteOpenHelper{
         SQLiteDatabase db = getReadableDatabase();
 
         Cursor c = db.query(CHILD_TABLE, null, null, null, null, null, null);
-        for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
-            if(c.getString(c.getColumnIndex(COLUMN_NICKNAME)).equals(nickname)){
-                db.close();
+        for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ) {
+            if (c.getString(c.getColumnIndex(COLUMN_PROFILE_NAME)).equals(getCurrentProfile()) &&
+                    c.getString(c.getColumnIndex(COLUMN_NICKNAME)).equals(nickname)) {
                 return true;
             }
         }
-        db.close();
         return false;
     }
-    // Check new child ID-munber: if used before: true, if not in use: false.
+    // Check new child ID-number: if used before: true, if not in use: false.
     public Boolean childIdInUse(String id){
         SQLiteDatabase db = getReadableDatabase();
 
         Cursor c = db.query(CHILD_TABLE, null, null, null, null, null, null);
         for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
             if(c.getString(c.getColumnIndex(COLUMN_CHILD_ID)).equals(id)){
-                db.close();
                 return true;
             }
         }
-        db.close();
         return false;
     }
 
@@ -495,11 +470,9 @@ public class MyDBHandler extends SQLiteOpenHelper{
         Cursor c = db.query(PROFILE_TABLE, null, null, null, null, null, null);
         for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
             if(c.getString(c.getColumnIndex(COLUMN_USERNAME)).equals(username)){
-                db.close();
                 return true;
             }
         }
-        db.close();
         return false;
     }
     // Return profile password
@@ -511,14 +484,11 @@ public class MyDBHandler extends SQLiteOpenHelper{
         for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
             if(c.getString(c.getColumnIndex(COLUMN_USERNAME)).equals(profileUsername)){
                 profilePassword = c.getString(c.getColumnIndex(COLUMN_PASSWORD));
-                db.close();
                 return profilePassword;
             }
         }
-        db.close();
         return null;
     }
-
     public Boolean checkIfAnyRegisteredProfiles(){
         SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT count(*) FROM " + PROFILE_TABLE;
@@ -555,9 +525,6 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 dbString += "\n";
             }
         }
-        db.close();
         return dbString;
     }
-
-
 }

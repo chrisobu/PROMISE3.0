@@ -5,7 +5,6 @@ package com.example.faars.promise30.SQL;
  */
 public class Child {
 
-    private static int _id;
     private static String _childID;
     private static String _hospitalID;
     private static String _countryID;
@@ -27,9 +26,6 @@ public class Child {
     }
 
     // Getters:
-    public int get_id() {
-        return _id;
-    }
     public static String get_childID() {
         return _childID;
     }
@@ -51,9 +47,6 @@ public class Child {
 
 
     // Setters:
-    public void set_id(int _id) {
-        this._id = _id;
-    }
     public void set_childID(String _childID) {
         this._childID = _childID;
     }
