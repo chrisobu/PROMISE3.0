@@ -41,27 +41,8 @@ public class NextVideoFragment extends Fragment implements View.OnClickListener{
         newVideoNow = (Button) viewGroup.findViewById(R.id.new_video_now);
         dbHandler = MyDBHandler.getInstance(getActivity());
 
-        // Term date:
-        String termDateString = dbHandler.getCurrentTermDate();
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-        Calendar c = Calendar.getInstance(); // Get Calendar Instance
-        try {
-            c.setTime(sdf.parse(termDateString));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
-        // Time for next video:
-        c.add(Calendar.DATE, 71);  // add 10 weeks to term date
-        Date endDate = new Date(c.getTimeInMillis());
-
-        // Today's date:
-        Date currentDate = new Date(System.currentTimeMillis());
-
-        // Countdown:
-        int difference;
-        difference = (int) (endDate.getTime()/ (24*60*60*1000)
-                        -(int) (currentDate.getTime()/ (24*60*60*1000)));
+        int difference = getDifferenceTermDate();
 
         // If not there yet:
         if(difference >0){
@@ -137,5 +118,28 @@ public class NextVideoFragment extends Fragment implements View.OnClickListener{
         fragmentTransactionNewVideo.replace(R.id.main_container, new NewVideoFragment());
         fragmentTransactionNewVideo.addToBackStack(null);
         fragmentTransactionNewVideo.commit();
+    }
+
+    private int getDifferenceTermDate(){
+        // Term date:
+        String termDateString = dbHandler.getCurrentTermDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        Calendar c = Calendar.getInstance(); // Get Calendar Instance
+        try {
+            c.setTime(sdf.parse(termDateString));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        // Time for next video:
+        c.add(Calendar.DATE, 71);  // add 10 weeks to term date
+        Date endDate = new Date(c.getTimeInMillis());
+        // Today's date:
+        Date currentDate = new Date(System.currentTimeMillis());
+        // Countdown:
+        int difference;
+        difference = (int) (endDate.getTime()/ (24*60*60*1000)
+                -(int) (currentDate.getTime()/ (24*60*60*1000)));
+
+        return difference;
     }
 }

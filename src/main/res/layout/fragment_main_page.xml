@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:text="Welcome to PROMISE"
                 android:textStyle="bold"
-                android:textSize="18dp" />
+                android:textSize="20dp" />
 
             <TextView
                 android:layout_width="wrap_content"

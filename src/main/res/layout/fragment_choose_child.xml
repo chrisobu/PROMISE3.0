@@ -12,10 +12,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Choose a child:"
-            android:textStyle="bold"
+            android:text="Choose a child"
             android:textSize="20dp"
-            android:layout_margin="16dp"/>
+            android:layout_margin="20dp"/>
 
         <TextView
             android:id="@+id/no_child_registered"
@@ -24,13 +23,13 @@
             android:textSize="18dp"
             android:visibility="gone"
             android:text="No Children registered"
-            android:layout_margin="16dp"/>
+            android:layout_margin="20dp"/>
 
         <ListView
             android:id="@+id/lvRegisteredChild"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="20dp"
             android:divider="@color/colorPrimary"
             android:dividerHeight="1dp"/>
 
