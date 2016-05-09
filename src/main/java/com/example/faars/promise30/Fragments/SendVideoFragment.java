@@ -66,10 +66,10 @@ public class SendVideoFragment extends Fragment implements View.OnClickListener 
                 playVideo(dbHandler.getCurrentVideo());
                 break;
             case R.id.send_button:
-                Toast.makeText(getActivity(), "Video sent!", Toast.LENGTH_LONG).show();
                 Video video = new Video(dbHandler.getCurrentVideo(), "true", dbHandler.getCurrentProfile(), dbHandler.getCurrentChild());
                 dbHandler.updateVideo(video);
 
+                //sendVideo();
                 android.support.v4.app.FragmentTransaction fragmentTransactionVideoSent;
                 fragmentTransactionVideoSent = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransactionVideoSent.replace(R.id.main_container, new FeedbackFragment());
@@ -85,5 +85,22 @@ public class SendVideoFragment extends Fragment implements View.OnClickListener 
         // TODO: check if file exists, else Toast
         videoPreviewActivity.putExtra("fileRes", res);
         startActivity(videoPreviewActivity);
+    }
+
+    private void sendVideo(){
+        String address = "christine.buen@hotmail.com";
+        String subject = "New video from PROMISE";
+        String res = "/storage/sdcard0/Pictures/PROMISE/" + dbHandler.getCurrentVideo();
+        Uri attachment = Uri.parse(res);
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("*/*");
+        intent.putExtra(Intent.EXTRA_EMAIL, address);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_STREAM, attachment);
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivity(intent);
+        }
+        Toast.makeText(getActivity(), "Video sent!", Toast.LENGTH_LONG).show();
     }
 }

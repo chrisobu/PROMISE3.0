@@ -62,6 +62,8 @@ public class NewVideoFragment extends Fragment implements View.OnClickListener{
             title.setVisibility(View.VISIBLE);
             playButton.setVisibility(View.VISIBLE);
             continueButton.setVisibility(View.VISIBLE);
+            noNewVideo.setVisibility(View.GONE);
+
             continueButton.setOnClickListener(this);
         }else{
             noNewVideo.setVisibility(View.VISIBLE);

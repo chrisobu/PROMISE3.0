@@ -84,14 +84,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_country"
             android:layout_marginTop="50dp"
-            android:text="Child's user name"
+            android:text="Child's username"
             android:textSize="17dp" />
         <EditText
             android:id="@+id/et_first_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_first_name"
-            android:hint="Fill in child's first name"
+            android:hint="e.g. fill in child's first name"
             android:editable="true"/>
 
         <TextView
