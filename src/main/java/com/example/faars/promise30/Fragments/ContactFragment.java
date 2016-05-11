@@ -9,16 +9,12 @@ import android.view.ViewGroup;
 
 import com.example.faars.promise30.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ContactFragment extends Fragment {
 
+public class ContactFragment extends Fragment {
 
     public ContactFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

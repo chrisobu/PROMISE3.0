@@ -1,8 +1,6 @@
 package com.example.faars.promise30.SQL;
 
-/**
- * Created by faars on 24-Apr-16.
- */
+
 public class Profile {
 
     private int _id;

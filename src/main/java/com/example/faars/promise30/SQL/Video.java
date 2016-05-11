@@ -1,8 +1,6 @@
 package com.example.faars.promise30.SQL;
 
-/**
- * Created by faars on 03-May-16.
- */
+
 public class Video {
 
     private String _filename;

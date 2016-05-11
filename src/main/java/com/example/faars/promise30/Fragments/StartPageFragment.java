@@ -16,11 +16,7 @@ import com.example.faars.promise30.MainActivity;
 import com.example.faars.promise30.R;
 import com.example.faars.promise30.SQL.MyDBHandler;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class StartPageFragment extends Fragment implements View.OnClickListener{
-
 
     public StartPageFragment() {
         // Required empty public constructor
@@ -30,13 +26,11 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
     android.support.v4.app.FragmentTransaction fragmentTransactionLogIn;
     MyDBHandler dbHandler;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_start_page, container, false);
 
-        dbHandler = MyDBHandler.getInstance(getActivity());
         ImageView ivEnglish = (ImageView) viewGroup.findViewById(R.id.ivEnglish);
         ImageView ivNorwegian = (ImageView) viewGroup.findViewById(R.id.ivNorwegian);
         Login = (Button) viewGroup.findViewById(R.id.bLogin);
@@ -46,6 +40,8 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
         ivNorwegian.setOnClickListener(this);
         Login.setOnClickListener(this);
         About.setOnClickListener(this);
+
+        dbHandler = MyDBHandler.getInstance(getActivity());
 
         return viewGroup;
     }
@@ -62,7 +58,6 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
                 About.setText("About the app");
                 break;
             case R.id.bLogin:
-                // TODO: If: ingen registrerte profiler er lagret på telefonen...
                 if(dbHandler.checkIfAnyRegisteredProfiles()) {
                     fragmentTransactionLogIn = getActivity().getSupportFragmentManager().beginTransaction();
                     fragmentTransactionLogIn.replace(R.id.log_in_container, new LogInFragment());
@@ -83,5 +78,4 @@ public class StartPageFragment extends Fragment implements View.OnClickListener{
                 break;
         }
     }
-
 }

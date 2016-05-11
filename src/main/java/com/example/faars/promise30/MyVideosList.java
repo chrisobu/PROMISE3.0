@@ -17,9 +17,6 @@ import com.example.faars.promise30.Fragments.MyVideosFragment;
 import java.io.File;
 import java.util.ArrayList;
 
-/**
- * Created by faars on 27-Apr-16.
- */
 public class MyVideosList extends ArrayAdapter<String> {
 
     private final Activity context;

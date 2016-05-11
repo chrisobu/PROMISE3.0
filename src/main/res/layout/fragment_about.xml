@@ -5,13 +5,27 @@
     tools:context="com.example.faars.promise30.Fragments.AboutFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="About"
-        android:gravity="center"
-        android:textSize="35dp"
-        android:textStyle="bold"/>
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="20dp"
+            android:textSize="35dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#D50000"
+            android:gravity="center"
+            android:layout_below="@id/about"
+            android:text="Her skal det stå litt informasjon om appen og at du må opprette en profil for å kunne bruke appen"/>
+    </RelativeLayout>
 
 
 </FrameLayout>

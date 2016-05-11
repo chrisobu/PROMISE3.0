@@ -27,7 +27,6 @@ import java.io.File;
  */
 public class ReviewVideoFragment extends Fragment implements View.OnClickListener{
 
-
     public ReviewVideoFragment() {
         // Required empty public constructor
     }
@@ -44,10 +43,14 @@ public class ReviewVideoFragment extends Fragment implements View.OnClickListene
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_review_video, container, false);
 
         dbHandler = MyDBHandler.getInstance(getActivity());
+
         approveButton = (Button) viewGroup.findViewById(R.id.approve_button);
         Button newVideoButton = (Button) viewGroup.findViewById(R.id.new_video_button);
         videoView = (ImageView) viewGroup.findViewById(R.id.thumbnail_video3);
         play = (ImageView) viewGroup.findViewById(R.id.play3);
+        check1 = (CheckBox) viewGroup.findViewById(R.id.check1);
+        check2 = (CheckBox) viewGroup.findViewById(R.id.check2);
+        check3 = (CheckBox) viewGroup.findViewById(R.id.check3);
 
         File directory = new File("/storage/sdcard0/Pictures/PROMISE/" + dbHandler.getCurrentVideo());
         if(directory.exists()){
@@ -59,44 +62,49 @@ public class ReviewVideoFragment extends Fragment implements View.OnClickListene
             Toast.makeText(getActivity(), "File don't exist", Toast.LENGTH_LONG).show();
         }
 
-        check1 = (CheckBox) viewGroup.findViewById(R.id.check1);
-        check2 = (CheckBox) viewGroup.findViewById(R.id.check2);
-        check3 = (CheckBox) viewGroup.findViewById(R.id.check3);
+        newVideoButton.setOnClickListener(this);
+        play.setOnClickListener(this);
+        approveButton.setOnClickListener(this);
+        approveButton.setEnabled(false);
 
+        // Enables and changes background color of approve button when all checkboxes are checked:
         check1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(check1.isChecked() && check2.isChecked() && check3.isChecked()){
                     approveButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    approveButton.setEnabled(true);
                 }else{
                     approveButton.setBackgroundColor(getResources().getColor(R.color.colorInactive));
+                    approveButton.setEnabled(false);
                 }
             }
         });
         check2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(check1.isChecked() && check2.isChecked() && check3.isChecked()){
+                if (check1.isChecked() && check2.isChecked() && check3.isChecked()) {
                     approveButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                }else{
+                    approveButton.setEnabled(true);
+                } else {
                     approveButton.setBackgroundColor(getResources().getColor(R.color.colorInactive));
+                    approveButton.setEnabled(false);
                 }
             }
         });
         check3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(check1.isChecked() && check2.isChecked() && check3.isChecked()){
+                if (check1.isChecked() && check2.isChecked() && check3.isChecked()) {
                     approveButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                }else{
+                    approveButton.setEnabled(true);
+                } else {
                     approveButton.setBackgroundColor(getResources().getColor(R.color.colorInactive));
+                    approveButton.setEnabled(false);
                 }
             }
         });
 
-        approveButton.setOnClickListener(this);
-        newVideoButton.setOnClickListener(this);
-        play.setOnClickListener(this);
         return viewGroup;
     }
 
@@ -118,7 +126,6 @@ public class ReviewVideoFragment extends Fragment implements View.OnClickListene
                 playVideo(dbHandler.getCurrentVideo());
                 break;
         }
-
     }
 
     private void playVideo(String filename) {

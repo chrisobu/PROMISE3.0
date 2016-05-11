@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.faars.promise30.Fragments.About2Fragment;
 import com.example.faars.promise30.Fragments.AboutFragment;
 import com.example.faars.promise30.Fragments.ChooseChildFragment;
 import com.example.faars.promise30.Fragments.ContactFragment;
@@ -62,7 +63,6 @@ public class MainActivity extends AppCompatActivity
 
         // Check which layout to display:
         String layout = getIntent().getStringExtra(EXTRA_LAYOUT);
-
         if(layout != null){
             if(layout.equals("SendVideoFragment")){
                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -98,14 +98,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.nav_about) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.main_container, new AboutFragment());
+            fragmentTransaction.replace(R.id.main_container, new About2Fragment());
             fragmentTransaction.commit();
             getSupportActionBar().setTitle("About the App");
 
@@ -167,6 +166,4 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
 }

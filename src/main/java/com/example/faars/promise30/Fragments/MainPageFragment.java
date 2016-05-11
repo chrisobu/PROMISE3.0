@@ -12,22 +12,17 @@ import com.example.faars.promise30.MainActivity;
 import com.example.faars.promise30.R;
 import com.example.faars.promise30.SQL.MyDBHandler;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MainPageFragment extends Fragment {
-
 
     public MainPageFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_main_page, container, false);
+
         TextView tvChildName = (TextView) viewGroup.findViewById(R.id.tvChildName);
 
         // Get current child from CURRENT_VALUES_TABLE in SQL database:

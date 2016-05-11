@@ -27,11 +27,7 @@ import com.google.android.gms.appindexing.AppIndex;
 
 import java.io.FileOutputStream;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class RegisterUserFragment extends Fragment implements View.OnClickListener{
-
 
     public RegisterUserFragment() {
         // Required empty public constructor
@@ -47,15 +43,17 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_register_user, container, false);
 
         TextView orLogIn = (TextView) viewGroup.findViewById(R.id.tvLogInOption);
+        TextView LogInOption = (TextView) viewGroup.findViewById(R.id.tvLogInOption);
+        Button bRegister = (Button) viewGroup.findViewById(R.id.bCreateProfile);
+        etNewUsername = (EditText) viewGroup.findViewById(R.id.etNewUsername);
+        etNewPassword = (EditText) viewGroup.findViewById(R.id.etNewPassword);
+        etNewPasswordCheck = (EditText) viewGroup.findViewById(R.id.etNewPasswordCheck);
+
+        // Underline "or log in"- text
         SpannableString content = new SpannableString("or log in");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         orLogIn.setText(content);
 
-        etNewUsername = (EditText) viewGroup.findViewById(R.id.etNewUsername);
-        etNewPassword = (EditText) viewGroup.findViewById(R.id.etNewPassword);
-        etNewPasswordCheck = (EditText) viewGroup.findViewById(R.id.etNewPasswordCheck);
-        Button bRegister = (Button) viewGroup.findViewById(R.id.bCreateProfile);
-        TextView LogInOption = (TextView) viewGroup.findViewById(R.id.tvLogInOption);
         dbHandler = MyDBHandler.getInstance(getActivity());
 
         bRegister.setOnClickListener(this);
@@ -135,5 +133,4 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
             return false;
         }
     }
-
 }

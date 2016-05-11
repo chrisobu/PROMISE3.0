@@ -1,8 +1,6 @@
 package com.example.faars.promise30.SQL;
 
-/**
- * Created by faars on 24-Apr-16.
- */
+
 public class Child {
 
     private static String _childID;
@@ -44,7 +42,6 @@ public class Child {
     public static String get_profileName() {
         return _profileName;
     }
-
 
     // Setters:
     public void set_childID(String _childID) {

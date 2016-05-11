@@ -14,9 +14,6 @@ import com.example.faars.promise30.MainActivity;
 import com.example.faars.promise30.R;
 import com.example.faars.promise30.SQL.MyDBHandler;
 
-/**
- * Created by faars on 16-Apr-16.
- */
 public class ChildActionDialog extends DialogFragment {
 
     public final static String EXTRA_LAYOUT = "com.example.faars.promise20";
@@ -50,5 +47,4 @@ public class ChildActionDialog extends DialogFragment {
                 })
                 .create();
     }
-
 }

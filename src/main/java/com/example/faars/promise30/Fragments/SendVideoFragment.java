@@ -20,11 +20,7 @@ import com.example.faars.promise30.SQL.Video;
 
 import java.io.File;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SendVideoFragment extends Fragment implements View.OnClickListener {
-
 
     public SendVideoFragment() {
         // Required empty public constructor
@@ -38,12 +34,15 @@ public class SendVideoFragment extends Fragment implements View.OnClickListener 
                              Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_send_video, container, false);
 
-        dbHandler = MyDBHandler.getInstance(getActivity());
-
         Button sendButton = (Button) viewGroup.findViewById(R.id.send_button);
         videoView = (ImageView) viewGroup.findViewById(R.id.thumbnail_video);
         playButton = (ImageView) viewGroup.findViewById(R.id.play_current_video);
 
+        sendButton.setOnClickListener(this);
+        playButton.setOnClickListener(this);
+
+        // Displays thumbnail of video:
+        dbHandler = MyDBHandler.getInstance(getActivity());
         File directory = new File("/storage/sdcard0/Pictures/PROMISE/" + dbHandler.getCurrentVideo());
         if(directory.exists()){
             Glide.with(this)
@@ -53,8 +52,6 @@ public class SendVideoFragment extends Fragment implements View.OnClickListener 
         }else{
             Toast.makeText(getActivity(), "File don't exist", Toast.LENGTH_LONG).show();
         }
-        sendButton.setOnClickListener(this);
-        playButton.setOnClickListener(this);
 
         return viewGroup;
     }

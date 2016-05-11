@@ -27,11 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class NewVideoFragment extends Fragment implements View.OnClickListener{
-
 
     public NewVideoFragment() {
         // Required empty public constructor
@@ -42,14 +38,13 @@ public class NewVideoFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_new_video, container, false);
 
-
-        // TODO: if not in right timezone, say so and don't show this:
         ImageView playButton = (ImageView) viewGroup.findViewById(R.id.play_instruct_video);
         Button continueButton = (Button) viewGroup.findViewById(R.id.continue_button);
         ImageView picture = (ImageView) viewGroup.findViewById(R.id.demo_screenshot);
         TextView title = (TextView) viewGroup.findViewById(R.id.title_new_video);
         TextView noNewVideo = (TextView) viewGroup.findViewById(R.id.no_new_video);
 
+        // Get number of days till new video:
         int differenceTermDate = getDifferenceTermDate();
         if(differenceTermDate>0){
             noNewVideo.setVisibility(View.VISIBLE);
@@ -81,18 +76,15 @@ public class NewVideoFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.play_instruct_video:
-                playVideo("android.resource://" + getActivity().getPackageName() + "/" + R.raw.demo);
+                String filename = "android.resource://" + getActivity().getPackageName() + "/" + R.raw.demo;
+                Intent videoPreviewActivity = new Intent(getActivity(), PreviewActivity.class);
+                videoPreviewActivity.putExtra("fileRes", filename);
+                startActivity(videoPreviewActivity);
                 break;
             case R.id.continue_button:
                 startActivity(new Intent(getActivity(), NewVideoActivity.class));
                 break;
         }
-    }
-
-    private void playVideo(String filename) {
-        Intent videoPreviewActivity = new Intent(getActivity(), PreviewActivity.class);
-        videoPreviewActivity.putExtra("fileRes", filename);
-        startActivity(videoPreviewActivity);
     }
 
     private int getDifferenceTermDate(){

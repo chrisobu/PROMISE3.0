@@ -16,7 +16,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:text="Child ID"
-            android:textSize="15dp"/>
+            android:textSize="15sp"/>
 
         <TextView
             android:id="@+id/tv_hospital_edit"
@@ -26,7 +26,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:text="Hospital ID"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:layout_below="@id/tv_child_edit"/>
 
         <TextView
@@ -37,7 +37,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:text="..."
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:layout_toRightOf="@id/tv_hospital_edit"/>
 
         <TextView
@@ -48,7 +48,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:text="..."
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:layout_toRightOf="@id/tv_hospital_edit"
             android:layout_below="@id/et_child_edit"/>
 
@@ -60,7 +60,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:text="Country ID"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:layout_below="@id/tv_hospital_edit"/>
         <TextView
             android:id="@+id/et_country_edit"
@@ -70,7 +70,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:text="..."
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:layout_toRightOf="@id/tv_hospital_edit"
             android:layout_below="@id/et_hospital_edit"/>
 
@@ -83,7 +83,7 @@
             android:layout_marginTop="50dp"
             android:layout_marginRight="10dp"
             android:text="Child's username"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/et_nickname_edit"
@@ -103,7 +103,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:text="Term date"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/et_term_date_edit"
@@ -151,7 +151,7 @@
             android:textColor="#FFFFFF"
             android:layout_below="@id/linearButtons"
             android:layout_centerHorizontal="true"
-            android:text="Delete child" />
+            android:text="Remove child" />
 
 
     </RelativeLayout>

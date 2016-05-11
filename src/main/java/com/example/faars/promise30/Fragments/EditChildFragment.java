@@ -19,11 +19,7 @@ import com.example.faars.promise30.SQL.MyDBHandler;
 
 import java.util.Calendar;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class EditChildFragment extends Fragment implements View.OnClickListener{
-
 
     public EditChildFragment() {
         // Required empty public constructor
@@ -53,6 +49,7 @@ public class EditChildFragment extends Fragment implements View.OnClickListener{
         deleteChildEditButton.setOnClickListener(this);
         etTermDate.setOnClickListener(this);
 
+        // Get information from QR-code and display in fragment:
         dbHandler = MyDBHandler.getInstance(getActivity());
         nickname = dbHandler.getCurrentChild();
         child = dbHandler.getChildData(nickname);
@@ -60,7 +57,6 @@ public class EditChildFragment extends Fragment implements View.OnClickListener{
         hospitalID = child.get_hospitalID();
         countryID = child.get_countryID();
         termDate = child.get_termDate();
-
         etChildID.setText(childID);
         etHospitalID.setText(hospitalID);
         etCountryID.setText(countryID);

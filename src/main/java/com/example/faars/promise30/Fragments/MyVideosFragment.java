@@ -19,11 +19,7 @@ import com.example.faars.promise30.SQL.MyDBHandler;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MyVideosFragment extends Fragment {
-
 
     public MyVideosFragment() {
         // Required empty public constructor
@@ -39,9 +35,9 @@ public class MyVideosFragment extends Fragment {
 
         TextView noVideos = (TextView) viewGroup.findViewById(R.id.no_videos);
         lvVideosTaken = (ListView) viewGroup.findViewById(R.id.lvVideosTaken);
-        dbHandler = MyDBHandler.getInstance(getActivity());
 
         // Get List of videos for current profile of current child:
+        dbHandler = MyDBHandler.getInstance(getActivity());
         ArrayList<String> ListVideos = null;
         try {
             ListVideos = dbHandler.getAllCurrentVideos(dbHandler.getCurrentProfile(), dbHandler.getCurrentChild());
@@ -84,5 +80,4 @@ public class MyVideosFragment extends Fragment {
 
         return viewGroup;
     }
-
 }

@@ -2,32 +2,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.faars.promise30.Fragments.ContactFragment">
+    tools:context="com.example.faars.promise30.Fragments.AboutFragment">
 
+    <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="20dp">
 
         <TextView
-            android:id="@+id/contact"
+            android:id="@+id/tekst"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Contact us"
+            android:text="About"
             android:layout_centerInParent="true"
+            android:layout_marginBottom="20dp"
             android:textSize="35dp"
-            android:layout_margin="20dp"
             android:textStyle="bold"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#D50000"
             android:gravity="center"
-            android:layout_below="@id/contact"
-            android:text="Her kontaktinformasjonen dere ønsker å oppgi til de som deltar i forskningsprosjektet stå"/>
-
-    </RelativeLayout> <!-- TODO: Update blank fragment layout -->
+            android:layout_below="@id/tekst"
+            android:text="Her skal det stå litt informasjon om appen og undersøkelsen."/>
+    </RelativeLayout>
 
 
 </FrameLayout>

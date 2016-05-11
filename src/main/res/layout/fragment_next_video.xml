@@ -38,7 +38,7 @@
             android:id="@+id/new_video_now"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Take a new video now"
+            android:text="Take a video now"
             android:background="@color/colorPrimary"
             android:textColor="#FFFFFF"
             android:layout_alignParentBottom="true"

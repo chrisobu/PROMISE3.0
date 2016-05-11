@@ -13,11 +13,7 @@ import com.example.faars.promise30.ChildActivity;
 import com.example.faars.promise30.MainActivity;
 import com.example.faars.promise30.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class VideoSavedFragment extends Fragment implements View.OnClickListener{
-
 
     public VideoSavedFragment() {
         // Required empty public constructor
@@ -32,6 +28,7 @@ public class VideoSavedFragment extends Fragment implements View.OnClickListener
 
         Button sendNowButton = (Button) viewGroup.findViewById(R.id.send_now_button);
         Button sendLaterButton = (Button) viewGroup.findViewById(R.id.send_later_button);
+
         sendNowButton.setOnClickListener(this);
         sendLaterButton.setOnClickListener(this);
 
@@ -55,5 +52,4 @@ public class VideoSavedFragment extends Fragment implements View.OnClickListener
                 break;
         }
     }
-
 }

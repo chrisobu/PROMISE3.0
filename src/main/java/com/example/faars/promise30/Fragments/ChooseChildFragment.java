@@ -24,9 +24,7 @@ import com.example.faars.promise30.SQL.MyDBHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class ChooseChildFragment extends Fragment implements View.OnClickListener{
 
     public ChooseChildFragment() {

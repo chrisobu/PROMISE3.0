@@ -14,11 +14,7 @@ import android.widget.TextView;
 
 import com.example.faars.promise30.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FAQFragment extends Fragment implements View.OnClickListener{
-
 
     public FAQFragment() {
         // Required empty public constructor

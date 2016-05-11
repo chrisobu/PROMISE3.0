@@ -38,19 +38,6 @@
                 android:clickable="true"/>
         </RelativeLayout>
 
-        <Button
-            android:id="@+id/newVideoButton"
-            android:layout_width="200dp"
-            android:background="@color/colorPrimary"
-            android:textColor="#FFFFFF"
-            android:layout_marginTop="30dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Take a new video now"
-            android:visibility="gone"/>
-
     </LinearLayout>
-
-
 
 </FrameLayout>

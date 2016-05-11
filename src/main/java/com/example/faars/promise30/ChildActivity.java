@@ -17,15 +17,13 @@ public class ChildActivity extends AppCompatActivity  {
     public static String ChildID = null, HospitalID = null, Country = null;
     public final static String EXTRA_LAYOUT = "com.example.faars.promise20";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_child);
 
-        // Check which layout to display:
+        // Checks which layout to display:
         String layout = getIntent().getStringExtra(EXTRA_LAYOUT);
-
         if(layout != null){
             if(layout.equals("RegisterChildFragment")){
                 fragmentTransactionChild = getSupportFragmentManager().beginTransaction();

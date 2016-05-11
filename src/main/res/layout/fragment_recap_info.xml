@@ -18,24 +18,28 @@
             android:layout_marginBottom="40dp"/>
 
         <CheckBox
+            android:id="@+id/recap_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Good lighting in the room"
             android:layout_marginBottom="10dp"/>
 
         <CheckBox
+            android:id="@+id/recap_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Correct distance from the camera to the child"
             android:layout_marginBottom="10dp"/>
 
         <CheckBox
+            android:id="@+id/recap_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="The child must lie on a blue surface"
             android:layout_marginBottom="10dp"/>
 
         <CheckBox
+            android:id="@+id/recap_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="The child must be content and undisturbed"/>
@@ -46,8 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
-            android:background="@color/colorPrimary"
             android:textColor="#FFFFFF"
+            android:background="#E0E0E0"
             android:text="Continue"/>
     </LinearLayout>
 

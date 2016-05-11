@@ -16,9 +16,6 @@ import com.bumptech.glide.Glide;
 import java.io.File;
 import java.util.ArrayList;
 
-/**
- * Created by faars on 03-May-16.
- */
 public class FeedbackList extends ArrayAdapter<String> {
 
     private final Activity context;
@@ -30,6 +27,7 @@ public class FeedbackList extends ArrayAdapter<String> {
         this.childVideos = childVideos;
 
     }
+
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();

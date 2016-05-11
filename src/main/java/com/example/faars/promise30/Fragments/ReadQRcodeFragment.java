@@ -29,10 +29,6 @@ import com.google.zxing.integration.android.IntentResult;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ReadQRcodeFragment extends Fragment implements View.OnClickListener, ZXingScannerView.ResultHandler{
 
     public ReadQRcodeFragment() {
@@ -40,10 +36,7 @@ public class ReadQRcodeFragment extends Fragment implements View.OnClickListener
     }
 
     private ZXingScannerView mScannerView;
-    String ChildID = null;
-    String HospitalID = null;
-    String Country = null;
-    String APIkey = null;
+    String ChildID = null, HospitalID = null, Country = null, APIkey = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -122,5 +115,4 @@ public class ReadQRcodeFragment extends Fragment implements View.OnClickListener
             toast.show();
         }
     }
-
 }

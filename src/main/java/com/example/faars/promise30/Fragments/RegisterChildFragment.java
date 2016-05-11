@@ -23,10 +23,7 @@ import com.example.faars.promise30.SQL.MyDBHandler;
 
 import java.util.Calendar;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class RegisterChildFragment extends Fragment implements View.OnClickListener{
+public class RegisterChildFragment extends Fragment implements View.OnClickListener {
 
     public RegisterChildFragment() {
         // Required empty public constructor
@@ -50,7 +47,8 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
         firstName = (EditText) viewGroup.findViewById(R.id.et_first_name);
         registerChildButton = (Button) viewGroup.findViewById(R.id.register_child_button);
 
-        dbHandler = MyDBHandler.getInstance(getActivity());
+        registerChildButton.setOnClickListener(this);
+        showPickedTermDate.setOnClickListener(this);
 
         // Display info from QR-code:
         childID = ChildActivity.getChildID();
@@ -60,49 +58,40 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
         tvHospitalID.setText(hospitalID);
         tvCountry.setText(countryID);
 
-        registerChildButton.setOnClickListener(this);
-        showPickedTermDate.setOnClickListener(this);
-
-        // Checks if the same childID is in use:
+        // Checks if the childID is in use:
+        dbHandler = MyDBHandler.getInstance(getActivity());
         if (dbHandler.childIdInUse(childID)) {
             Toast.makeText(getActivity(), "Child_ID in use. Can not register the same ID twice. " +
                     "Scan a new QR code", Toast.LENGTH_SHORT).show();
-            registerChildButton.setText("Scan new QR code");
+            android.support.v4.app.FragmentTransaction fragmentTransactionChild;
+            fragmentTransactionChild = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransactionChild.replace(R.id.child_container, new ReadQRcodeFragment());
+            fragmentTransactionChild.commit();
         }
         return viewGroup;
     }
 
     @Override
     public void onClick(View v) {
-        String buttonName = registerChildButton.getText().toString();
-        if(buttonName.equals("Register")){
-            switch (v.getId()) {
-                case R.id.register_child_button:
-                    if (checkChildInput()) {
-                        nickname = firstName.getText().toString();
-                        profileName = dbHandler.getCurrentProfile();
+        switch (v.getId()) {
+            case R.id.register_child_button:
+                if (checkChildInput()) {
+                    nickname = firstName.getText().toString();
+                    profileName = dbHandler.getCurrentProfile();
 
-                        Child child = new Child(childID, hospitalID, countryID, termDate, nickname, profileName);
-                        dbHandler.addChild(child);
-                        dbHandler.updateCurrentChild(nickname);
+                    Child child = new Child(childID, hospitalID, countryID, termDate, nickname, profileName);
+                    dbHandler.addChild(child);
+                    dbHandler.updateCurrentChild(nickname);
 
-                        Toast toast = Toast.makeText(getActivity(), "Child Registered", Toast.LENGTH_SHORT);
-                        toast.show();
-                        getActivity().finish();
-                        startActivity(new Intent(getActivity(), MainActivity.class));
-                    }
-                    break;
-                case R.id.et_term_date:
-                    DialogFragment termdatePicker = new TermdatePicker();
-                    termdatePicker.show(getActivity().getSupportFragmentManager(), "datePicker");
-                    break;
-        }
-        }else{
-            android.support.v4.app.FragmentTransaction fragmentTransactionChild;
-            fragmentTransactionChild = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransactionChild.replace(R.id.child_container, new ReadQRcodeFragment());
-            fragmentTransactionChild.addToBackStack(null);
-            fragmentTransactionChild.commit();
+                    Toast.makeText(getActivity(), "Child Registered", Toast.LENGTH_SHORT).show();
+                    getActivity().finish();
+                    startActivity(new Intent(getActivity(), MainActivity.class));
+                }
+                break;
+            case R.id.et_term_date:
+                DialogFragment termdatePicker = new TermdatePicker();
+                termdatePicker.show(getActivity().getSupportFragmentManager(), "datePicker");
+                break;
         }
     }
 
@@ -117,17 +106,17 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
         } else if (dbHandler.nicknameInUse(firstName.getText().toString())) {
             Toast.makeText(getActivity(), "Child's username in use. Choose another one.", Toast.LENGTH_SHORT).show();
             return false;
-        }else {
+        } else {
             return true;
         }
     }
 
 
-
-    /** TERM DATE PICKER DIALOG CLASS **/
+    /**
+     * TERM DATE PICKER DIALOG CLASS
+     **/
     // Not recommended to include a class in another, but I don't get to display the date otherwise
     public class TermdatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-
 
         @Override
         public DatePickerDialog onCreateDialog(Bundle savedInstanceState) {
@@ -144,7 +133,7 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             showPickedTermDate.setText(String.valueOf(dayOfMonth) + ". " + getMonthName(monthOfYear) + " " + String.valueOf(year));
-            termDate = String.valueOf(monthOfYear+1) + "/" + String.valueOf(dayOfMonth) + "/" + String.valueOf(year);
+            termDate = String.valueOf(monthOfYear + 1) + "/" + String.valueOf(dayOfMonth) + "/" + String.valueOf(year);
         }
 
         public String getMonthName(int month) {

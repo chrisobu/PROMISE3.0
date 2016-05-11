@@ -1,6 +1,7 @@
 package com.example.faars.promise30.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.faars.promise30.NewVideoActivity;
 import com.example.faars.promise30.R;
 import com.example.faars.promise30.SQL.MyDBHandler;
 
@@ -17,20 +19,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class NextVideoFragment extends Fragment implements View.OnClickListener{
-
 
     public NextVideoFragment() {
         // Required empty public constructor
     }
 
     TextView countdown;
+    Button newVideoNow;
     int weeks =0, days=0, weeksLeft=0, daysLeft=0, daysLeftOfTimezone=0;
     MyDBHandler dbHandler;
-    Button newVideoNow;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,7 +38,6 @@ public class NextVideoFragment extends Fragment implements View.OnClickListener{
         countdown = (TextView) viewGroup.findViewById(R.id.countdown);
         newVideoNow = (Button) viewGroup.findViewById(R.id.new_video_now);
         dbHandler = MyDBHandler.getInstance(getActivity());
-
 
         int difference = getDifferenceTermDate();
 
@@ -71,7 +68,6 @@ public class NextVideoFragment extends Fragment implements View.OnClickListener{
                     countdown.setText("Take a video in " + daysLeft + " day");
                 }
             }
-
         }else {//When you are in the right timezone of 3 weeks for a video:
             daysLeftOfTimezone = 21 + difference;
             weeks = daysLeftOfTimezone / 7;
@@ -100,12 +96,11 @@ public class NextVideoFragment extends Fragment implements View.OnClickListener{
                     countdown.setText("You are outside the right timezone for a new video. Wait for result of the analysis, or contact St. Olavs Hospital if you forgot to take a video.");
                     newVideoNow.setVisibility(View.GONE);
                 }
-            } else{
+            } else {
                 countdown.setText("You are outside the right timezone for a new video. Wait for result of the analysis, or contact St. Olavs Hospital if you forgot to take a video.");
                 newVideoNow.setVisibility(View.GONE);
             }
         }
-
         newVideoNow.setOnClickListener(this);
 
         return viewGroup;
@@ -113,11 +108,7 @@ public class NextVideoFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        android.support.v4.app.FragmentTransaction fragmentTransactionNewVideo;
-        fragmentTransactionNewVideo = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransactionNewVideo.replace(R.id.main_container, new NewVideoFragment());
-        fragmentTransactionNewVideo.addToBackStack(null);
-        fragmentTransactionNewVideo.commit();
+        startActivity(new Intent(getActivity(), NewVideoActivity.class));
     }
 
     private int getDifferenceTermDate(){

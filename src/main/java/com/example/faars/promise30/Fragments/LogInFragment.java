@@ -19,11 +19,7 @@ import com.example.faars.promise30.MainActivity;
 import com.example.faars.promise30.R;
 import com.example.faars.promise30.SQL.MyDBHandler;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class LogInFragment extends Fragment implements View.OnClickListener{
-
 
     public LogInFragment() {
         // Required empty public constructor
@@ -35,7 +31,6 @@ public class LogInFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         ViewGroup viewGroup = (ViewGroup)inflater.inflate(R.layout.fragment_log_in, container, false);
 
         Button bLoginPressed = (Button) viewGroup.findViewById(R.id.bLogIn);
@@ -43,6 +38,7 @@ public class LogInFragment extends Fragment implements View.OnClickListener{
         username = (EditText) viewGroup.findViewById(R.id.etUsername);
         password = (EditText) viewGroup.findViewById(R.id.etPassword);
 
+        // Underline "Or Register a new profile"- text
         SpannableString content = new SpannableString("or register a new profile");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         orRegisterNewProfile.setText(content);

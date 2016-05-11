@@ -17,13 +17,10 @@ import com.example.faars.promise30.R;
 import com.example.faars.promise30.SQL.MyDBHandler;
 import com.example.faars.promise30.SQL.Video;
 
-/**
- * Created by faars on 17-Apr-16.
- */
 public class ShowOrSendDialog extends DialogFragment {
 
-
     MyDBHandler dbHandler;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
