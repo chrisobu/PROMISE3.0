@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.faars.promise30.Dialogs.DeleteChild;
 import com.example.faars.promise30.R;
 import com.example.faars.promise30.SQL.Child;
 import com.example.faars.promise30.SQL.MyDBHandler;
@@ -94,13 +96,10 @@ public class EditChildFragment extends Fragment implements View.OnClickListener{
                 fragmentTransactionCancelEdit.commit();
                 break;
             case R.id.delete_edit_child_button:
-                dbHandler.deleteChild(dbHandler.getCurrentChild());
-                dbHandler.deleteAllVideosOfChild(dbHandler.getCurrentChild());
-
-                android.support.v4.app.FragmentTransaction fragmentTransactionDeleteEdit;
-                fragmentTransactionDeleteEdit = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransactionDeleteEdit.replace(R.id.child_container, new ChooseChildFragment());
-                fragmentTransactionDeleteEdit.commit();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                // Create and show the dialog:
+                DeleteChild newDialog = new DeleteChild();
+                newDialog.show(ft, "DeleteChild");
                 break;
         }
     }

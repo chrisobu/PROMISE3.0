@@ -29,18 +29,18 @@ public class ChildActivity extends AppCompatActivity  {
                 fragmentTransactionChild = getSupportFragmentManager().beginTransaction();
                 fragmentTransactionChild.replace(R.id.child_container, new ReadQRcodeFragment());
                 fragmentTransactionChild.commit();
-                getSupportActionBar().setTitle("PROMISE 3.0");
+                getSupportActionBar().setTitle("PROMISE");
             }else{ // layout = "ChooseChildFragment" (or other)
                 fragmentTransactionChild = getSupportFragmentManager().beginTransaction();
                 fragmentTransactionChild.replace(R.id.child_container, new ChooseChildFragment());
                 fragmentTransactionChild.commit();
-                getSupportActionBar().setTitle("PROMISE 3.0");
+                getSupportActionBar().setTitle("PROMISE");
             }
         }else{ // layout = empty
             fragmentTransactionChild = getSupportFragmentManager().beginTransaction();
             fragmentTransactionChild.replace(R.id.child_container, new ChooseChildFragment());
             fragmentTransactionChild.commit();
-            getSupportActionBar().setTitle("PROMISE 3.0");
+            getSupportActionBar().setTitle("PROMISE");
         }
     }
 

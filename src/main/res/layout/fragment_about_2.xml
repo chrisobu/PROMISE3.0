@@ -7,11 +7,10 @@
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp">
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tekst"
+            android:id="@+id/about"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="About"
@@ -24,8 +23,8 @@
             android:layout_height="wrap_content"
             android:textColor="#D50000"
             android:gravity="center"
-            android:layout_below="@id/tekst"
-            android:text="Her skal det stå litt informasjon om appen og undersøkelsen."/>
+            android:layout_below="@id/about"
+            android:text="Her skal det stå litt informasjon om appen og at du må opprette en profil for å kunne bruke appen"/>
     </RelativeLayout>
 
 

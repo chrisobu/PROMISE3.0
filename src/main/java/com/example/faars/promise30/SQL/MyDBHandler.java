@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -254,9 +256,9 @@ public class MyDBHandler extends SQLiteOpenHelper{
         db.insert(VIDEO_TABLE, null, values);
     }
     // Delete a row in the table
-    public void deleteVideo(String fileid){
+    public void deleteVideo(String filename){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + VIDEO_TABLE + " WHERE " + COLUMN_VIDEO_ID+ "=\"" + fileid + "\";");
+        db.execSQL("DELETE FROM " + VIDEO_TABLE + " WHERE " + COLUMN_FILENAME + "=\"" + filename + "\";");
     }
     // Delete all videos in the table of chosen child
     public void deleteAllVideosOfChild(String childName){
@@ -304,9 +306,16 @@ public class MyDBHandler extends SQLiteOpenHelper{
         for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
             if(c.getString(c.getColumnIndex(COLUMN_PROFILE)).equals(profile) &&
                     c.getString(c.getColumnIndex(COLUMN_CHILD)).equals(child)){
-                ListVideos.add(c.getString(c.getColumnIndex(COLUMN_FILENAME)));
+                File directory = new File("/storage/sdcard0/Pictures/PROMISE/" +
+                        c.getString(c.getColumnIndex(COLUMN_FILENAME)));
+                if(directory.exists()) {
+                    ListVideos.add(c.getString(c.getColumnIndex(COLUMN_FILENAME)));
+                }else{
+                    deleteVideo(c.getString(c.getColumnIndex(COLUMN_FILENAME)));
+                }
             }
         }
+        Collections.reverse(ListVideos);
         return ListVideos;
     }
     // Return all SENT videos taken by current profile of current child

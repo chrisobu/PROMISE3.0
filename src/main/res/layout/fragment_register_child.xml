@@ -4,125 +4,131 @@
     android:layout_height="match_parent"
     tools:context="com.example.faars.promise30.Fragments.RegisterChildFragment">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_info_heading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textSize="20dp"
-            android:text="Information from the QR code:"/>
-        <TextView
-            android:id="@+id/tv_child_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Child ID"
-            android:textSize="15dp"
-            android:layout_below="@id/tv_info_heading"/>
-
-        <TextView
-            android:id="@+id/tv_hospital_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Hospital ID"
-            android:textSize="15dp"
-            android:layout_below="@id/tv_child_id"/>
-
-        <TextView
-            android:id="@+id/et_child_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:text="Child ID"
-            android:textSize="15dp"
-            android:layout_below="@id/tv_info_heading"
-            android:layout_toRightOf="@id/tv_hospital_id"/>
-
-        <TextView
-            android:id="@+id/et_hospital_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Hospital ID"
-            android:textSize="15dp"
-            android:layout_toRightOf="@id/tv_hospital_id"
-            android:layout_below="@id/et_child_id"/>
-
-        <TextView
-            android:id="@+id/tv_country"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Country ID"
-            android:textSize="15dp"
-            android:layout_below="@id/tv_hospital_id"/>
-        <TextView
-            android:id="@+id/et_country"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Country ID"
-            android:textSize="15dp"
-            android:layout_toRightOf="@id/tv_hospital_id"
-            android:layout_below="@id/et_hospital_id"/>
-
-        <TextView
-            android:id="@+id/tv_first_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_country"
-            android:layout_marginTop="50dp"
-            android:text="Child's username"
-            android:textSize="17dp" />
-        <EditText
-            android:id="@+id/et_first_name"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_first_name"
-            android:hint="e.g. fill in child's first name"
-            android:editable="true"/>
+            android:layout_height="match_parent"
+            android:layout_margin="20dp">
 
-        <TextView
-            android:id="@+id/tv_term_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/et_first_name"
-            android:layout_marginTop="10dp"
-            android:text="Term date"
-            android:textSize="17dp" />
+            <TextView
+                android:id="@+id/tv_info_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textSize="20dp"
+                android:text="Information from the QR code:"/>
+            <TextView
+                android:id="@+id/tv_child_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Child ID"
+                android:textSize="15dp"
+                android:layout_below="@id/tv_info_heading"/>
 
-        <EditText
-            android:id="@+id/et_term_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_term_date"
-            android:hint="Press here to choose term date"
-            android:editable="false"
-            android:clickable="true"/>
+            <TextView
+                android:id="@+id/tv_hospital_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Hospital ID"
+                android:textSize="15dp"
+                android:layout_below="@id/tv_child_id"/>
 
-        <Button
-            android:id="@+id/register_child_button"
-            android:layout_width="200dp"
-            android:layout_below="@id/et_term_date"
-            android:layout_height="wrap_content"
-            android:background="#0097A7"
-            android:layout_marginTop="30dp"
-            android:textColor="#FFFFFF"
-            android:layout_centerHorizontal="true"
-            android:text="Register" />
+            <TextView
+                android:id="@+id/et_child_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:text="Child ID"
+                android:textSize="15dp"
+                android:layout_below="@id/tv_info_heading"
+                android:layout_toRightOf="@id/tv_hospital_id"/>
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/et_hospital_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Hospital ID"
+                android:textSize="15dp"
+                android:layout_toRightOf="@id/tv_hospital_id"
+                android:layout_below="@id/et_child_id"/>
+
+            <TextView
+                android:id="@+id/tv_country"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Country ID"
+                android:textSize="15dp"
+                android:layout_below="@id/tv_hospital_id"/>
+            <TextView
+                android:id="@+id/et_country"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Country ID"
+                android:textSize="15dp"
+                android:layout_toRightOf="@id/tv_hospital_id"
+                android:layout_below="@id/et_hospital_id"/>
+
+            <TextView
+                android:id="@+id/tv_first_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_country"
+                android:layout_marginTop="50dp"
+                android:text="Child's username"
+                android:textSize="17dp" />
+            <EditText
+                android:id="@+id/et_first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_first_name"
+                android:hint="e.g. fill in child's first name"
+                android:editable="true"/>
+
+            <TextView
+                android:id="@+id/tv_term_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_first_name"
+                android:layout_marginTop="10dp"
+                android:text="Term date"
+                android:textSize="17dp" />
+
+            <EditText
+                android:id="@+id/et_term_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_term_date"
+                android:hint="Press here to choose term date"
+                android:editable="false"
+                android:clickable="true"/>
+
+            <Button
+                android:id="@+id/register_child_button"
+                android:layout_width="200dp"
+                android:layout_below="@id/et_term_date"
+                android:layout_height="wrap_content"
+                android:background="#0097A7"
+                android:layout_marginTop="30dp"
+                android:textColor="#FFFFFF"
+                android:layout_centerHorizontal="true"
+                android:text="Register" />
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </FrameLayout>

@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="17dp"
-            android:layout_marginLeft="35dp"
+            android:layout_marginLeft="40dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:textColor="#616161"
@@ -78,12 +78,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="17dp"
-            android:layout_marginLeft="35dp"
+            android:layout_marginLeft="40dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
             android:textColor="#616161"
-            android:text="Some times we will ask the participants to take another video. This is
-because the first video, for various reasons, was inadequate. Therefor, we need another video to
+            android:text="Sometimes we will ask the participants to take another video. This is
+because the first video, for various reasons, was inadequate. Therefore, we need another video to
 go through with the analysis."
             android:visibility="gone"/>
 
@@ -115,7 +115,7 @@ go through with the analysis."
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="17dp"
-            android:layout_marginLeft="35dp"
+            android:layout_marginLeft="40dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:textColor="#616161"

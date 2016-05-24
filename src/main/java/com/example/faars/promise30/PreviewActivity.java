@@ -64,7 +64,7 @@ public class PreviewActivity extends AppCompatActivity implements MediaPlayer.On
         this.finish();
     }
 
-   @Override
+    @Override
     public void onCompletion(MediaPlayer mp) {
         finish();
     }

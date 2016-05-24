@@ -16,7 +16,7 @@
             android:title="Next video" />
         <item
             android:id="@+id/nav_new_video"
-            android:icon="@drawable/ic_photo_camera_black_24px"
+            android:icon="@drawable/ic_videocam_24dp"
             android:title="New video" />
         <item
             android:id="@+id/nav_my_videos"

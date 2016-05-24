@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Consider these subjects before starting to film: "
+            android:text="Please ensure that the following criteria are met:"
             android:textSize="20dp"
             android:layout_marginBottom="40dp"/>
 
@@ -42,7 +42,7 @@
             android:id="@+id/recap_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="The child must be content and undisturbed"/>
+            android:text="The child must be happy and undisturbed"/>
 
         <Button
             android:id="@+id/recap_continue_button"

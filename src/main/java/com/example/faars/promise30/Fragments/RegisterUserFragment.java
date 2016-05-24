@@ -66,13 +66,13 @@ public class RegisterUserFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bCreateProfile:
-                 if(checkInput()){
-                     saveUserProfile();
-                     Toast.makeText(getActivity(), "Profile saved!", Toast.LENGTH_LONG).show();
-                     Intent intent = new Intent(getActivity(), ChildActivity.class);
-                     intent.putExtra(EXTRA_LAYOUT, "RegisterChildFragment");
-                     getActivity().finish(); // TODO: can I remove this?
-                     startActivity(intent);
+                if(checkInput()){
+                    saveUserProfile();
+                    Toast.makeText(getActivity(), "Profile saved!", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getActivity(), ChildActivity.class);
+                    intent.putExtra(EXTRA_LAYOUT, "RegisterChildFragment");
+                    getActivity().finish(); // TODO: can I remove this?
+                    startActivity(intent);
                 }
                 break;
             case R.id.tvLogInOption:

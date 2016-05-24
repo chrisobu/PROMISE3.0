@@ -18,6 +18,6 @@ public class NewVideoActivity extends AppCompatActivity {
         fragmentTransactionNewVideo = getSupportFragmentManager().beginTransaction();
         fragmentTransactionNewVideo.replace(R.id.new_video_container, new RecapInfoFragment());
         fragmentTransactionNewVideo.commit();
-        getSupportActionBar().setTitle("PROMISE 3.0");
+        getSupportActionBar().setTitle("PROMISE");
     }
 }

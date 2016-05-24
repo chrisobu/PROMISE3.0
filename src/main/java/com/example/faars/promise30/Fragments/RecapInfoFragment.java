@@ -90,6 +90,7 @@ public class RecapInfoFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+        recapContinueButton.setBackgroundColor(getResources().getColor(R.color.colorInactive));
         android.support.v4.app.FragmentTransaction fragmentTransactionRecap;
         fragmentTransactionRecap = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransactionRecap.replace(R.id.new_video_container, new CameraFragment());

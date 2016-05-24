@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.faars.promise30.Fragments.MyVideosFragment;
+import com.example.faars.promise30.SQL.MyDBHandler;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class MyVideosList extends ArrayAdapter<String> {
 
     private final Activity context;
     private final ArrayList<String> childVideos;
+    MyDBHandler dbHandler = MyDBHandler.getInstance(getContext());
 
     public MyVideosList(Activity context, ArrayList<String> childVideos) {
         super(context, R.layout.my_list_view, childVideos);
@@ -48,7 +50,7 @@ public class MyVideosList extends ArrayAdapter<String> {
                         .centerCrop()
                         .into(imageView);
             }else{
-                Toast.makeText(context, "thumbnail don't exist", Toast.LENGTH_LONG).show();
+                dbHandler.deleteVideo(fileName);
             }
         }
 

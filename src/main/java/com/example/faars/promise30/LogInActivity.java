@@ -27,6 +27,6 @@ public class LogInActivity extends AppCompatActivity {
         fragmentTransactionLogIn = getSupportFragmentManager().beginTransaction();
         fragmentTransactionLogIn.replace(R.id.log_in_container, new StartPageFragment());
         fragmentTransactionLogIn.commit();
-        getSupportActionBar().setTitle("PROMISE 3.0");
+        getSupportActionBar().setTitle("PROMISE");
     }
 }

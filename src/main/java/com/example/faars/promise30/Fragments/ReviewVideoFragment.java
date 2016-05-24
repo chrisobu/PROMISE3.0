@@ -112,11 +112,13 @@ public class ReviewVideoFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.new_video_button:
+                approveButton.setBackgroundColor(getResources().getColor(R.color.colorInactive));
                 fragmentTransactionReviewVideo = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransactionReviewVideo.replace(R.id.new_video_container, new CameraFragment());
                 fragmentTransactionReviewVideo.commit();
                 break;
             case R.id.approve_button:
+                approveButton.setBackgroundColor(getResources().getColor(R.color.colorInactive));
                 fragmentTransactionReviewVideo = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransactionReviewVideo.replace(R.id.new_video_container, new VideoSavedFragment());
                 fragmentTransactionReviewVideo.addToBackStack(null);

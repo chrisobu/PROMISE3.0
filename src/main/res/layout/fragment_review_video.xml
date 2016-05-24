@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:textSize="17dp"
-            android:text="Review the video and consider the following points:"
+            android:text="Review the video and consider if the following criteria are met"
             android:layout_marginBottom="20dp"/>
 
         <CheckBox

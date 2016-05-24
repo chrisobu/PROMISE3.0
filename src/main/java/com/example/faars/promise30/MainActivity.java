@@ -68,23 +68,23 @@ public class MainActivity extends AppCompatActivity
                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.main_container, new SendVideoFragment());
                 fragmentTransaction.commit();
-                getSupportActionBar().setTitle("PROMISE 3.0");
+                getSupportActionBar().setTitle("PROMISE");
             } else if(layout.equals("MyVideosFragment")) {
                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.main_container, new MyVideosFragment());
                 fragmentTransaction.commit();
-                getSupportActionBar().setTitle("PROMISE 3.0");
+                getSupportActionBar().setTitle("PROMISE");
             }else{ // layout = "MainPageFragment" (or other)
                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.main_container, new MainPageFragment());
                 fragmentTransaction.commit();
-                getSupportActionBar().setTitle("PROMISE 3.0");
+                getSupportActionBar().setTitle("PROMISE");
             }
         }else{ // layout = empty
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.main_container, new MainPageFragment());
             fragmentTransaction.commit();
-            getSupportActionBar().setTitle("PROMISE 3.0");
+            getSupportActionBar().setTitle("PROMISE");
         }
     }
 
@@ -106,50 +106,50 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.main_container, new About2Fragment());
             fragmentTransaction.commit();
-            getSupportActionBar().setTitle("About the App");
+            getSupportActionBar().setTitle("PROMISE");
 
         } else if (id == R.id.nav_instruction) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.main_container, new InstructionVideoFragment());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
-            getSupportActionBar().setTitle("Instruction Video");
+            getSupportActionBar().setTitle("PROMISE");
 
         } else if (id == R.id.nav_next_video) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.main_container, new NextVideoFragment());
             fragmentTransaction.commit();
-            getSupportActionBar().setTitle("Next Video");
+            getSupportActionBar().setTitle("PROMISE");
 
         } else if (id == R.id.nav_new_video) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.main_container, new NewVideoFragment());
             fragmentTransaction.commit();
-            getSupportActionBar().setTitle("New Video");
+            getSupportActionBar().setTitle("PROMISE");
 
         } else if (id == R.id.nav_my_videos) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.main_container, new MyVideosFragment());
             fragmentTransaction.commit();
-            getSupportActionBar().setTitle("My Videos");
+            getSupportActionBar().setTitle("PROMISE");
 
         } else if (id == R.id.nav_feedback) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.main_container, new FeedbackFragment());
             fragmentTransaction.commit();
-            getSupportActionBar().setTitle("Feedback");
+            getSupportActionBar().setTitle("PROMISE");
 
-        } else if (id == R.id.nav_faq) {
+        }else if(id == R.id.nav_faq) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.main_container, new FAQFragment());
             fragmentTransaction.commit();
-            getSupportActionBar().setTitle("Frequently Asked Questions");
+            getSupportActionBar().setTitle("PROMISE");
 
         } else if (id == R.id.nav_contact) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.main_container, new ContactFragment());
             fragmentTransaction.commit();
-            getSupportActionBar().setTitle("Contact us");
+            getSupportActionBar().setTitle("PROMISE");
 
         } else if (id == R.id.nav_choose_child) {
             finish();
