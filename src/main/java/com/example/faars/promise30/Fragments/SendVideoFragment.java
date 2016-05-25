@@ -66,7 +66,7 @@ public class SendVideoFragment extends Fragment implements View.OnClickListener 
                 Video video = new Video(dbHandler.getCurrentVideo(), "true", dbHandler.getCurrentProfile(), dbHandler.getCurrentChild());
                 dbHandler.updateVideo(video);
 
-                //sendVideo();
+                sendVideo();
                 android.support.v4.app.FragmentTransaction fragmentTransactionVideoSent;
                 fragmentTransactionVideoSent = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransactionVideoSent.replace(R.id.main_container, new FeedbackFragment());
@@ -85,10 +85,10 @@ public class SendVideoFragment extends Fragment implements View.OnClickListener 
     }
 
     private void sendVideo(){
-        String address = "christine.buen@hotmail.com";
+        String address = "chrisob@stud.ntnu.no";
         String subject = "New video from PROMISE";
         String res = "/storage/sdcard0/Pictures/PROMISE/" + dbHandler.getCurrentVideo();
-        Uri attachment = Uri.parse(res);
+        Uri attachment = Uri.fromFile(new File(res));
 
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("*/*");
@@ -98,6 +98,5 @@ public class SendVideoFragment extends Fragment implements View.OnClickListener 
         if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
             startActivity(intent);
         }
-        Toast.makeText(getActivity(), "Video sent!", Toast.LENGTH_LONG).show();
     }
 }
