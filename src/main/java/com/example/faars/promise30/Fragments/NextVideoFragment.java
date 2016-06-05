@@ -25,7 +25,7 @@ public class NextVideoFragment extends Fragment implements View.OnClickListener{
         // Required empty public constructor
     }
 
-    TextView countdown;
+    TextView countdown, termdate, thirteenWeeks, tenWeeks;
     Button newVideoNow;
     int weeks =0, days=0, weeksLeft=0, daysLeft=0, daysLeftOfTimezone=0;
     MyDBHandler dbHandler;
@@ -36,10 +36,17 @@ public class NextVideoFragment extends Fragment implements View.OnClickListener{
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_next_video, container, false);
 
         countdown = (TextView) viewGroup.findViewById(R.id.countdown);
+        termdate = (TextView) viewGroup.findViewById(R.id.termDate);
+        thirteenWeeks = (TextView) viewGroup.findViewById(R.id.thirteenWeeks);
+        tenWeeks = (TextView) viewGroup.findViewById(R.id.tenWeeks);
         newVideoNow = (Button) viewGroup.findViewById(R.id.new_video_now);
         dbHandler = MyDBHandler.getInstance(getActivity());
 
         int difference = getDifferenceTermDate();
+
+        termdate.setText(getTermDate());
+        tenWeeks.setText(getTenWeeksDate());
+        thirteenWeeks.setText(getThirteenWeeksDate());
 
         // If not there yet:
         if(difference >0){
@@ -47,25 +54,25 @@ public class NextVideoFragment extends Fragment implements View.OnClickListener{
             daysLeft = difference % 7;
             if(weeksLeft>1){
                 if(daysLeft>1){
-                    countdown.setText("Take a video in " + weeksLeft + " weeks and " + daysLeft + " days");
+                    countdown.setText("Record a video in " + weeksLeft + " weeks and " + daysLeft + " days");
                 }else if(daysLeft==1){
-                    countdown.setText("Take a video in " + weeksLeft + " weeks and " + daysLeft + " day");
+                    countdown.setText("Record a video in " + weeksLeft + " weeks and " + daysLeft + " day");
                 }else if(daysLeft==0){
-                    countdown.setText("Take a video in " + weeksLeft + " weeks");
+                    countdown.setText("Record a video in " + weeksLeft + " weeks");
                 }
             }else if(weeksLeft==1){
                 if(daysLeft>1){
-                    countdown.setText("Take a video in " + weeksLeft + " week and " + daysLeft + " days");
+                    countdown.setText("Record a video in " + weeksLeft + " week and " + daysLeft + " days");
                 }else if(daysLeft==1){
-                    countdown.setText("Take a video in " + weeksLeft + " week and " + daysLeft + " day");
+                    countdown.setText("Record a video in " + weeksLeft + " week and " + daysLeft + " day");
                 }else if(daysLeft==0){
-                    countdown.setText("Take a video in " + weeksLeft + " week");
+                    countdown.setText("Record a video in " + weeksLeft + " week");
                 }
             }else if(weeksLeft==0){
                 if(daysLeft>1){
-                    countdown.setText("Take a video in " + daysLeft + " days");
+                    countdown.setText("Record a video in " + daysLeft + " days");
                 }else if(daysLeft==1){
-                    countdown.setText("Take a video in " + daysLeft + " day");
+                    countdown.setText("Record a video in " + daysLeft + " day");
                 }
             }
         }else {//When you are in the right timezone of 3 weeks for a video:
@@ -75,23 +82,23 @@ public class NextVideoFragment extends Fragment implements View.OnClickListener{
             newVideoNow.setVisibility(View.VISIBLE);
             if (weeks > 1) {
                 if (days > 1) {
-                    countdown.setText("Take a video within the next " + weeks + " weeks and " + days + " days");
+                    countdown.setText("Record a video within the next " + weeks + " weeks and " + days + " days");
                 } else {
-                    countdown.setText("Take a video within the next " + weeks + " weeks");
+                    countdown.setText("Record a video within the next " + weeks + " weeks");
                 }
             } else if (weeks == 1) {
                 if (days > 1) {
-                    countdown.setText("Take a video within the next " + weeks + " week and " + days + " days");
+                    countdown.setText("Record a video within the next " + weeks + " week and " + days + " days");
                 } else if (days == 1) {
-                    countdown.setText("Take a video within the next " + weeks + " week and " + days + " day");
+                    countdown.setText("Record a video within the next " + weeks + " week and " + days + " day");
                 } else {
-                    countdown.setText("Take a video within the next " + weeks + " week");
+                    countdown.setText("Record a video within the next " + weeks + " week");
                 }
             } else if (weeks == 0) {
                 if (days > 1) {
-                    countdown.setText("Take a video within the next " + days + " days");
+                    countdown.setText("Record a video within the next " + days + " days");
                 } else if (days == 1) {
-                    countdown.setText("Take a video within the next " + days + " day");
+                    countdown.setText("Record a video within the next " + days + " day");
                 } else {
                     countdown.setText("You are outside the right timezone for a new video. Wait for result of the analysis, or contact St. Olavs Hospital if you forgot to take a video.");
                     newVideoNow.setVisibility(View.GONE);
@@ -132,5 +139,51 @@ public class NextVideoFragment extends Fragment implements View.OnClickListener{
                 -(int) (currentDate.getTime()/ (24*60*60*1000)));
 
         return difference;
+    }
+
+    private String getTenWeeksDate(){
+        // Term date:
+        String termDateString = dbHandler.getCurrentTermDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        Calendar c = Calendar.getInstance(); // Get Calendar Instance
+        try {
+            c.setTime(sdf.parse(termDateString));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        // Time for next video:
+        c.add(Calendar.DATE, 70);  // add 10 weeks to term date
+        sdf = new SimpleDateFormat("d. MMM");
+        return sdf.format(new Date(c.getTimeInMillis()));
+    }
+
+    private String getThirteenWeeksDate(){
+        // Term date:
+        String termDateString = dbHandler.getCurrentTermDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        Calendar c = Calendar.getInstance(); // Get Calendar Instance
+        try {
+            c.setTime(sdf.parse(termDateString));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        // Time for next video:
+        c.add(Calendar.DATE, 91);  // add 13 weeks to term date
+        sdf = new SimpleDateFormat("d. MMM");
+        return sdf.format(new Date(c.getTimeInMillis()));
+    }
+
+    private String getTermDate(){
+        // Term date:
+        String termDateString = dbHandler.getCurrentTermDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        Calendar c = Calendar.getInstance(); // Get Calendar Instance
+        try {
+            c.setTime(sdf.parse(termDateString));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        sdf = new SimpleDateFormat("d. MMM");
+        return sdf.format(new Date(c.getTimeInMillis()));
     }
 }

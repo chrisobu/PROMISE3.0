@@ -20,6 +20,8 @@ import com.example.faars.promise30.SQL.Video;
 
 import java.io.File;
 
+import static android.os.SystemClock.sleep;
+
 public class SendVideoFragment extends Fragment implements View.OnClickListener {
 
     public SendVideoFragment() {
@@ -91,12 +93,12 @@ public class SendVideoFragment extends Fragment implements View.OnClickListener 
         Uri attachment = Uri.fromFile(new File(res));
 
         Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("*/*");
+        intent.setType("vnd.android.cursor.dir/email");
         intent.putExtra(Intent.EXTRA_EMAIL, address);
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.putExtra(Intent.EXTRA_STREAM, attachment);
         if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivity(intent);
+            startActivity(Intent.createChooser(intent , "Send email..."));
         }
     }
 }

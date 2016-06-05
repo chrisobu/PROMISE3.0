@@ -3,17 +3,13 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_about"
-            android:icon="@drawable/ic_info_outline_black_24px"
-            android:title="About" />
-        <item
             android:id="@+id/nav_instruction"
             android:icon="@drawable/ic_ondemand_video_black_24px"
             android:title="Instruction video" />
         <item
             android:id="@+id/nav_next_video"
             android:icon="@drawable/ic_event_available_black_24px"
-            android:title="Next video" />
+            android:title="When can I record the video?" />
         <item
             android:id="@+id/nav_new_video"
             android:icon="@drawable/ic_videocam_24dp"
@@ -34,6 +30,10 @@
             android:id="@+id/nav_contact"
             android:icon="@drawable/ic_call_black_24px"
             android:title="Contact us" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_info_outline_black_24px"
+            android:title="About" />
         <item
             android:id="@+id/nav_choose_child"
             android:icon="@drawable/ic_child_care_black_24px"
