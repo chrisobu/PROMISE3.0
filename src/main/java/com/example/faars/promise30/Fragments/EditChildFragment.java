@@ -84,6 +84,7 @@ public class EditChildFragment extends Fragment implements View.OnClickListener{
                         dbHandler.getCurrentProfile());
                 dbHandler.updateChild(editChild);
 
+                //TODO: add updateAlarm: 1 week & now
                 android.support.v4.app.FragmentTransaction fragmentTransactionSaveEdit;
                 fragmentTransactionSaveEdit = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransactionSaveEdit.replace(R.id.child_container, new ChooseChildFragment());
@@ -96,6 +97,8 @@ public class EditChildFragment extends Fragment implements View.OnClickListener{
                 fragmentTransactionCancelEdit.commit();
                 break;
             case R.id.delete_edit_child_button:
+                //TODO: add removeAlarm 1 week & now
+
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 // Create and show the dialog:
                 DeleteChild newDialog = new DeleteChild();

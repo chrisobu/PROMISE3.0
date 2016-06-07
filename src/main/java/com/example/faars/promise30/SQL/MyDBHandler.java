@@ -333,6 +333,23 @@ public class MyDBHandler extends SQLiteOpenHelper{
         }
         return ListVideos;
     }
+    //TODO: use this method to check if a notification should be given
+    // Return true if any video of the child is sent
+    public Boolean checkForSentVideos(String profile, String child){
+        ArrayList<String> ListVideos = new ArrayList<String>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor c = db.query(VIDEO_TABLE, null, null, null, null, null, null);
+        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+            if(c.getString(c.getColumnIndex(COLUMN_PROFILE)).equals(profile) &&
+                    c.getString(c.getColumnIndex(COLUMN_CHILD)).equals(child) &&
+                    c.getString(c.getColumnIndex(COLUMN_SENT_STATUS)).equals("true")){
+                return true;
+            }
+        }
+        return false;
+    }
+    // Returns true is currentVideo is sent
     public Boolean videoIsSent(){
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(VIDEO_TABLE, null, null, null, null, null, null);

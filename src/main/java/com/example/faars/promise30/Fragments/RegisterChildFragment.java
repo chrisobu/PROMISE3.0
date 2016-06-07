@@ -83,6 +83,7 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
                     dbHandler.addChild(child);
                     dbHandler.updateCurrentChild(nickname);
 
+                    //TODO: add setupAlarm: 1 week & now
                     Toast.makeText(getActivity(), "Child Registered", Toast.LENGTH_SHORT).show();
                     getActivity().finish();
                     startActivity(new Intent(getActivity(), MainActivity.class));
@@ -94,6 +95,13 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
                 break;
         }
     }
+
+    // String to notification:
+    private String stringToNotification(){
+        String notification = "Record a video of " + dbHandler.getCurrentChild();
+        return notification;
+    }
+
 
     // Ensures only one child with the same nickname
     private boolean checkChildInput() {
