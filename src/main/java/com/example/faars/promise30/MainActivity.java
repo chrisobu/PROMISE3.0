@@ -32,6 +32,9 @@ import com.example.faars.promise30.Fragments.NextVideoFragment;
 import com.example.faars.promise30.Fragments.SendVideoFragment;
 import com.example.faars.promise30.SQL.MyDBHandler;
 
+
+
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

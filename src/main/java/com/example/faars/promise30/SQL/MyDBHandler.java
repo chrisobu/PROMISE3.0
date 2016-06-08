@@ -5,10 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 
@@ -349,7 +354,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         }
         return false;
     }
-    // Returns true is currentVideo is sent
+    // Returns true if currentVideo is sent
     public Boolean videoIsSent(){
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(VIDEO_TABLE, null, null, null, null, null, null);
@@ -424,6 +429,55 @@ public class MyDBHandler extends SQLiteOpenHelper{
     public String getCurrentTermDate(){
         return getChildData(getCurrentChild()).get_termDate();
     }
+
+    // made with roy sindre:
+    public List<String> getChildrenWhichRequiresVideoRecording() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery(String.format("SELECT c.%s,c.%s,c.%s,v.%s FROM %s AS c LEFT JOIN %s as v ON (c.%s = v.%s)",
+                COLUMN_CHILD_ID,
+                COLUMN_TERM_DATE,
+                COLUMN_NICKNAME,
+                COLUMN_SENT_STATUS,
+                CHILD_TABLE,
+                VIDEO_TABLE,
+                COLUMN_PROFILE,
+                COLUMN_PROFILE), null);
+        List<String> children = new ArrayList<>();
+        for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
+            String childTermDate = c.getString(c.getColumnIndex(COLUMN_TERM_DATE));
+            String isSentValue = c.getString(c.getColumnIndex(COLUMN_SENT_STATUS));
+            Log.e("SIRI", "AA: " + isSentValue);
+            Log.e("SIRI", "FF: " + Boolean.parseBoolean(isSentValue));
+
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+            Calendar calendar = Calendar.getInstance(); // Get Calendar Instance
+            try {
+                calendar.setTime(sdf.parse(childTermDate));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            // Time for next video:
+            calendar.add(Calendar.DATE, 71);  // add 10 weeks to term date
+            Date endDate = new Date(calendar.getTimeInMillis());
+            // Today's date:
+            Date currentDate = new Date(System.currentTimeMillis());
+            // Countdown:
+            int difference;
+            difference = (int) (endDate.getTime()/ (24*60*60*1000)
+                    -(int) (currentDate.getTime()/ (24*60*60*1000)));
+
+            // <>
+            // legg til gitt 3 uker.
+            if (difference <= 0 && difference > -21) {
+
+                if (!Boolean.parseBoolean(isSentValue)) {
+                    children.add(c.getString(c.getColumnIndex(COLUMN_NICKNAME)));
+                }
+            }
+        }
+        return children;
+    }
+
     // Return all children with the same profile name
     public ArrayList<String> getAllProfileChildren(String currentProfile){
         ArrayList<String> ListNames = new ArrayList<String>();

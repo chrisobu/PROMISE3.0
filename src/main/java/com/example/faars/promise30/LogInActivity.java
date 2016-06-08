@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.example.faars.promise30.Fragments.AboutFragment;
 import com.example.faars.promise30.Fragments.MainPageFragment;
 import com.example.faars.promise30.Fragments.StartPageFragment;
+import com.example.faars.promise30.Notifications.Receivers.NotificationEventReceiver;
 import com.example.faars.promise30.SQL.MyDBHandler;
 
 public class LogInActivity extends AppCompatActivity {
@@ -28,5 +29,7 @@ public class LogInActivity extends AppCompatActivity {
         fragmentTransactionLogIn.replace(R.id.log_in_container, new StartPageFragment());
         fragmentTransactionLogIn.commit();
         getSupportActionBar().setTitle("PROMISE");
+
+        NotificationEventReceiver.setupAlarm(this);
     }
 }

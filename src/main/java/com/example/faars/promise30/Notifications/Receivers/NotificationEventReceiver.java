@@ -23,8 +23,8 @@ public class NotificationEventReceiver extends WakefulBroadcastReceiver {
     public static void setupAlarm(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent alarmIntent = getStartPendingIntent(context);
-        alarmManager.set(AlarmManager.RTC_WAKEUP,
-                getTriggerAt(new Date()),
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                getTriggerAt(new Date()), AlarmManager.INTERVAL_DAY,
                 alarmIntent);
     }
 
@@ -35,10 +35,17 @@ public class NotificationEventReceiver extends WakefulBroadcastReceiver {
     }
 
     private static long getTriggerAt(Date now) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(now);
-        calendar.add(Calendar.MINUTE, NOTIFICATIONS_INTERVAL_IN_MINUTES);
-        return calendar.getTimeInMillis();
+        Calendar cal_alarm = Calendar.getInstance();
+        Calendar cal_now = Calendar.getInstance();
+        cal_now.setTime(now);
+        cal_alarm.setTime(now);
+        cal_alarm.set(Calendar.HOUR_OF_DAY, 20);
+        cal_alarm.set(Calendar.MINUTE, 41);
+        cal_alarm.set(Calendar.SECOND, 0);
+        if(cal_alarm.before(cal_now)){
+            cal_alarm.add(Calendar.DATE, 1);
+        }
+        return cal_alarm.getTimeInMillis();
     }
 
     private static PendingIntent getStartPendingIntent(Context context) {
