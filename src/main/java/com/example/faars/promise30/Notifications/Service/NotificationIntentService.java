@@ -60,14 +60,14 @@ public class NotificationIntentService extends IntentService {
 
     private void processStartNotification() {
         MyDBHandler dbHandler = MyDBHandler.getInstance(this);
-        List<String> children =dbHandler.getChildrenWhichRequiresVideoRecording();
-        Log.i("SIRI", String.format("Found %s children that wants video recording attention", children.size()));
+        List<String> children = dbHandler.getChildrenWithinTimeZoneButNoVideosSent();
+        //Log.i("SIRI", String.format("Found %s children that wants video recording attention", children.size()));
         if(children.size() > 0){
             final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
             builder.setContentTitle("PROMISE")
                     .setAutoCancel(true)
                     .setColor(getResources().getColor(R.color.colorAccent))
-                    .setContentText("Record a video of: " + TextUtils.join(", ", children) + " and send")
+                    .setContentText("Record and send a video of: " + TextUtils.join(", ", children))
                     .setSmallIcon(R.drawable.barn);
 
             Intent mainIntent = new Intent(this, LogInActivity.class);
@@ -76,6 +76,7 @@ public class NotificationIntentService extends IntentService {
                     mainIntent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
             builder.setContentIntent(pendingIntent);
+            builder.setVibrate(new long[] { 500, 500, 500, 500, 500, 500 });
             builder.setDeleteIntent(NotificationEventReceiver.getDeleteIntent(this));
 
             final NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);

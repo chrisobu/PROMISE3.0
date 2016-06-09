@@ -38,6 +38,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
     public static final String COLUMN_TERM_DATE = "termDate";
     public static final String COLUMN_NICKNAME = "nickName";
     public static final String COLUMN_PROFILE_NAME = "profileName";
+    public static final String COLUMN_VIDEO_SENT = "videoSent";
 
     // VIDEO TABLE:
     public static final String VIDEO_TABLE= "videos"; // Name of the table
@@ -81,7 +82,8 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_CHILD_ID + " TEXT, "
                 + COLUMN_HOSPITAL_ID + " TEXT, " + COLUMN_COUNTRY_ID + " TEXT, "
                 + COLUMN_TERM_DATE + " TEXT, " + COLUMN_NICKNAME + " TEXT, "
-                + COLUMN_PROFILE_NAME + " TEXT" + " )";
+                + COLUMN_PROFILE_NAME + " TEXT, "
+                + COLUMN_VIDEO_SENT + " TEXT" + " )";
         db.execSQL(childQuery);
 
         // create a new video table
@@ -379,6 +381,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         values.put(COLUMN_TERM_DATE, child.get_termDate());
         values.put(COLUMN_NICKNAME, child.get_nickName());
         values.put(COLUMN_PROFILE_NAME, child.get_profileName());
+        values.put(COLUMN_VIDEO_SENT, child.get_videoSent());
         SQLiteDatabase db = getWritableDatabase();
         db.insert(CHILD_TABLE, null, values);
     }
@@ -404,6 +407,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         updateChild.put(COLUMN_TERM_DATE, child.get_termDate());
         updateChild.put(COLUMN_NICKNAME, child.get_nickName());
         updateChild.put(COLUMN_PROFILE_NAME, child.get_profileName());
+        updateChild.put(COLUMN_VIDEO_SENT, child.get_videoSent());
         db.update(CHILD_TABLE, updateChild, COLUMN_CHILD_ID + " = ?", new String[]{child.get_childID()});
     }
     // return Child class of current child
@@ -419,7 +423,8 @@ public class MyDBHandler extends SQLiteOpenHelper{
                         c.getString(c.getColumnIndex(COLUMN_COUNTRY_ID)),
                         c.getString(c.getColumnIndex(COLUMN_TERM_DATE)),
                         c.getString(c.getColumnIndex(COLUMN_NICKNAME)),
-                        c.getString(c.getColumnIndex(COLUMN_PROFILE_NAME)) );
+                        c.getString(c.getColumnIndex(COLUMN_PROFILE_NAME)),
+                        c.getString(c.getColumnIndex(COLUMN_VIDEO_SENT)));
                 return childData;
             }
         }
@@ -430,47 +435,45 @@ public class MyDBHandler extends SQLiteOpenHelper{
         return getChildData(getCurrentChild()).get_termDate();
     }
 
-    // made with roy sindre:
-    public List<String> getChildrenWhichRequiresVideoRecording() {
+    // Update child table if video is sent of child
+    public void updateVideoRecordedOfChild(String childName){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues updateVideoSent = new ContentValues();
+        updateVideoSent.put(COLUMN_NICKNAME, childName);
+        updateVideoSent.put(COLUMN_VIDEO_SENT, "true");
+        db.update(CHILD_TABLE, updateVideoSent, COLUMN_NICKNAME + " = ?", new String[]{childName});
+
+    }
+
+    public List<String> getChildrenWithinTimeZoneButNoVideosSent(){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery(String.format("SELECT c.%s,c.%s,c.%s,v.%s FROM %s AS c LEFT JOIN %s as v ON (c.%s = v.%s)",
-                COLUMN_CHILD_ID,
-                COLUMN_TERM_DATE,
-                COLUMN_NICKNAME,
-                COLUMN_SENT_STATUS,
-                CHILD_TABLE,
-                VIDEO_TABLE,
-                COLUMN_PROFILE,
-                COLUMN_PROFILE), null);
         List<String> children = new ArrayList<>();
-        for( c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
-            String childTermDate = c.getString(c.getColumnIndex(COLUMN_TERM_DATE));
-            String isSentValue = c.getString(c.getColumnIndex(COLUMN_SENT_STATUS));
-            Log.e("SIRI", "AA: " + isSentValue);
-            Log.e("SIRI", "FF: " + Boolean.parseBoolean(isSentValue));
 
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-            Calendar calendar = Calendar.getInstance(); // Get Calendar Instance
-            try {
-                calendar.setTime(sdf.parse(childTermDate));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            // Time for next video:
-            calendar.add(Calendar.DATE, 71);  // add 10 weeks to term date
-            Date endDate = new Date(calendar.getTimeInMillis());
-            // Today's date:
-            Date currentDate = new Date(System.currentTimeMillis());
-            // Countdown:
-            int difference;
-            difference = (int) (endDate.getTime()/ (24*60*60*1000)
-                    -(int) (currentDate.getTime()/ (24*60*60*1000)));
+        Cursor c = db.query(CHILD_TABLE, null, null, null, null, null, null);
+        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+            //Log.e("SIRI", "BA: " + c.getString(c.getColumnIndex(COLUMN_NICKNAME)));
+            //Log.e("SIRI", "AA: " + c.getString(c.getColumnIndex(COLUMN_VIDEO_SENT)));
+            if(c.getString(c.getColumnIndex(COLUMN_VIDEO_SENT)).equals("false")){
+                String childTermDate = c.getString(c.getColumnIndex(COLUMN_TERM_DATE));
 
-            // <>
-            // legg til gitt 3 uker.
-            if (difference <= 0 && difference > -21) {
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                Calendar calendar = Calendar.getInstance(); // Get Calendar Instance
+                try {
+                    calendar.setTime(sdf.parse(childTermDate));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                // Time for next video:
+                calendar.add(Calendar.DATE, 71);  // add 10 weeks to term date
+                Date endDate = new Date(calendar.getTimeInMillis());
+                // Today's date:
+                Date currentDate = new Date(System.currentTimeMillis());
+                // Countdown:
+                int difference;
+                difference = (int) (endDate.getTime()/ (24*60*60*1000)
+                        -(int) (currentDate.getTime()/ (24*60*60*1000)));
 
-                if (!Boolean.parseBoolean(isSentValue)) {
+                if (difference <= 0 && difference > -21) {
                     children.add(c.getString(c.getColumnIndex(COLUMN_NICKNAME)));
                 }
             }

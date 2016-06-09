@@ -79,7 +79,7 @@ public class RegisterChildFragment extends Fragment implements View.OnClickListe
                     nickname = firstName.getText().toString();
                     profileName = dbHandler.getCurrentProfile();
 
-                    Child child = new Child(childID, hospitalID, countryID, termDate, nickname, profileName);
+                    Child child = new Child(childID, hospitalID, countryID, termDate, nickname, profileName, "false");
                     dbHandler.addChild(child);
                     dbHandler.updateCurrentChild(nickname);
 

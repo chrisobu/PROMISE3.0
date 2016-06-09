@@ -9,14 +9,16 @@ public class Child {
     private static String _termDate;
     private static String _nickName;
     private static String _profileName;
+    private static String _videoSent;
 
-    public Child(String childID, String hospitalID, String countryID, String termDate, String nickName, String profileName ){
+    public Child(String childID, String hospitalID, String countryID, String termDate, String nickName, String profileName, String videoSent){
         this._childID = childID;
         this._hospitalID = hospitalID;
         this._countryID = countryID;
         this._termDate = termDate;
         this._nickName = nickName;
         this._profileName = profileName;
+        this._videoSent = videoSent;
     }
 
     public Child(){
@@ -42,6 +44,9 @@ public class Child {
     public static String get_profileName() {
         return _profileName;
     }
+    public static String get_videoSent() {
+        return _videoSent;
+    }
 
     // Setters:
     public void set_childID(String _childID) {
@@ -62,4 +67,5 @@ public class Child {
     public void set_profileName(String _profileName) {
         this._profileName = _profileName;
     }
+    public void set_videoSent(String _videoSent){this._videoSent = _videoSent; }
 }

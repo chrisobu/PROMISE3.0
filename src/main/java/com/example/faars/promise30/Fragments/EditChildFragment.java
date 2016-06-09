@@ -27,7 +27,7 @@ public class EditChildFragment extends Fragment implements View.OnClickListener{
         // Required empty public constructor
     }
 
-    String childID, hospitalID, countryID, nickname, termDate;
+    String childID, hospitalID, countryID, nickname, termDate, videoSent;
     EditText etNickname, etTermDate;
     Child child;
     MyDBHandler dbHandler;
@@ -59,6 +59,7 @@ public class EditChildFragment extends Fragment implements View.OnClickListener{
         hospitalID = child.get_hospitalID();
         countryID = child.get_countryID();
         termDate = child.get_termDate();
+        videoSent =child.get_videoSent();
         etChildID.setText(childID);
         etHospitalID.setText(hospitalID);
         etCountryID.setText(countryID);
@@ -81,7 +82,7 @@ public class EditChildFragment extends Fragment implements View.OnClickListener{
                 }
                 Child editChild = new Child(childID, hospitalID, countryID,
                         termDate, etNickname.getText().toString(),
-                        dbHandler.getCurrentProfile());
+                        dbHandler.getCurrentProfile(), videoSent);
                 dbHandler.updateChild(editChild);
 
                 //TODO: add updateAlarm: 1 week & now

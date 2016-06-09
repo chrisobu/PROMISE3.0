@@ -67,6 +67,7 @@ public class SendVideoFragment extends Fragment implements View.OnClickListener 
             case R.id.send_button:
                 Video video = new Video(dbHandler.getCurrentVideo(), "true", dbHandler.getCurrentProfile(), dbHandler.getCurrentChild());
                 dbHandler.updateVideo(video);
+                dbHandler.updateVideoRecordedOfChild(dbHandler.getCurrentChild());
 
                 sendVideo();
                 android.support.v4.app.FragmentTransaction fragmentTransactionVideoSent;
