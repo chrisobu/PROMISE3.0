@@ -67,7 +67,7 @@ public class NotificationIntentService extends IntentService {
             builder.setContentTitle("PROMISE")
                     .setAutoCancel(true)
                     .setColor(getResources().getColor(R.color.colorAccent))
-                    .setContentText("Record and send a video of: " + TextUtils.join(", ", children))
+                    .setContentText("Record and send a video of " + TextUtils.join(" and ", children))
                     .setSmallIcon(R.drawable.barn);
 
             Intent mainIntent = new Intent(this, LogInActivity.class);

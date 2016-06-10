@@ -37,8 +37,8 @@ public class NotificationEventReceiver extends WakefulBroadcastReceiver {
         Calendar cal_now = Calendar.getInstance();
         cal_now.setTime(now);
         cal_alarm.setTime(now);
-        cal_alarm.set(Calendar.HOUR_OF_DAY, 20);
-        cal_alarm.set(Calendar.MINUTE, 48);
+        cal_alarm.set(Calendar.HOUR_OF_DAY, 12);
+        cal_alarm.set(Calendar.MINUTE, 0);
         cal_alarm.set(Calendar.SECOND, 0);
         if(cal_alarm.before(cal_now)){
             cal_alarm.add(Calendar.DATE, 1);
